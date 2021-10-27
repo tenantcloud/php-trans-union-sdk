@@ -1,13 +1,21 @@
 {
-	"name": "tenantcloud/composer-package",
-	"description": "A template for composer packages",
+	"name": "tenantcloud/trans-union-sdk",
+	"description": "Full blown PHP SDK for TransUnion (SmartMove)",
 	"minimum-stability": "stable",
 	"license": "MIT",
 	"require": {
-		"php": ">=7.4"
+		"php": ">=7.4",
+		"ext-json": "*",
+		"illuminate/support": "^8.0",
+		"tenantcloud/data-transfer-objects": "^1.0",
+		"tenantcloud/php-standard": "^1.2",
+		"guzzlehttp/guzzle": "^7.4",
+		"tenantcloud/guzzle-helper": "^1.1"
 	},
 	"require-dev": {
-		"pestphp/pest": "^1.0"
+		"pestphp/pest": "^1.0",
+		"orchestra/testbench": "^6.22",
+		"phpstan/phpstan-mockery": "^0.12.14"
 	},
 	"autoload": {
 		"psr-0": {
@@ -16,12 +24,21 @@
 	},
 	"autoload-dev": {
 		"psr-4": {
-			"Tests\\": "tests/"
+			"Tests\\": "tests/",
+			"Dev\\": "tools/cli/src"
 		}
 	},
 	"scripts": {
 		"test": "./vendor/bin/pest",
 		"cs-fix": "./tools/php-cs-fixer/vendor/bin/php-cs-fixer fix -v --show-progress=dots",
-		"phpstan":  "./tools/phpstan/vendor/bin/phpstan analyse"
+		"phpstan":  "./tools/phpstan/vendor/bin/phpstan analyse",
+		"bench": "./vendor/bin/testbench"
+	},
+	"extra": {
+		"laravel": {
+			"providers": [
+				"TenantCloud\\RentlerSDK\\RentlerSDKServiceProvider"
+			]
+		}
 	}
 }

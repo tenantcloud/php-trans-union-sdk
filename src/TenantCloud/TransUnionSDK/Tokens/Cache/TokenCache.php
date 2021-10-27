@@ -3,7 +3,7 @@
 namespace TenantCloud\TransUnionSDK\Tokens\Cache;
 
 use TenantCloud\TransUnionSDK\Tokens\Token;
-use TenantCloud\TransUnionSDK\Tokens\TokenResolver;
+use TenantCloud\TransUnionSDK\Tokens\TokenResolver\TokenResolver;
 
 /**
  * A cache for {@see Token}s, so that a new token is not resolved every time an API request is sent.

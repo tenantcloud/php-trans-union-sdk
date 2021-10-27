@@ -10,7 +10,7 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Arr;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
-use TenantCloud\TransUnionSDK\Tokens\TokenResolver;
+use TenantCloud\TransUnionSDK\Tokens\TokenResolver\TokenResolver;
 use Tests\TenantCloud\TransUnionSDK\Client\AuthenticationMiddlewareTest;
 use Throwable;
 
@@ -68,7 +68,7 @@ final class AuthenticationMiddleware
 							$exception->getResponse()->getStatusCode() === Response::HTTP_UNAUTHORIZED
 						) {
 							// Invalidate current token
-							$this->tokenResolver->cache()->unset($this->clientId);
+							$this->tokenResolver->invalidate($this->clientId);
 						}
 
 						throw $exception;

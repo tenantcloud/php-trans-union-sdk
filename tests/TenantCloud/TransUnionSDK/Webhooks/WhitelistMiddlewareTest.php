@@ -4,6 +4,7 @@ namespace Tests\TenantCloud\TransUnionSDK\Webhooks;
 
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use TenantCloud\TransUnionSDK\Webhooks\WhitelistMiddleware;
 use Tests\TenantCloud\TransUnionSDK\TestCase;
 
@@ -20,14 +21,14 @@ class WhitelistMiddlewareTest extends TestCase
 		]);
 
 		$this->assertSame(
-			123,
+			$response = new Response(),
 			$this->app
 				->make(WhitelistMiddleware::class)
 				->handle(
 					Request::create('', 'GET', [], [], [], [
 						'REMOTE_ADDR' => '123.123.123.123',
 					]),
-					fn () => 123
+					fn () => $response
 				)
 		);
 
@@ -39,8 +40,7 @@ class WhitelistMiddlewareTest extends TestCase
 				Request::create('', 'GET', [], [], [], [
 					'REMOTE_ADDR' => '123.123.123.124',
 				]),
-				static function () {
-				}
+				fn () => new Response(),
 			);
 	}
 }

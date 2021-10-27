@@ -27,8 +27,7 @@ use TenantCloud\TransUnionSDK\Reports\UserNotVerifiedException;
 use TenantCloud\TransUnionSDK\Requests\Renters\CannotCancelRequestException;
 use TenantCloud\TransUnionSDK\Requests\RequestsApi;
 use TenantCloud\TransUnionSDK\Requests\RequestsApiImpl;
-use TenantCloud\TransUnionSDK\Tokens\Cache\TokenCache;
-use TenantCloud\TransUnionSDK\Tokens\TokenResolver;
+use TenantCloud\TransUnionSDK\Tokens\TokenResolver\TokenResolver;
 use TenantCloud\TransUnionSDK\Tokens\TokensApi;
 use TenantCloud\TransUnionSDK\Tokens\TokensApiImpl;
 use Throwable;
@@ -52,14 +51,14 @@ final class TransUnionClientImpl implements TransUnionClient
 	private Dispatcher $busDispatcher;
 
 	/**
-	 * @param string     $baseUrl Base URL for the API
-	 * @param TokenCache $cache   Auth tokens cache
+	 * @param string                        $baseUrl       Base URL for the API
+	 * @param callable(self): TokenResolver $tokenResolver
 	 */
 	public function __construct(
 		string $baseUrl,
 		string $clientId,
 		string $apiKey,
-		TokenCache $cache,
+		callable $tokenResolver,
 		QueueConnectionFactory $queueConnectionFactory,
 		Dispatcher $busDispatcher,
 		bool $imitateEvents = false,
@@ -69,8 +68,6 @@ final class TransUnionClientImpl implements TransUnionClient
 		$this->busDispatcher = $busDispatcher;
 		$this->imitateEvents = $imitateEvents;
 		$this->testMode = $testMode;
-
-		$tokenResolver = new TokenResolver($this, $cache);
 
 		$stack = HandlerStack::create();
 
@@ -87,7 +84,7 @@ final class TransUnionClientImpl implements TransUnionClient
 			]),
 			new HeaderObfuscator(['Authorization']),
 		]));
-		$stack->unshift(AuthenticationMiddleware::create($tokenResolver, $clientId, $apiKey));
+		$stack->unshift(AuthenticationMiddleware::create($tokenResolver($this), $clientId, $apiKey));
 		$stack->unshift(AuthenticationMiddleware::retry());
 
 		$this->httpClient = new Client([

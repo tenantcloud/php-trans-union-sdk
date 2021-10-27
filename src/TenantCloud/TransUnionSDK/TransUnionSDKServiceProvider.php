@@ -12,8 +12,9 @@ use TenantCloud\TransUnionSDK\Client\TransUnionClient;
 use TenantCloud\TransUnionSDK\Client\TransUnionClientImpl;
 use TenantCloud\TransUnionSDK\Fake\FakeTransUnionClient;
 use TenantCloud\TransUnionSDK\Reports\ReportStatusController;
-use TenantCloud\TransUnionSDK\Tokens\Cache\CombinedTokenCache;
 use TenantCloud\TransUnionSDK\Tokens\Cache\InMemoryTokenCache;
+use TenantCloud\TransUnionSDK\Tokens\TokenResolver\ApiTokenResolver;
+use TenantCloud\TransUnionSDK\Tokens\TokenResolver\CachingTokenResolver;
 use TenantCloud\TransUnionSDK\Verification\ManualVerificationController;
 use TenantCloud\TransUnionSDK\Webhooks\WhitelistMiddleware;
 
@@ -77,7 +78,7 @@ final class TransUnionSDKServiceProvider extends ServiceProvider
 					$config->get('trans_union.base_url'),
 					$config->get('trans_union.client_id'),
 					$config->get('trans_union.api_key'),
-					new CombinedTokenCache([$container->make(InMemoryTokenCache::class)]),
+					fn (TransUnionClient $client) => new CachingTokenResolver(new ApiTokenResolver($client), $container->make(InMemoryTokenCache::class)),
 					$container->make(QueueConnectionFactory::class),
 					$container->make(Dispatcher::class),
 					$config->get('trans_union.webhooks.imitate'),

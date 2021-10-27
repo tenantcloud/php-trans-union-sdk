@@ -4,7 +4,7 @@ $testMode = env('TRANS_UNION_TEST_MODE', true);
 
 return [
 	'test_mode'   => $testMode,
-	'fake_client' => env('TRANS_UNION_FAKE_CLIENT', false),
+	'fake_client' => env('TRANS_UNION_FAKE_CLIENT', true) && env('APP_ENV') === 'testing',
 
 	'base_url' => env('TRANS_UNION_BASE_URL', 'https://rentals-api-ext.shareable.com'),
 

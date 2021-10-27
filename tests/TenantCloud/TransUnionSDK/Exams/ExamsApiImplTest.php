@@ -3,7 +3,6 @@
 namespace Tests\TenantCloud\TransUnionSDK\Exams;
 
 use GuzzleHttp\Client;
-use Hamcrest\Matchers;
 use LogicException;
 use Mockery;
 use Psr\Http\Message\ResponseInterface;
@@ -43,24 +42,15 @@ class ExamsApiImplTest extends TestCase
 			->getBody()
 			->andReturn(json_encode($arrayResponse));
 
+		$data = RequestExamDTO::create()
+			->setRequestRenterId(123);
+
 		$client = Mockery::mock(Client::class);
 		$client->expects()
 			->post('v1/ScreeningRequestRenters/123/Exams', [
-				'json' => [
-					'sd' => 456,
-				],
+				'json' => $data->toArray(),
 			])
 			->andReturn($response);
-
-		$data = Mockery::mock(RequestExamDTO::class);
-		$data->expects()
-			->getRequestRenterId()
-			->andReturn(123);
-		$data->expects()
-			->toArray()
-			->andReturn([
-				'sd' => 456,
-			]);
 
 		(new ExamsApiImpl($client, true))->request($data);
 	}
@@ -110,39 +100,30 @@ class ExamsApiImplTest extends TestCase
 				'result' => '123',
 			]));
 
+		$data = SubmitExamAnswersDTO::create()
+			->setAnswers($answers)
+			->setRequestRenterId(123)
+			->setExamId(456);
+
+		$originalData = clone $data;
+
+		if ($expectedIncorrect) {
+			$data->setAnswers($this->answersFactory->incorrect());
+		}
+
 		$client = Mockery::mock(Client::class);
 		$client->expects()
 			->post('v1/ScreeningRequestRenters/123/Exams/456/Answers', [
-				'json' => [
-					'sd' => 456,
-				],
+				'json' => $data->toArray(),
 			])
 			->andReturn($response);
 
-		$data = Mockery::mock(SubmitExamAnswersDTO::class);
-		$data->allows()
-			->getAnswers()
-			->andReturn($answers);
-		$data->allows()
-			->getRequestRenterId()
-			->andReturn(123);
-		$data->allows()
-			->getExamId()
-			->andReturn(456);
-		$data->allows()
-			->toArray()
-			->andReturn([
-				'sd' => 456,
-			]);
+		(new ExamsApiImpl($client, true, true))->submitAnswers($originalData);
 
-		if ($expectedIncorrect) {
-			$data->expects()
-				->setAnswers(Matchers::equalTo($this->answersFactory->incorrect()));
-		} else {
-			$data->shouldNotReceive('setAnswers');
-		}
-
-		(new ExamsApiImpl($client, true, true))->submitAnswers($data);
+		self::assertEquals(
+			$data->getAnswers(),
+			$originalData->getAnswers(),
+		);
 	}
 
 	/**
@@ -205,34 +186,21 @@ class ExamsApiImplTest extends TestCase
 				'result' => '123',
 			]));
 
+		$data = SubmitExamAnswersDTO::create()
+			->setAnswers($answers)
+			->setRequestRenterId(123)
+			->setExamId(456);
+
 		$client = Mockery::mock(Client::class);
 		$client->expects()
 			->post('v1/ScreeningRequestRenters/123/Exams/456/Answers', [
-				'json' => [
-					'sd' => 456,
-				],
+				'json' => $data->toArray(),
 			])
 			->andReturn($response);
 
-		$data = Mockery::mock(SubmitExamAnswersDTO::class);
-		$data->allows()
-			->getAnswers()
-			->andReturn($answers);
-		$data->allows()
-			->getRequestRenterId()
-			->andReturn(123);
-		$data->allows()
-			->getExamId()
-			->andReturn(456);
-		$data->allows()
-			->toArray()
-			->andReturn([
-				'sd' => 456,
-			]);
-
-		$data->shouldNotReceive('setAnswers');
-
 		(new ExamsApiImpl($client, true, false))->submitAnswers($data);
+
+		self::assertSame($answers, $data->getAnswers());
 	}
 
 	/**
@@ -262,7 +230,7 @@ class ExamsApiImplTest extends TestCase
 	public function testSubmitAnswersThrowsLogicExceptionIfReturnedStatusIsQuestioned(): void
 	{
 		$this->expectException(LogicException::class);
-		$this->expectExceptionMessage('Unsupported "Questioned" result returned. Data: {"sd":456}, response: {"result":"Questioned"}');
+		$this->expectExceptionMessage('Unsupported "Questioned" result returned. Data: {"answers":[],"requestRenterId":123,"examId":456}, response: {"result":"Questioned"}');
 
 		$response = Mockery::mock(ResponseInterface::class);
 		$response->expects()
@@ -271,30 +239,17 @@ class ExamsApiImplTest extends TestCase
 				'result' => 'Questioned',
 			]));
 
+		$data = SubmitExamAnswersDTO::create()
+			->setAnswers([])
+			->setRequestRenterId(123)
+			->setExamId(456);
+
 		$client = Mockery::mock(Client::class);
 		$client->expects()
 			->post('v1/ScreeningRequestRenters/123/Exams/456/Answers', [
-				'json' => [
-					'sd' => 456,
-				],
+				'json' => $data->toArray(),
 			])
 			->andReturn($response);
-
-		$data = Mockery::mock(SubmitExamAnswersDTO::class);
-		$data->allows()
-			->getAnswers()
-			->andReturn([]);
-		$data->allows()
-			->getRequestRenterId()
-			->andReturn(123);
-		$data->allows()
-			->getExamId()
-			->andReturn(456);
-		$data->allows()
-			->toArray()
-			->andReturn([
-				'sd' => 456,
-			]);
 
 		(new ExamsApiImpl($client, true))->submitAnswers($data);
 	}
@@ -321,24 +276,15 @@ class ExamsApiImplTest extends TestCase
 				],
 			]));
 
+		$data = RequestExamDTO::create()
+			->setRequestRenterId(789);
+
 		$client = Mockery::mock(Client::class);
 		$client->expects()
 			->post('v1/ScreeningRequestRenters/789/Exams', [
-				'json' => [
-					'sd' => 456,
-				],
+				'json' => $data->toArray(),
 			])
 			->andReturn($response);
-
-		$data = Mockery::mock(RequestExamDTO::class);
-		$data->expects()
-			->getRequestRenterId()
-			->andReturn(789);
-		$data->expects()
-			->toArray()
-			->andReturn([
-				'sd' => 456,
-			]);
 
 		$exam = (new ExamsApiImpl($client, true))->request($data);
 

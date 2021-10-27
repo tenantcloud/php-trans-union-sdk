@@ -12,9 +12,8 @@ use Mockery;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use TenantCloud\TransUnionSDK\Client\AuthenticationMiddleware;
-use TenantCloud\TransUnionSDK\Tokens\Cache\TokenCache;
 use TenantCloud\TransUnionSDK\Tokens\Token;
-use TenantCloud\TransUnionSDK\Tokens\TokenResolver;
+use TenantCloud\TransUnionSDK\Tokens\TokenResolver\TokenResolver;
 use Tests\TenantCloud\TransUnionSDK\TestCase;
 
 /**
@@ -43,22 +42,12 @@ class AuthenticationMiddlewareTest extends TestCase
 	{
 		$this->expectException(RequestException::class);
 
-		$cache = Mockery::mock(
-			TokenCache::class,
-			(new Mockery\Generator\MockConfigurationBuilder())
-				// For a completely unknown reason Mockery includes all PHP keywords as blacklisted methods. "unset" is one of them.
-				->setBlackListedMethods([])
-		);
-		$cache->expects()
-			->unset('client');
-
 		$tokenResolver = Mockery::mock(TokenResolver::class);
 		$tokenResolver->expects()
 			->resolve('client', 'key')
 			->andReturn(new Token('client', 'token', now()->addMinutes(5)));
 		$tokenResolver->expects()
-			->cache()
-			->andReturn($cache);
+			->invalidate('client');
 
 		$this
 			->newClientWithMiddleware([
@@ -93,22 +82,12 @@ class AuthenticationMiddlewareTest extends TestCase
 
 	public function testRetriesAuthenticationOnUnauthorizedError(): void
 	{
-		$cache = Mockery::mock(
-			TokenCache::class,
-			(new Mockery\Generator\MockConfigurationBuilder())
-				// For a completely unknown reason Mockery includes all PHP keywords as blacklisted methods. "unset" is one of them.
-				->setBlackListedMethods([])
-		);
-		$cache->expects()
-			->unset('client');
-
 		$tokenResolver = Mockery::mock(TokenResolver::class);
 		$tokenResolver->expects()
 			->resolve('client', 'key')
 			->andReturn(new Token('client', 'token1', now()->addMinutes(5)));
 		$tokenResolver->expects()
-			->cache()
-			->andReturn($cache);
+			->invalidate('client');
 
 		$this
 			->newClientWithMiddleware([

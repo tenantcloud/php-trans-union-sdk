@@ -1,16 +1,18 @@
 includes:
-	- tools/phpstan/vendor/phpstan/phpstan/conf/bleedingEdge.neon
+	- vendor/phpstan/phpstan-mockery/extension.neon
+#	- tools/phpstan/vendor/phpstan/phpstan/conf/bleedingEdge.neon
 
 parameters:
-	level: 8
+	level: 6
 	tmpDir: ./tmp/phpstan
 
 	paths:
 		- src
+		- tools/cli
 		- tests
 
 	ignoreErrors:
-		# There's no extension for that :(
-		-
-			message: '#Call to an undefined method Pest\\Expectation|Pest\\Support\\Extendable::#i'
-			path: 'tests/*Test.php'
+		# It's lying! It does accept DateInterface, the phpdoc is just wrong.
+		- '#Parameter \#3 \$ttl of method Psr\\SimpleCache\\CacheInterface::set\(\) expects DateInterval\|int\|null, Carbon\\Carbon given\.#i'
+		# I want to drop those DTO's and replace them with "native" ones + serialization, so just ignore it for now.
+		- '#Property .*DTO::\$fields type has no value type specified in iterable type array\.#i'

@@ -1,0 +1,3 @@
+providers:
+    - TenantCloud\TransUnionSDK\TransUnionSDKServiceProvider
+    - Dev\TenantCloud\TransUnionSDK\DevTransUnionSDKServiceProvider

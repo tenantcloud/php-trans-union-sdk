@@ -7,7 +7,11 @@ use GuzzleHttp\Client;
 use Illuminate\Contracts\Bus\Dispatcher;
 use Illuminate\Contracts\Queue\Factory as QueueConnectionFactory;
 use Illuminate\Queue\SyncQueue;
+use InvalidArgumentException;
 use function TenantCloud\GuzzleHelper\psr_response_to_json;
+use TenantCloud\TransUnionSDK\Reports\Data\Credit;
+use TenantCloud\TransUnionSDK\Reports\Data\Criminal;
+use TenantCloud\TransUnionSDK\Reports\Data\Eviction;
 
 /**
  * Web API implementation of {@see ReportsApi}.
@@ -94,6 +98,24 @@ final class ReportsApiImpl implements ReportsApi
 
 		$response = psr_response_to_json($jsonResponse);
 
-		return new FoundReport($response['reportsExpireNumberOfDays'], $response['reportResponseModelDetails'][0]['reportData']);
+		$reports = array_map(static function ($data) {
+			$data = $data['reportData'];
+
+			switch ($product = ReportProduct::fromValue($data['providerName'])) {
+				case ReportProduct::$CREDIT:
+					return Credit::fromArray($data);
+
+				case ReportProduct::$EVICTION:
+					return Eviction::fromArray($data);
+
+				case ReportProduct::$CRIMINAL:
+					return Criminal::fromArray($data);
+
+				default:
+					throw new InvalidArgumentException("Report product {$product} is not supported.");
+			}
+		}, $response['reportResponseModelDetails']);
+
+		return new FoundReport($response['reportsExpireNumberOfDays'], $reports[0]);
 	}
 }

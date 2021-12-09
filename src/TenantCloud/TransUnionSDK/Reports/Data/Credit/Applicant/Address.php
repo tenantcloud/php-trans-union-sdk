@@ -5,40 +5,44 @@ namespace TenantCloud\TransUnionSDK\Reports\Data\Credit\Applicant;
 use Carbon\Carbon;
 use TenantCloud\TransUnionSDK\Reports\Data\Credit\Applicant\Address\AddressQualifier;
 use TenantCloud\TransUnionSDK\Reports\Data\Credit\Applicant\Address\AddressStatus;
+use TenantCloud\TransUnionSDK\Shared\ArraySerializationHack\ArraySerializable;
+use TenantCloud\TransUnionSDK\Shared\ArraySerializationHack\MagicArraySerializable;
 
-final class Address
+final class Address implements ArraySerializable
 {
-	public string $unparsed;
+	use MagicArraySerializable;
 
-	public string $streetAddress;
+	public ?string $unparsed;
 
-	public AddressStatus $status;
+	public ?string $streetAddress;
 
-	public string $state;
+	public ?AddressStatus $status;
 
-	public string $sourceIndicator;
+	public ?string $state;
 
-	public string $recordCode;
+	public ?string $sourceIndicator;
 
-	public string $postalCode;
+	public ?string $recordCode;
 
-	public Carbon $dateReported;
+	public ?string $postalCode;
 
-	public string $city;
+	public ?Carbon $dateReported;
 
-	public AddressQualifier $addressQualifier;
+	public ?string $city;
+
+	public ?AddressQualifier $addressQualifier;
 
 	public function __construct(
-		AddressQualifier $addressQualifier,
-		string $city,
-		Carbon $dateReported,
-		string $postalCode,
-		string $recordCode,
-		string $sourceIndicator,
-		string $state,
-		AddressStatus $status,
-		string $streetAddress,
-		string $unparsed
+		?AddressQualifier $addressQualifier,
+		?string $city,
+		?Carbon $dateReported,
+		?string $postalCode,
+		?string $recordCode,
+		?string $sourceIndicator,
+		?string $state,
+		?AddressStatus $status,
+		?string $streetAddress,
+		?string $unparsed
 	) {
 		$this->addressQualifier = $addressQualifier;
 		$this->city = $city;

@@ -2,27 +2,32 @@
 
 namespace TenantCloud\TransUnionSDK\Reports\Data\Credit\Applicant\ProfileSummary;
 
-final class PastDueItem
+use TenantCloud\TransUnionSDK\Shared\ArraySerializationHack\ArraySerializable;
+use TenantCloud\TransUnionSDK\Shared\ArraySerializationHack\MagicArraySerializable;
+
+final class PastDueItem implements ArraySerializable
 {
-	public float $totalPastDue;
+	use MagicArraySerializable;
 
-	public float $revolvingPastDue;
+	public ?float $totalPastDue;
 
-	public float $openPastDue;
+	public ?float $revolvingPastDue;
 
-	public float $mortgagePastDue;
+	public ?float $openPastDue;
 
-	public float $installmentPastDue;
+	public ?float $mortgagePastDue;
 
-	public float $closedWithBalPastDue;
+	public ?float $installmentPastDue;
+
+	public ?float $closedWithBalPastDue;
 
 	public function __construct(
-		float $closedWithBalPastDue,
-		float $installmentPastDue,
-		float $mortgagePastDue,
-		float $openPastDue,
-		float $revolvingPastDue,
-		float $totalPastDue
+		?float $closedWithBalPastDue,
+		?float $installmentPastDue,
+		?float $mortgagePastDue,
+		?float $openPastDue,
+		?float $revolvingPastDue,
+		?float $totalPastDue
 	) {
 		$this->closedWithBalPastDue = $closedWithBalPastDue;
 		$this->installmentPastDue = $installmentPastDue;

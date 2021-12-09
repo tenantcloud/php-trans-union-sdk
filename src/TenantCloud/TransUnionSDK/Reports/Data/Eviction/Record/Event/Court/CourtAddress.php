@@ -3,88 +3,92 @@
 namespace TenantCloud\TransUnionSDK\Reports\Data\Eviction\Record\Event\Court;
 
 use Carbon\Carbon;
+use TenantCloud\TransUnionSDK\Shared\ArraySerializationHack\ArraySerializable;
+use TenantCloud\TransUnionSDK\Shared\ArraySerializationHack\MagicArraySerializable;
 
-final class CourtAddress
+final class CourtAddress implements ArraySerializable
 {
-	public string $zipExtensionCode;
+	use MagicArraySerializable;
 
-	public string $zipCode;
+	public ?string $zipExtensionCode;
 
-	public string $verificationDate;
+	public ?string $zipCode;
 
-	public string $urbanizationName;
+	public ?string $verificationDate;
 
-	public string $unitType;
+	public ?string $urbanizationName;
 
-	public string $type;
+	public ?string $unitType;
 
-	public string $streetSuffix;
+	public ?string $type;
 
-	public string $streetName;
+	public ?string $streetSuffix;
 
-	public string $state;
+	public ?string $streetName;
 
-	public bool $standardizedFlag;
+	public ?string $state;
 
-	public Carbon $reportDate;
+	public ?bool $standardizedFlag;
 
-	public string $range;
+	public ?Carbon $reportDate;
 
-	public string $preDirectionalCode;
+	public ?string $range;
 
-	public string $postDirectionalCode;
+	public ?string $preDirectionalCode;
 
-	public string $locationType;
+	public ?string $postDirectionalCode;
 
-	public string $fipsCode;
+	public ?string $locationType;
 
-	public string $county;
+	public ?string $fipsCode;
 
-	public string $country;
+	public ?string $county;
 
-	public string $city;
+	public ?string $country;
 
-	public int $buildingNumber;
+	public ?string $city;
 
-	public string $addressTypeCode;
+	public ?int $buildingNumber;
 
-	public string $addressType;
+	public ?string $addressTypeCode;
 
-	public int $addressNumber;
+	public ?string $addressType;
 
-	public string $addressClassificationCode;
+	public ?int $addressNumber;
 
-	public string $address2;
+	public ?string $addressClassificationCode;
 
-	public string $address1;
+	public ?string $address2;
+
+	public ?string $address1;
 
 	public function __construct(
-		string $address1,
-		string $address2,
-		string $addressClassificationCode,
-		int $addressNumber,
-		string $addressType,
-		string $addressTypeCode,
-		int $buildingNumber,
-		string $city,
-		string $country,
-		string $county,
-		string $fipsCode,
-		string $locationType,
-		string $postDirectionalCode,
-		string $preDirectionalCode,
-		string $range,
-		Carbon $reportDate,
-		bool $standardizedFlag,
-		string $state,
-		string $streetName,
-		string $streetSuffix,
-		string $type,
-		string $unitType,
-		string $urbanizationName,
-		string $verificationDate,
-		string $zipCode,
-		string $zipExtensionCode
+		?string $address1,
+		?string $address2,
+		?string $addressClassificationCode,
+		?int $addressNumber,
+		?string $addressType,
+		?string $addressTypeCode,
+		?int $buildingNumber,
+		?string $city,
+		?string $country,
+		?string $county,
+		?string $fipsCode,
+		?string $locationType,
+		?string $postDirectionalCode,
+		?string $preDirectionalCode,
+		?string $range,
+		?Carbon $reportDate,
+		?bool $standardizedFlag,
+		?string $state,
+		?string $streetName,
+		?string $streetSuffix,
+		?string $type,
+		?string $unitType,
+		?string $urbanizationName,
+		?string $verificationDate,
+		?string $zipCode,
+		?string $zipExtensionCode
 	) {
 		$this->address1 = $address1;
 		$this->address2 = $address2;

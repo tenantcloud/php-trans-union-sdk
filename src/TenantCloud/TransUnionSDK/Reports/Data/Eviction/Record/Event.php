@@ -5,164 +5,169 @@ namespace TenantCloud\TransUnionSDK\Reports\Data\Eviction\Record;
 use Carbon\Carbon;
 use TenantCloud\TransUnionSDK\Reports\Data\Eviction\Record\Event\Court;
 use TenantCloud\TransUnionSDK\Reports\Data\Eviction\Record\Event\Party;
+use TenantCloud\TransUnionSDK\Shared\ArraySerializationHack\ArraySerializable;
+use TenantCloud\TransUnionSDK\Shared\ArraySerializationHack\ArraySerializationConfig;
+use TenantCloud\TransUnionSDK\Shared\ArraySerializationHack\MagicArraySerializable;
 
-final class Event
+final class Event implements ArraySerializable
 {
-	public string $writType;
+	use MagicArraySerializable;
 
-	public Carbon $writSatisfiedDate;
+	public ?string $writType;
 
-	public Carbon $vacatedDate;
+	public ?Carbon $writSatisfiedDate;
 
-	public string $type;
+	public ?Carbon $vacatedDate;
 
-	public string $satisfactionDate;
+	public ?string $type;
 
-	public string $restitutionOfPremises;
+	public ?string $satisfactionDate;
 
-	public string $responseFiledDate;
+	public ?string $restitutionOfPremises;
 
-	public string $response;
+	public ?string $responseFiledDate;
 
-	public string $rentAmount;
+	public ?string $response;
 
-	public Carbon $releaseDate;
+	public ?string $rentAmount;
 
-	public Carbon $petitionDate;
+	public ?Carbon $releaseDate;
+
+	public ?Carbon $petitionDate;
 
 	/** @var Party[] */
-	public array $parties;
+	public ?array $parties;
 
-	public string $page;
+	public ?string $page;
 
-	public string $otherCaseNumber;
+	public ?string $otherCaseNumber;
 
-	public string $originatingCourtDepartment;
+	public ?string $originatingCourtDepartment;
 
-	public string $originalCourtPage;
+	public ?string $originalCourtPage;
 
-	public string $originalCourtBook;
+	public ?string $originalCourtBook;
 
-	public string $originalCaseNumber;
+	public ?string $originalCaseNumber;
 
-	public string $noticeType;
+	public ?string $noticeType;
 
-	public string $noticeDays;
+	public ?string $noticeDays;
 
-	public string $judgmentType;
+	public ?string $judgmentType;
 
-	public string $judgmentFor;
+	public ?string $judgmentFor;
 
-	public Carbon $judgmentDate;
+	public ?Carbon $judgmentDate;
 
-	public string $judgmentCondition;
+	public ?string $judgmentCondition;
 
-	public string $judgmentAmount;
+	public ?string $judgmentAmount;
 
-	public string $judgementSigned;
+	public ?string $judgementSigned;
 
-	public string $judgeIdentificationNumber;
+	public ?string $judgeIdentificationNumber;
 
-	public string $inDispute;
+	public ?string $inDispute;
 
-	public string $hearingResult;
+	public ?string $hearingResult;
 
-	public string $filingType;
+	public ?string $filingType;
 
-	public Carbon $filingDate;
+	public ?Carbon $filingDate;
 
-	public string $eventID;
+	public ?string $eventID;
 
-	public string $disposition;
+	public ?string $disposition;
 
-	public string $disposedDate;
+	public ?string $disposedDate;
 
-	public string $dismissedType;
+	public ?string $dismissedType;
 
-	public Carbon $dismissalDate;
+	public ?Carbon $dismissalDate;
 
-	public Court $court;
+	public ?Court $court;
 
-	public string $consumerStatement;
+	public ?string $consumerStatement;
 
-	public string $comments;
+	public ?string $comments;
 
-	public string $caseType;
+	public ?string $caseType;
 
-	public string $caseTitle;
+	public ?string $caseTitle;
 
-	public string $caseStatus;
+	public ?string $caseStatus;
 
-	public string $caseNumber;
+	public ?string $caseNumber;
 
-	public string $caseDescription;
+	public ?string $caseDescription;
 
-	public string $book;
+	public ?string $book;
 
-	public string $bankruptcyAssetDisclosureDate;
+	public ?string $bankruptcyAssetDisclosureDate;
 
-	public string $assetsAvailableForDistribution;
+	public ?string $assetsAvailableForDistribution;
 
-	public string $assets;
+	public ?string $assets;
 
-	public string $amountOrLiability;
+	public ?string $amountOrLiability;
 
-	public string $actionType;
+	public ?string $actionType;
 
 	/**
 	 * @param Party[] $parties
 	 */
 	public function __construct(
-		string $actionType,
-		string $amountOrLiability,
-		string $assets,
-		string $assetsAvailableForDistribution,
-		string $bankruptcyAssetDisclosureDate,
-		string $book,
-		string $caseDescription,
-		string $caseNumber,
-		string $caseStatus,
-		string $caseTitle,
-		string $caseType,
-		string $comments,
-		string $consumerStatement,
-		Court $court,
-		Carbon $dismissalDate,
-		string $dismissedType,
-		string $disposedDate,
-		string $disposition,
-		string $eventID,
-		Carbon $filingDate,
-		string $filingType,
-		string $hearingResult,
-		string $inDispute,
-		string $judgeIdentificationNumber,
-		string $judgementSigned,
-		string $judgmentAmount,
-		string $judgmentCondition,
-		Carbon $judgmentDate,
-		string $judgmentFor,
-		string $judgmentType,
-		string $noticeDays,
-		string $noticeType,
-		string $originalCaseNumber,
-		string $originalCourtBook,
-		string $originalCourtPage,
-		string $originatingCourtDepartment,
-		string $otherCaseNumber,
-		string $page,
-		array $parties,
-		Carbon $petitionDate,
-		Carbon $releaseDate,
-		string $rentAmount,
-		string $response,
-		string $responseFiledDate,
-		string $restitutionOfPremises,
-		string $satisfactionDate,
-		string $type,
-		Carbon $vacatedDate,
-		Carbon $writSatisfiedDate,
-		string $writType
+		?string $actionType,
+		?string $amountOrLiability,
+		?string $assets,
+		?string $assetsAvailableForDistribution,
+		?string $bankruptcyAssetDisclosureDate,
+		?string $book,
+		?string $caseDescription,
+		?string $caseNumber,
+		?string $caseStatus,
+		?string $caseTitle,
+		?string $caseType,
+		?string $comments,
+		?string $consumerStatement,
+		?Court $court,
+		?Carbon $dismissalDate,
+		?string $dismissedType,
+		?string $disposedDate,
+		?string $disposition,
+		?string $eventID,
+		?Carbon $filingDate,
+		?string $filingType,
+		?string $hearingResult,
+		?string $inDispute,
+		?string $judgeIdentificationNumber,
+		?string $judgementSigned,
+		?string $judgmentAmount,
+		?string $judgmentCondition,
+		?Carbon $judgmentDate,
+		?string $judgmentFor,
+		?string $judgmentType,
+		?string $noticeDays,
+		?string $noticeType,
+		?string $originalCaseNumber,
+		?string $originalCourtBook,
+		?string $originalCourtPage,
+		?string $originatingCourtDepartment,
+		?string $otherCaseNumber,
+		?string $page,
+		?array $parties,
+		?Carbon $petitionDate,
+		?Carbon $releaseDate,
+		?string $rentAmount,
+		?string $response,
+		?string $responseFiledDate,
+		?string $restitutionOfPremises,
+		?string $satisfactionDate,
+		?string $type,
+		?Carbon $vacatedDate,
+		?Carbon $writSatisfiedDate,
+		?string $writType
 	) {
 		$this->actionType = $actionType;
 		$this->amountOrLiability = $amountOrLiability;
@@ -214,5 +219,15 @@ final class Event
 		$this->vacatedDate = $vacatedDate;
 		$this->writSatisfiedDate = $writSatisfiedDate;
 		$this->writType = $writType;
+	}
+
+	protected static function serializationConfig(): ArraySerializationConfig
+	{
+		return new ArraySerializationConfig(
+			ArraySerializationConfig::pascalSerializedName(),
+			[
+				'parties' => Party::class,
+			],
+		);
 	}
 }

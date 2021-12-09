@@ -3,31 +3,35 @@
 namespace TenantCloud\TransUnionSDK\Reports\Data\Credit\Applicant;
 
 use Carbon\Carbon;
+use TenantCloud\TransUnionSDK\Shared\ArraySerializationHack\ArraySerializable;
+use TenantCloud\TransUnionSDK\Shared\ArraySerializationHack\MagicArraySerializable;
 
-final class Employment
+final class Employment implements ArraySerializable
 {
-	public string $streetAddress;
+	use MagicArraySerializable;
 
-	public string $state;
+	public ?string $streetAddress;
 
-	public string $postalCode;
+	public ?string $state;
 
-	public string $employerName;
+	public ?string $postalCode;
 
-	public Carbon $dateVerified;
+	public ?string $employerName;
 
-	public Carbon $dateEmployed;
+	public ?Carbon $dateVerified;
 
-	public string $city;
+	public ?Carbon $dateEmployed;
+
+	public ?string $city;
 
 	public function __construct(
-		string $city,
-		Carbon $dateEmployed,
-		Carbon $dateVerified,
-		string $employerName,
-		string $postalCode,
-		string $state,
-		string $streetAddress
+		?string $city,
+		?Carbon $dateEmployed,
+		?Carbon $dateVerified,
+		?string $employerName,
+		?string $postalCode,
+		?string $state,
+		?string $streetAddress
 	) {
 		$this->city = $city;
 		$this->dateEmployed = $dateEmployed;

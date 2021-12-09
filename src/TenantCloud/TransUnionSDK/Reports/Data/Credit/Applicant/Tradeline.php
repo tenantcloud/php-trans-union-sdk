@@ -3,156 +3,158 @@
 namespace TenantCloud\TransUnionSDK\Reports\Data\Credit\Applicant;
 
 use Carbon\Carbon;
-use TenantCloud\TransUnionSDK\Reports\Data\Credit\Applicant\Tradeline\DatePattern;
 use TenantCloud\TransUnionSDK\Reports\Data\Credit\Applicant\Tradeline\TermsFrequency;
+use TenantCloud\TransUnionSDK\Shared\ArraySerializationHack\ArraySerializable;
+use TenantCloud\TransUnionSDK\Shared\ArraySerializationHack\ArraySerializationConfig;
+use TenantCloud\TransUnionSDK\Shared\ArraySerializationHack\MagicArraySerializable;
 
-final class Tradeline
+final class Tradeline implements ArraySerializable
 {
-	public string $verificationIndicator;
+	use MagicArraySerializable;
 
-	public int $times90DaysLate;
+	public ?string $verificationIndicator;
 
-	public int $times60DaysLate;
+	public ?int $times90DaysLate;
 
-	public int $times30DaysLate;
+	public ?int $times60DaysLate;
 
-	public TermsFrequency $termsFrequencyOfPayment;
+	public ?int $times30DaysLate;
 
-	public float $termsAmountOfPayment;
+	public ?TermsFrequency $termsFrequencyOfPayment;
 
-	public string $terms;
+	public ?float $termsAmountOfPayment;
 
-	public string $subscriberName;
+	public ?string $terms;
 
-	public string $subscriberId;
+	public ?string $subscriberName;
 
-	public string $soldTo;
+	public ?string $subscriberId;
 
-	public string $remarksCode;
+	public ?string $soldTo;
 
-	public Carbon $previous3Rate;
+	public ?string $remarksCode;
 
-	public Carbon $previous3Date;
+	public ?Carbon $previous3Rate;
 
-	public Carbon $previous2Rate;
+	public ?Carbon $previous3Date;
 
-	public Carbon $previous2Date;
+	public ?Carbon $previous2Rate;
 
-	public Carbon $previous1Rate;
+	public ?Carbon $previous2Date;
 
-	public Carbon $previous1Date;
+	public ?Carbon $previous1Rate;
 
-	public Carbon $paymentPatternStartDate;
+	public ?Carbon $previous1Date;
 
-	public DatePattern $paymentPattern;
+	public ?Carbon $paymentPatternStartDate;
 
-	public string $originalCreditor;
+	public ?string $paymentPattern;
 
+	public ?string $originalCreditor;
+
+	/** @var mixed */
 	public $openClosed;
 
-	public string $notes;
+	public ?string $notes;
 
-	public string $narrativeCode4;
+	public ?string $narrativeCode4;
 
-	public string $narrativeCode3;
+	public ?string $narrativeCode3;
 
-	public string $narrativeCode2;
+	public ?string $narrativeCode2;
 
-	public string $narrativeCode1;
+	public ?string $narrativeCode1;
 
-	public Carbon $maximumdelinqDate;
+	public ?Carbon $maximumdelinqDate;
 
-	public string $maximumDelinqMOP;
+	public ?string $maximumDelinqMOP;
 
-	public string $loanType;
+	public ?string $loanType;
 
-	public string $industryCode;
+	public ?string $industryCode;
 
-	public float $highCredit;
+	public ?float $highCredit;
 
-	public Carbon $datePaidOut;
+	public ?Carbon $datePaidOut;
 
-	public Carbon $dateOpened;
+	public ?Carbon $dateOpened;
 
-	public Carbon $dateClosedIndicator;
+	public ?Carbon $dateClosedIndicator;
 
-	public Carbon $dateClosed;
+	public ?Carbon $dateClosed;
 
-	public string $currentMOP;
+	public ?string $currentMOP;
 
-	public float $creditLimit;
+	public ?float $creditLimit;
 
-	public Carbon $balanceDate;
+	public ?Carbon $balanceDate;
 
-	public float $balanceAmount;
+	public ?float $balanceAmount;
 
-	public float $amountPastDue;
+	public ?float $amountPastDue;
 
-	public string $accountAmount2QualifierDesignator;
+	public ?float $amount2;
 
-	public float $amount2;
+	public ?string $amount1Qualifier;
 
-	public string $amount1Qualifier;
+	public ?float $amount1;
 
-	public float $amount1;
+	public ?AccountType $accountType;
 
-	public AccountType $accountType;
+	public ?string $accountNumber;
 
-	public string $accountNumber;
-
-	public string $accountDesignator;
+	public ?string $accountDesignator;
 
 	/**
 	 * @param mixed $openClosed
 	 */
 	public function __construct(
-		string $accountDesignator,
-		string $accountNumber,
-		AccountType $accountType,
-		float $amount1,
-		string $amount1Qualifier,
-		float $amount2,
-		string $accountAmount2QualifierDesignator,
-		float $amountPastDue,
-		float $balanceAmount,
-		Carbon $balanceDate,
-		float $creditLimit,
-		string $currentMOP,
-		Carbon $dateClosed,
-		Carbon $dateClosedIndicator,
-		Carbon $dateOpened,
-		Carbon $datePaidOut,
-		float $highCredit,
-		string $industryCode,
-		string $loanType,
-		string $maximumDelinqMOP,
-		Carbon $maximumdelinqDate,
-		string $narrativeCode1,
-		string $narrativeCode2,
-		string $narrativeCode3,
-		string $narrativeCode4,
-		string $notes,
+		?string $accountDesignator,
+		?string $accountNumber,
+		?AccountType $accountType,
+		?float $amount1,
+		?string $amount1Qualifier,
+		?float $amount2,
+		?float $amountPastDue,
+		?float $balanceAmount,
+		?Carbon $balanceDate,
+		?float $creditLimit,
+		?string $currentMOP,
+		?Carbon $dateClosed,
+		?Carbon $dateClosedIndicator,
+		?Carbon $dateOpened,
+		?Carbon $datePaidOut,
+		?float $highCredit,
+		?string $industryCode,
+		?string $loanType,
+		?string $maximumDelinqMOP,
+		?Carbon $maximumdelinqDate,
+		?string $narrativeCode1,
+		?string $narrativeCode2,
+		?string $narrativeCode3,
+		?string $narrativeCode4,
+		?string $notes,
 		$openClosed,
-		string $originalCreditor,
-		DatePattern $paymentPattern,
-		Carbon $paymentPatternStartDate,
-		Carbon $previous1Date,
-		Carbon $previous1Rate,
-		Carbon $previous2Date,
-		Carbon $previous2Rate,
-		Carbon $previous3Date,
-		Carbon $previous3Rate,
-		string $remarksCode,
-		string $soldTo,
-		string $subscriberId,
-		string $subscriberName,
-		string $terms,
-		float $termsAmountOfPayment,
-		TermsFrequency $termsFrequencyOfPayment,
-		int $times30DaysLate,
-		int $times60DaysLate,
-		int $times90DaysLate,
-		string $verificationIndicator
+		?string $originalCreditor,
+		?string $paymentPattern,
+		?Carbon $paymentPatternStartDate,
+		?Carbon $previous1Date,
+		?Carbon $previous1Rate,
+		?Carbon $previous2Date,
+		?Carbon $previous2Rate,
+		?Carbon $previous3Date,
+		?Carbon $previous3Rate,
+		?string $remarksCode,
+		?string $soldTo,
+		?string $subscriberId,
+		?string $subscriberName,
+		?string $terms,
+		?float $termsAmountOfPayment,
+		?TermsFrequency $termsFrequencyOfPayment,
+		?int $times30DaysLate,
+		?int $times60DaysLate,
+		?int $times90DaysLate,
+		?string $verificationIndicator
 	) {
 		$this->accountDesignator = $accountDesignator;
 		$this->accountNumber = $accountNumber;
@@ -160,7 +162,6 @@ final class Tradeline
 		$this->amount1 = $amount1;
 		$this->amount1Qualifier = $amount1Qualifier;
 		$this->amount2 = $amount2;
-		$this->accountAmount2QualifierDesignator = $accountAmount2QualifierDesignator;
 		$this->amountPastDue = $amountPastDue;
 		$this->balanceAmount = $balanceAmount;
 		$this->balanceDate = $balanceDate;
@@ -201,5 +202,16 @@ final class Tradeline
 		$this->times60DaysLate = $times60DaysLate;
 		$this->times90DaysLate = $times90DaysLate;
 		$this->verificationIndicator = $verificationIndicator;
+	}
+
+	protected static function serializationConfig(): ArraySerializationConfig
+	{
+		return new ArraySerializationConfig(
+			ArraySerializationConfig::pascalSerializedName(),
+			[],
+			[
+				'openClosed' => ArraySerializationConfig::mixedCustomSerializer(),
+			]
+		);
 	}
 }

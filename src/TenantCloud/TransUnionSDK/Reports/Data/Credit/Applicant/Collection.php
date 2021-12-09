@@ -3,79 +3,83 @@
 namespace TenantCloud\TransUnionSDK\Reports\Data\Credit\Applicant;
 
 use Carbon\Carbon;
+use TenantCloud\TransUnionSDK\Shared\ArraySerializationHack\ArraySerializable;
+use TenantCloud\TransUnionSDK\Shared\ArraySerializationHack\MagicArraySerializable;
 
-final class Collection
+final class Collection implements ArraySerializable
 {
-	public string $verificationIndicator;
+	use MagicArraySerializable;
 
-	public string $remarksCode;
+	public ?string $verificationIndicator;
 
-	public float $pastDue;
+	public ?string $remarksCode;
 
-	public string $narrativeCode2;
+	public ?float $pastDue;
 
-	public string $narrativeCode1;
+	public ?string $narrativeCode2;
 
-	public string $loanType;
+	public ?string $narrativeCode1;
 
-	public string $industryCode;
+	public ?string $loanType;
 
-	public float $highCredit;
+	public ?string $industryCode;
 
-	public Carbon $dateVerified;
+	public ?float $highCredit;
 
-	public Carbon $dateReported;
+	public ?Carbon $dateVerified;
 
-	public Carbon $datePaidOut;
+	public ?Carbon $dateReported;
 
-	public Carbon $dateOpened;
+	public ?Carbon $datePaidOut;
 
-	public Carbon $dateClosedIndicator;
+	public ?Carbon $dateOpened;
 
-	public Carbon $dateClosed;
+	public ?Carbon $dateClosedIndicator;
 
-	public string $customerNumber;
+	public ?Carbon $dateClosed;
 
-	public string $currentMOP;
+	public ?string $customerNumber;
 
-	public float $currentBalance;
+	public ?string $currentMOP;
 
-	public string $creditorsName;
+	public ?float $currentBalance;
 
-	public string $collectionComments;
+	public ?string $creditorsName;
 
-	public string $collectionAgencyName;
+	public ?string $collectionComments;
 
-	public AccountType $accountType;
+	public ?string $collectionAgencyName;
 
-	public string $accountNumber;
+	public ?AccountType $accountType;
 
-	public string $accountDesignator;
+	public ?string $accountNumber;
+
+	public ?string $accountDesignator;
 
 	public function __construct(
-		string $accountDesignator,
-		string $accountNumber,
-		AccountType $accountType,
-		string $collectionAgencyName,
-		string $collectionComments,
-		string $creditorsName,
-		float $currentBalance,
-		string $currentMOP,
-		string $customerNumber,
-		Carbon $dateClosed,
-		Carbon $dateClosedIndicator,
-		Carbon $dateOpened,
-		Carbon $datePaidOut,
-		Carbon $dateReported,
-		Carbon $dateVerified,
-		float $highCredit,
-		string $industryCode,
-		string $loanType,
-		string $narrativeCode1,
-		string $narrativeCode2,
-		float $pastDue,
-		string $remarksCode,
-		string $verificationIndicator
+		?string $accountDesignator,
+		?string $accountNumber,
+		?AccountType $accountType,
+		?string $collectionAgencyName,
+		?string $collectionComments,
+		?string $creditorsName,
+		?float $currentBalance,
+		?string $currentMOP,
+		?string $customerNumber,
+		?Carbon $dateClosed,
+		?Carbon $dateClosedIndicator,
+		?Carbon $dateOpened,
+		?Carbon $datePaidOut,
+		?Carbon $dateReported,
+		?Carbon $dateVerified,
+		?float $highCredit,
+		?string $industryCode,
+		?string $loanType,
+		?string $narrativeCode1,
+		?string $narrativeCode2,
+		?float $pastDue,
+		?string $remarksCode,
+		?string $verificationIndicator
 	) {
 		$this->accountDesignator = $accountDesignator;
 		$this->accountNumber = $accountNumber;

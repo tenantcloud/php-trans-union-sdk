@@ -7,105 +7,110 @@ use TenantCloud\TransUnionSDK\Reports\Data\Criminal\Identity\CriminalType;
 use TenantCloud\TransUnionSDK\Reports\Data\Criminal\Identity\IdentityCase;
 use TenantCloud\TransUnionSDK\Reports\Data\Criminal\Identity\IdNumber;
 use TenantCloud\TransUnionSDK\Reports\Data\Criminal\Identity\Offense;
+use TenantCloud\TransUnionSDK\Shared\ArraySerializationHack\ArraySerializable;
+use TenantCloud\TransUnionSDK\Shared\ArraySerializationHack\ArraySerializationConfig;
+use TenantCloud\TransUnionSDK\Shared\ArraySerializationHack\MagicArraySerializable;
 
-final class Identity
+final class Identity implements ArraySerializable
 {
-	public string $weight;
+	use MagicArraySerializable;
 
-	public string $title;
+	public ?string $weight;
 
-	public int $supervisionCount;
+	public ?string $title;
 
-	public string $suffix;
+	public ?int $supervisionCount;
 
-	public string $stateKey;
+	public ?string $suffix;
 
-	public string $state;
+	public ?string $stateKey;
 
-	public string $ssn;
+	public ?string $state;
 
-	public string $sourceState;
+	public ?string $ssn;
 
-	public string $sex;
+	public ?string $sourceState;
 
-	public int $sentencingCount;
+	public ?string $sex;
 
-	public string $scarMarkTattoo;
+	public ?int $sentencingCount;
 
-	public string $remarks;
+	public ?string $scarMarkTattoo;
 
-	public string $race;
+	public ?string $remarks;
 
-	public CriminalType $productType;
+	public ?string $race;
 
-	public string $postalCode;
+	public ?CriminalType $productType;
+
+	public ?string $postalCode;
 
 	/** @var Offense[] */
-	public array $offenses;
+	public ?array $offenses;
 
-	public string $middleName;
+	public ?string $middleName;
 
-	public string $lastName;
+	public ?string $lastName;
 
-	public int $incidentCount;
+	public ?int $incidentCount;
 
-	public string $imageUrl;
+	public ?string $imageUrl;
 
 	/** @var IdNumber[] */
-	public array $idNumbers;
+	public ?array $idNumbers;
 
-	public string $height;
+	public ?string $height;
 
-	public string $hair;
+	public ?string $hair;
 
-	public string $fullName;
+	public ?string $fullName;
 
-	public string $firstName;
+	public ?string $firstName;
 
-	public string $eye;
+	public ?string $eye;
 
-	public string $ethnicity;
+	public ?string $ethnicity;
 
-	public string $driversLicenseState;
+	public ?string $driversLicenseState;
 
-	public string $driversLicenseNumber;
+	public ?string $driversLicenseNumber;
 
-	public string $driversLicenseExpirationYear;
+	public ?string $driversLicenseExpirationYear;
 
-	public Carbon $dateTimeModified;
+	public ?Carbon $dateTimeModified;
 
-	public string $criminalIdNumber;
+	public ?string $criminalIdNumber;
 
-	public int $courtActionCount;
+	public ?int $courtActionCount;
 
-	public string $county;
+	public ?string $county;
 
-	public string $complexion;
+	public ?string $complexion;
 
-	public string $city;
+	public ?string $city;
 
-	public string $citizenship;
+	public ?string $citizenship;
 
-	public IdentityCase $case;
+	public ?IdentityCase $case;
 
-	public int $bookingCount;
+	public ?int $bookingCount;
 
-	public string $bodyBuild;
+	public ?string $bodyBuild;
 
-	public string $birthPlace;
+	public ?string $birthPlace;
 
-	public Carbon $birthDate;
+	public ?Carbon $birthDate;
 
-	public int $arrestCount;
+	public ?int $arrestCount;
 
 	/** @var mixed[] */
-	public array $aliases;
+	public ?array $aliases;
 
-	public string $age;
+	public ?string $age;
 
-	public string $address2;
+	public ?string $address2;
 
-	public string $address1;
+	public ?string $address1;
 
 	/**
 	 * @param mixed[]    $aliases
@@ -113,53 +118,53 @@ final class Identity
 	 * @param Offense[]  $offenses
 	 */
 	public function __construct(
-		string $address1,
-		string $address2,
-		string $age,
-		array $aliases,
-		int $arrestCount,
-		Carbon $birthDate,
-		string $birthPlace,
-		string $bodyBuild,
-		int $bookingCount,
-		IdentityCase $case,
-		string $citizenship,
-		string $city,
-		string $complexion,
-		string $county,
-		int $courtActionCount,
-		string $criminalIdNumber,
-		Carbon $dateTimeModified,
-		string $driversLicenseExpirationYear,
-		string $driversLicenseNumber,
-		string $driversLicenseState,
-		string $ethnicity,
-		string $eye,
-		string $firstName,
-		string $fullName,
-		string $hair,
-		string $height,
-		array $idNumbers,
-		string $imageUrl,
-		int $incidentCount,
-		string $lastName,
-		string $middleName,
-		array $offenses,
-		string $postalCode,
-		CriminalType $productType,
-		string $race,
-		string $remarks,
-		string $scarMarkTattoo,
-		int $sentencingCount,
-		string $sex,
-		string $sourceState,
-		string $ssn,
-		string $state,
-		string $stateKey,
-		string $suffix,
-		int $supervisionCount,
-		string $title,
-		string $weight
+		?string $address1,
+		?string $address2,
+		?string $age,
+		?array $aliases,
+		?int $arrestCount,
+		?Carbon $birthDate,
+		?string $birthPlace,
+		?string $bodyBuild,
+		?int $bookingCount,
+		?IdentityCase $case,
+		?string $citizenship,
+		?string $city,
+		?string $complexion,
+		?string $county,
+		?int $courtActionCount,
+		?string $criminalIdNumber,
+		?Carbon $dateTimeModified,
+		?string $driversLicenseExpirationYear,
+		?string $driversLicenseNumber,
+		?string $driversLicenseState,
+		?string $ethnicity,
+		?string $eye,
+		?string $firstName,
+		?string $fullName,
+		?string $hair,
+		?string $height,
+		?array $idNumbers,
+		?string $imageUrl,
+		?int $incidentCount,
+		?string $lastName,
+		?string $middleName,
+		?array $offenses,
+		?string $postalCode,
+		?CriminalType $productType,
+		?string $race,
+		?string $remarks,
+		?string $scarMarkTattoo,
+		?int $sentencingCount,
+		?string $sex,
+		?string $sourceState,
+		?string $ssn,
+		?string $state,
+		?string $stateKey,
+		?string $suffix,
+		?int $supervisionCount,
+		?string $title,
+		?string $weight
 	) {
 		$this->address1 = $address1;
 		$this->address2 = $address2;
@@ -208,5 +213,17 @@ final class Identity
 		$this->supervisionCount = $supervisionCount;
 		$this->title = $title;
 		$this->weight = $weight;
+	}
+
+	protected static function serializationConfig(): ArraySerializationConfig
+	{
+		return new ArraySerializationConfig(
+			ArraySerializationConfig::pascalSerializedName(),
+			[
+				'aliases'   => 'mixed',
+				'idNumbers' => IdNumber::class,
+				'offenses'  => Offense::class,
+			],
+		);
 	}
 }

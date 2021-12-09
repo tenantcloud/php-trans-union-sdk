@@ -2,27 +2,32 @@
 
 namespace TenantCloud\TransUnionSDK\Reports\Data\Credit\Applicant\ProfileSummary;
 
-final class SummaryBalance
+use TenantCloud\TransUnionSDK\Shared\ArraySerializationHack\ArraySerializable;
+use TenantCloud\TransUnionSDK\Shared\ArraySerializationHack\MagicArraySerializable;
+
+final class SummaryBalance implements ArraySerializable
 {
-	public float $percentCreditAvail;
+	use MagicArraySerializable;
 
-	public float $monthlyPayment;
+	public ?float $percentCreditAvail;
 
-	public float $highCredit;
+	public ?float $monthlyPayment;
 
-	public float $creditLimit;
+	public ?float $highCredit;
 
-	public int $count;
+	public ?float $creditLimit;
 
-	public float $balance;
+	public ?int $count;
+
+	public ?float $balance;
 
 	public function __construct(
-		float $balance,
-		int $count,
-		float $creditLimit,
-		float $highCredit,
-		float $monthlyPayment,
-		float $percentCreditAvail
+		?float $balance,
+		?int $count,
+		?float $creditLimit,
+		?float $highCredit,
+		?float $monthlyPayment,
+		?float $percentCreditAvail
 	) {
 		$this->balance = $balance;
 		$this->count = $count;

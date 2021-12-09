@@ -3,25 +3,29 @@
 namespace TenantCloud\TransUnionSDK\Reports\Data\Shared;
 
 use TenantCloud\TransUnionSDK\Reports\Data\Shared\RequestConsumer\ConsumerAddress;
+use TenantCloud\TransUnionSDK\Shared\ArraySerializationHack\ArraySerializable;
+use TenantCloud\TransUnionSDK\Shared\ArraySerializationHack\MagicArraySerializable;
 
-final class RequestConsumer
+final class RequestConsumer implements ArraySerializable
 {
-	public string $middleName;
+	use MagicArraySerializable;
 
-	public string $lastName;
+	public ?string $middleName;
 
-	public string $generationalSuffix;
+	public ?string $lastName;
 
-	public string $firstName;
+	public ?string $generationalSuffix;
 
-	public ConsumerAddress $address;
+	public ?string $firstName;
+
+	public ?ConsumerAddress $address;
 
 	public function __construct(
-		ConsumerAddress $address,
-		string $firstName,
-		string $generationalSuffix,
-		string $lastName,
-		string $middleName
+		?ConsumerAddress $address,
+		?string $firstName,
+		?string $generationalSuffix,
+		?string $lastName,
+		?string $middleName
 	) {
 		$this->address = $address;
 		$this->firstName = $firstName;

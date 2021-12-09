@@ -14,36 +14,41 @@ use TenantCloud\TransUnionSDK\Reports\Data\Credit\Applicant\PublicRecord;
 use TenantCloud\TransUnionSDK\Reports\Data\Credit\Applicant\ScoreModel;
 use TenantCloud\TransUnionSDK\Reports\Data\Credit\Applicant\Status;
 use TenantCloud\TransUnionSDK\Reports\Data\Credit\Applicant\Tradeline;
+use TenantCloud\TransUnionSDK\Shared\ArraySerializationHack\ArraySerializable;
+use TenantCloud\TransUnionSDK\Shared\ArraySerializationHack\ArraySerializationConfig;
+use TenantCloud\TransUnionSDK\Shared\ArraySerializationHack\MagicArraySerializable;
 
-final class Applicant
+final class Applicant implements ArraySerializable
 {
+	use MagicArraySerializable;
+
 	/** @var Tradeline[]|null */
 	public ?array $tradelines;
 
-	public string $suffix;
+	public ?string $suffix;
 
-	public Status $status;
+	public ?Status $status;
 
-	public ScoreModel $scoreModel;
+	public ?ScoreModel $scoreModel;
 
-	public string $sSNMessage;
+	public ?string $sSNMessage;
 
-	public Carbon $reportRetrievedOn;
+	public ?Carbon $reportRetrievedOn;
 
 	/** @var PublicRecord[]|null */
 	public ?array $publicRecords;
 
-	public ProfileSummary $profileSummary;
+	public ?ProfileSummary $profileSummary;
 
 	/** @var string[] */
-	public array $phones;
+	public ?array $phones;
 
 	/** @var mixed */
 	public $ofac;
 
-	public string $middleName;
+	public ?string $middleName;
 
-	public string $lastName;
+	public ?string $lastName;
 
 	/** @var Inquire[]|null */
 	public ?array $inquirySubscriber;
@@ -52,16 +57,16 @@ final class Applicant
 	public $incomeEstimate;
 
 	/** @var FraudIndicator[] */
-	public array $fraudIndicators;
+	public ?array $fraudIndicators;
 
-	public string $firstName;
+	public ?string $firstName;
 
-	public FileSummary $fileSummary;
+	public ?FileSummary $fileSummary;
 
-	public string $fileNumber;
+	public ?string $fileNumber;
 
 	/** @var Employment[] */
-	public array $employments;
+	public ?array $employments;
 
 	/** @var mixed */
 	public $consumerStatement;
@@ -76,7 +81,7 @@ final class Applicant
 	public $akas;
 
 	/** @var Address[] */
-	public array $addresses;
+	public ?array $addresses;
 
 	/**
 	 * @param Address[]           $addresses
@@ -94,29 +99,29 @@ final class Applicant
 	 * @param Tradeline[]|null    $tradelines
 	 */
 	public function __construct(
-		array $addresses,
+		?array $addresses,
 		$akas,
 		?array $collections,
 		$consumerRightsStatements,
 		$consumerStatement,
-		array $employments,
-		string $fileNumber,
-		FileSummary $fileSummary,
-		string $firstName,
-		array $fraudIndicators,
+		?array $employments,
+		?string $fileNumber,
+		?FileSummary $fileSummary,
+		?string $firstName,
+		?array $fraudIndicators,
 		$incomeEstimate,
 		?array $inquirySubscriber,
-		string $lastName,
-		string $middleName,
+		?string $lastName,
+		?string $middleName,
 		$ofac,
-		array $phones,
-		ProfileSummary $profileSummary,
+		?array $phones,
+		?ProfileSummary $profileSummary,
 		?array $publicRecords,
-		Carbon $reportRetrievedOn,
-		string $sSNMessage,
-		ScoreModel $scoreModel,
-		Status $status,
-		string $suffix,
+		?Carbon $reportRetrievedOn,
+		?string $sSNMessage,
+		?ScoreModel $scoreModel,
+		?Status $status,
+		?string $suffix,
 		?array $tradelines
 	) {
 		$this->addresses = $addresses;
@@ -143,5 +148,29 @@ final class Applicant
 		$this->status = $status;
 		$this->suffix = $suffix;
 		$this->tradelines = $tradelines;
+	}
+
+	protected static function serializationConfig(): ArraySerializationConfig
+	{
+		return new ArraySerializationConfig(
+			ArraySerializationConfig::pascalSerializedName(),
+			[
+				'addresses'         => Address::class,
+				'collections'       => Collection::class,
+				'employments'       => Employment::class,
+				'fraudIndicators'   => FraudIndicator::class,
+				'inquirySubscriber' => Inquire::class,
+				'phones'            => 'string',
+				'publicRecords'     => PublicRecord::class,
+				'tradelines'        => Tradeline::class,
+			],
+			[
+				'akas'                     => ArraySerializationConfig::mixedCustomSerializer(),
+				'consumerRightsStatements' => ArraySerializationConfig::mixedCustomSerializer(),
+				'consumerStatement'        => ArraySerializationConfig::mixedCustomSerializer(),
+				'incomeEstimate'           => ArraySerializationConfig::mixedCustomSerializer(),
+				'ofac'                     => ArraySerializationConfig::mixedCustomSerializer(),
+			]
+		);
 	}
 }

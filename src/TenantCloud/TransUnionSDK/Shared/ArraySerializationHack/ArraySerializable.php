@@ -1,6 +1,6 @@
 <?php
 
-namespace TenantCloud\TransUnionSDK\Shared;
+namespace TenantCloud\TransUnionSDK\Shared\ArraySerializationHack;
 
 interface ArraySerializable
 {

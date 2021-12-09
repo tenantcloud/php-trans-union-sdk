@@ -4,83 +4,88 @@ namespace TenantCloud\TransUnionSDK\Reports\Data\Eviction;
 
 use Carbon\Carbon;
 use TenantCloud\TransUnionSDK\Reports\Data\Eviction\Record\Event;
+use TenantCloud\TransUnionSDK\Shared\ArraySerializationHack\ArraySerializable;
+use TenantCloud\TransUnionSDK\Shared\ArraySerializationHack\ArraySerializationConfig;
+use TenantCloud\TransUnionSDK\Shared\ArraySerializationHack\MagicArraySerializable;
 
-final class Record
+final class Record implements ArraySerializable
 {
-	public string $suffix;
+	use MagicArraySerializable;
 
-	public string $stateKey;
+	public ?string $suffix;
 
-	public string $sourceState;
+	public ?string $stateKey;
 
-	public string $state;
+	public ?string $sourceState;
 
-	public Carbon $releaseDate;
+	public ?string $state;
 
-	public string $recordId;
+	public ?Carbon $releaseDate;
 
-	public string $postalCode;
+	public ?string $recordId;
 
-	public string $plaintiff;
+	public ?string $postalCode;
 
-	public string $middleName;
+	public ?string $plaintiff;
 
-	public string $lastName;
+	public ?string $middleName;
 
-	public string $firstName;
+	public ?string $lastName;
 
-	public string $filingType;
+	public ?string $firstName;
 
-	public Carbon $filingDate;
+	public ?string $filingType;
 
-	public string $fileNumber;
+	public ?Carbon $filingDate;
+
+	public ?string $fileNumber;
 
 	/** @var Event[] */
-	public array $events;
+	public ?array $events;
 
-	public string $datasetDescription;
+	public ?string $datasetDescription;
 
-	public string $country;
+	public ?string $county;
 
-	public string $comments;
+	public ?string $comments;
 
-	public string $city;
+	public ?string $city;
 
-	public string $amount;
+	public ?string $amount;
 
-	public string $address2;
+	public ?string $address2;
 
-	public string $address1;
+	public ?string $address1;
 
-	public string $actionType;
+	public ?string $actionType;
 
 	/**
 	 * @param Event[] $events
 	 */
 	public function __construct(
-		string $actionType,
-		string $address1,
-		string $address2,
-		string $amount,
-		string $city,
-		string $comments,
-		string $country,
-		string $datasetDescription,
-		array $events,
-		string $fileNumber,
-		Carbon $filingDate,
-		string $filingType,
-		string $firstName,
-		string $lastName,
-		string $middleName,
-		string $plaintiff,
-		string $postalCode,
-		string $recordId,
-		Carbon $releaseDate,
-		string $state,
-		string $sourceState,
-		string $stateKey,
-		string $suffix
+		?string $actionType,
+		?string $address1,
+		?string $address2,
+		?string $amount,
+		?string $city,
+		?string $comments,
+		?string $county,
+		?string $datasetDescription,
+		?array $events,
+		?string $fileNumber,
+		?Carbon $filingDate,
+		?string $filingType,
+		?string $firstName,
+		?string $lastName,
+		?string $middleName,
+		?string $plaintiff,
+		?string $postalCode,
+		?string $recordId,
+		?Carbon $releaseDate,
+		?string $state,
+		?string $sourceState,
+		?string $stateKey,
+		?string $suffix
 	) {
 		$this->actionType = $actionType;
 		$this->address1 = $address1;
@@ -88,7 +93,7 @@ final class Record
 		$this->amount = $amount;
 		$this->city = $city;
 		$this->comments = $comments;
-		$this->country = $country;
+		$this->county = $county;
 		$this->datasetDescription = $datasetDescription;
 		$this->events = $events;
 		$this->fileNumber = $fileNumber;
@@ -105,5 +110,15 @@ final class Record
 		$this->sourceState = $sourceState;
 		$this->stateKey = $stateKey;
 		$this->suffix = $suffix;
+	}
+
+	protected static function serializationConfig(): ArraySerializationConfig
+	{
+		return new ArraySerializationConfig(
+			ArraySerializationConfig::pascalSerializedName(),
+			[
+				'events' => Event::class,
+			],
+		);
 	}
 }

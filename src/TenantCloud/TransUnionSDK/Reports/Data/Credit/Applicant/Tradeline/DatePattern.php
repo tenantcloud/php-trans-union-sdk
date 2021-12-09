@@ -18,7 +18,7 @@ final class DatePattern extends ValueEnum
 
 	public static self $oneHundredTwenty; //oneHundredTwenty = '5',
 
-	public string $displayValue;
+	public ?string $displayValue;
 
 	public function __construct(string $value, string $displayValue)
 	{

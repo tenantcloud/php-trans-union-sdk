@@ -2,24 +2,29 @@
 
 namespace TenantCloud\TransUnionSDK\Reports\Data\Credit\TransactionsControl;
 
-final class TransactionsControlSubscriber
+use TenantCloud\TransUnionSDK\Shared\ArraySerializationHack\ArraySerializable;
+use TenantCloud\TransUnionSDK\Shared\ArraySerializationHack\MagicArraySerializable;
+
+final class TransactionsControlSubscriber implements ArraySerializable
 {
-	public string $password;
+	use MagicArraySerializable;
 
-	public string $name;
+	public ?string $password;
 
-	public string $memberCode;
+	public ?string $name;
 
-	public string $inquirySubscriberPrefixCode;
+	public ?string $memberCode;
 
-	public string $industryCode;
+	public ?string $inquirySubscriberPrefixCode;
+
+	public ?string $industryCode;
 
 	public function __construct(
-		string $industryCode,
-		string $inquirySubscriberPrefixCode,
-		string $memberCode,
-		string $name,
-		string $password
+		?string $industryCode,
+		?string $inquirySubscriberPrefixCode,
+		?string $memberCode,
+		?string $name,
+		?string $password
 	) {
 		$this->industryCode = $industryCode;
 		$this->inquirySubscriberPrefixCode = $inquirySubscriberPrefixCode;

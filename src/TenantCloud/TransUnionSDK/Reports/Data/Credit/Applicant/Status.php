@@ -4,31 +4,35 @@ namespace TenantCloud\TransUnionSDK\Reports\Data\Credit\Applicant;
 
 use Carbon\Carbon;
 use TenantCloud\TransUnionSDK\Reports\Data\Credit\Applicant\Status\BureauStatus;
+use TenantCloud\TransUnionSDK\Shared\ArraySerializationHack\ArraySerializable;
+use TenantCloud\TransUnionSDK\Shared\ArraySerializationHack\MagicArraySerializable;
 
-final class Status
+final class Status implements ArraySerializable
 {
-	public bool $thinFile;
+	use MagicArraySerializable;
 
-	public Carbon $reportDate;
+	public ?bool $thinFile;
 
-	public int $recordFound;
+	public ?Carbon $reportDate;
 
-	public bool $frozenFile;
+	public ?int $recordFound;
 
-	public BureauStatus $bureauStatus;
+	public ?bool $frozenFile;
 
-	public string $bureauErrorMessage;
+	public ?BureauStatus $bureauStatus;
 
-	public string $addressDiscrepancyIndicator;
+	public ?string $bureauErrorMessage;
+
+	public ?string $addressDiscrepancyIndicator;
 
 	public function __construct(
-		string $addressDiscrepancyIndicator,
-		string $bureauErrorMessage,
-		BureauStatus $bureauStatus,
-		bool $frozenFile,
-		int $recordFound,
-		Carbon $reportDate,
-		bool $thinFile
+		?string $addressDiscrepancyIndicator,
+		?string $bureauErrorMessage,
+		?BureauStatus $bureauStatus,
+		?bool $frozenFile,
+		?int $recordFound,
+		?Carbon $reportDate,
+		?bool $thinFile
 	) {
 		$this->addressDiscrepancyIndicator = $addressDiscrepancyIndicator;
 		$this->bureauErrorMessage = $bureauErrorMessage;

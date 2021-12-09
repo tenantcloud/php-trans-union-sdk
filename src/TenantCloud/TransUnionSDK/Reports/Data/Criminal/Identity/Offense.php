@@ -2,117 +2,122 @@
 
 namespace TenantCloud\TransUnionSDK\Reports\Data\Criminal\Identity;
 
-final class Offense
+use TenantCloud\TransUnionSDK\Shared\ArraySerializationHack\ArraySerializable;
+use TenantCloud\TransUnionSDK\Shared\ArraySerializationHack\MagicArraySerializable;
+
+final class Offense implements ArraySerializable
 {
-	public string $type;
+	use MagicArraySerializable;
 
-	public string $statute;
+	public ?string $type;
 
-	public string $statusDate;
+	public ?string $statute;
 
-	public string $status;
+	public ?string $statusDate;
 
-	public string $sequence;
+	public ?string $status;
 
-	public string $sentenceTerm;
+	public ?string $sequence;
 
-	public string $sentenceDate;
+	public ?string $sentenceTerm;
 
-	public string $probationTerm;
+	public ?string $sentenceDate;
 
-	public string $probationDate;
+	public ?string $probationTerm;
 
-	public string $pleaDate;
+	public ?string $probationDate;
 
-	public string $plea;
+	public ?string $pleaDate;
 
-	public string $paroleTerm;
+	public ?string $plea;
 
-	public string $paroleDate;
+	public ?string $paroleTerm;
 
-	public string $offenseTypeDescription;
+	public ?string $paroleDate;
 
-	public string $offenseDate;
+	public ?string $offenseTypeDescription;
 
-	public string $offenseCounty;
+	public ?string $offenseDate;
 
-	public int $numberOfCounts;
+	public ?string $offenseCounty;
 
-	public string $ncicCode;
+	public ?int $numberOfCounts;
 
-	public string $minSentenceTerm;
+	public ?string $ncicCode;
 
-	public string $maxSentenceTerm;
+	public ?string $minSentenceTerm;
 
-	public string $level;
+	public ?string $maxSentenceTerm;
 
-	public string $fines;
+	public ?string $level;
 
-	public string $dispositionStatusDate;
+	public ?string $fines;
 
-	public string $dispositionStatus;
+	public ?string $dispositionStatusDate;
 
-	public string $dispositionDescription;
+	public ?string $dispositionStatus;
 
-	public string $dispositionDate;
+	public ?string $dispositionDescription;
 
-	public string $dispositionCounty;
+	public ?string $dispositionDate;
 
-	public string $dispositionConvictionDate;
+	public ?string $dispositionCounty;
 
-	public string $description;
+	public ?string $dispositionConvictionDate;
 
-	public string $degree;
+	public ?string $description;
 
-	public string $courtCosts;
+	public ?string $degree;
 
-	public string $class;
+	public ?string $courtCosts;
 
-	public string $chargeModifier;
+	public ?string $class;
 
-	public string $chargeDate;
+	public ?string $chargeModifier;
 
-	public string $arrestDate;
+	public ?string $chargeDate;
 
-	public string $admittedDate;
+	public ?string $arrestDate;
+
+	public ?string $admittedDate;
 
 	public function __construct(
-		string $admittedDate,
-		string $arrestDate,
-		string $chargeDate,
-		string $chargeModifier,
-		string $class,
-		string $courtCosts,
-		string $degree,
-		string $description,
-		string $dispositionConvictionDate,
-		string $dispositionCounty,
-		string $dispositionDate,
-		string $dispositionDescription,
-		string $dispositionStatus,
-		string $dispositionStatusDate,
-		string $fines,
-		string $level,
-		string $maxSentenceTerm,
-		string $minSentenceTerm,
-		string $ncicCode,
-		int $numberOfCounts,
-		string $offenseCounty,
-		string $offenseDate,
-		string $offenseTypeDescription,
-		string $paroleDate,
-		string $paroleTerm,
-		string $plea,
-		string $pleaDate,
-		string $probationDate,
-		string $probationTerm,
-		string $sentenceDate,
-		string $sentenceTerm,
-		string $sequence,
-		string $status,
-		string $statusDate,
-		string $statute,
-		string $type
+		?string $admittedDate,
+		?string $arrestDate,
+		?string $chargeDate,
+		?string $chargeModifier,
+		?string $class,
+		?string $courtCosts,
+		?string $degree,
+		?string $description,
+		?string $dispositionConvictionDate,
+		?string $dispositionCounty,
+		?string $dispositionDate,
+		?string $dispositionDescription,
+		?string $dispositionStatus,
+		?string $dispositionStatusDate,
+		?string $fines,
+		?string $level,
+		?string $maxSentenceTerm,
+		?string $minSentenceTerm,
+		?string $ncicCode,
+		?int $numberOfCounts,
+		?string $offenseCounty,
+		?string $offenseDate,
+		?string $offenseTypeDescription,
+		?string $paroleDate,
+		?string $paroleTerm,
+		?string $plea,
+		?string $pleaDate,
+		?string $probationDate,
+		?string $probationTerm,
+		?string $sentenceDate,
+		?string $sentenceTerm,
+		?string $sequence,
+		?string $status,
+		?string $statusDate,
+		?string $statute,
+		?string $type
 	) {
 		$this->admittedDate = $admittedDate;
 		$this->arrestDate = $arrestDate;

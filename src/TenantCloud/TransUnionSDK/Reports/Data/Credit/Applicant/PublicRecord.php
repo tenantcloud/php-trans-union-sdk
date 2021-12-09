@@ -4,91 +4,95 @@ namespace TenantCloud\TransUnionSDK\Reports\Data\Credit\Applicant;
 
 use Carbon\Carbon;
 use TenantCloud\TransUnionSDK\Reports\Data\Credit\Applicant\PublicRecord\PublicRecordType;
+use TenantCloud\TransUnionSDK\Shared\ArraySerializationHack\ArraySerializable;
+use TenantCloud\TransUnionSDK\Shared\ArraySerializationHack\MagicArraySerializable;
 
-final class PublicRecord
+final class PublicRecord implements ArraySerializable
 {
-	public string $typeOfBankruptcy;
+	use MagicArraySerializable;
 
-	public string $statusCode;
+	public ?string $typeOfBankruptcy;
 
-	public string $referenceNumber;
+	public ?string $statusCode;
 
-	public string $recordCode;
+	public ?string $referenceNumber;
 
-	public PublicRecordType $publicRecordType;
+	public ?string $recordCode;
 
-	public string $plaintiff;
+	public ?PublicRecordType $publicRecordType;
 
-	public string $narrativeCode2;
+	public ?string $plaintiff;
 
-	public string $narrativeCode1;
+	public ?string $narrativeCode2;
 
-	public string $memberCode;
+	public ?string $narrativeCode1;
 
-	public string $lienClass;
+	public ?string $memberCode;
 
-	public float $liabilitiesAmount;
+	public ?string $lienClass;
 
-	public string $legalDesignator;
+	public ?float $liabilitiesAmount;
 
-	public string $intendedDispositionCode;
+	public ?string $legalDesignator;
 
-	public string $industryCode;
+	public ?string $intendedDispositionCode;
 
-	public string $dispositionCode;
+	public ?string $industryCode;
 
-	public string $defendant;
+	public ?string $dispositionCode;
 
-	public Carbon $dateVerified;
+	public ?string $defendant;
 
-	public Carbon $dateSettled;
+	public ?Carbon $dateVerified;
 
-	public Carbon $dateReported;
+	public ?Carbon $dateSettled;
 
-	public Carbon $dateFiledOriginal;
+	public ?Carbon $dateReported;
 
-	public Carbon $dateFiled;
+	public ?Carbon $dateFiledOriginal;
 
-	public string $courtType;
+	public ?Carbon $dateFiled;
 
-	public string $courtLocationState;
+	public ?string $courtType;
 
-	public string $courtLocationCity;
+	public ?string $courtLocationState;
 
-	public float $assetAmount;
+	public ?string $courtLocationCity;
 
-	public float $amount;
+	public ?float $assetAmount;
 
-	public string $accountDesignator;
+	public ?float $amount;
+
+	public ?string $accountDesignator;
 
 	public function __construct(
-		string $accountDesignator,
-		float $amount,
-		float $assetAmount,
-		string $courtLocationCity,
-		string $courtLocationState,
-		string $courtType,
-		Carbon $dateFiled,
-		Carbon $dateFiledOriginal,
-		Carbon $dateReported,
-		Carbon $dateSettled,
-		Carbon $dateVerified,
-		string $defendant,
-		string $dispositionCode,
-		string $industryCode,
-		string $intendedDispositionCode,
-		string $legalDesignator,
-		float $liabilitiesAmount,
-		string $lienClass,
-		string $memberCode,
-		string $narrativeCode1,
-		string $narrativeCode2,
-		string $plaintiff,
-		PublicRecordType $publicRecordType,
-		string $recordCode,
-		string $referenceNumber,
-		string $statusCode,
-		string $typeOfBankruptcy
+		?string $accountDesignator,
+		?float $amount,
+		?float $assetAmount,
+		?string $courtLocationCity,
+		?string $courtLocationState,
+		?string $courtType,
+		?Carbon $dateFiled,
+		?Carbon $dateFiledOriginal,
+		?Carbon $dateReported,
+		?Carbon $dateSettled,
+		?Carbon $dateVerified,
+		?string $defendant,
+		?string $dispositionCode,
+		?string $industryCode,
+		?string $intendedDispositionCode,
+		?string $legalDesignator,
+		?float $liabilitiesAmount,
+		?string $lienClass,
+		?string $memberCode,
+		?string $narrativeCode1,
+		?string $narrativeCode2,
+		?string $plaintiff,
+		?PublicRecordType $publicRecordType,
+		?string $recordCode,
+		?string $referenceNumber,
+		?string $statusCode,
+		?string $typeOfBankruptcy
 	) {
 		$this->accountDesignator = $accountDesignator;
 		$this->amount = $amount;

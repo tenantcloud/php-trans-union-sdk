@@ -6,48 +6,58 @@ use TenantCloud\TransUnionSDK\Reports\Data\Credit\Applicant;
 use TenantCloud\TransUnionSDK\Reports\Data\Credit\PermissiblePurpose;
 use TenantCloud\TransUnionSDK\Reports\Data\Credit\TransactionsControl;
 use TenantCloud\TransUnionSDK\Reports\Data\Shared\RequestConsumer;
+use TenantCloud\TransUnionSDK\Shared\ArraySerializationHack\ArraySerializable;
+use TenantCloud\TransUnionSDK\Shared\ArraySerializationHack\ArraySerializationConfig;
+use TenantCloud\TransUnionSDK\Shared\ArraySerializationHack\MagicArraySerializable;
+use Tests\TenantCloud\TransUnionSDK\Reports\Data\CreditTest;
 
-final class Credit
+/**
+ * @see CreditTest
+ */
+final class Credit implements ArraySerializable
 {
-	public string $version;
+	use MagicArraySerializable;
 
-	public TransactionsControl $transactionControl;
+	public ?string $version;
 
-	public int $searchStatus;
+	public ?TransactionsControl $transactionControl;
 
-	public RequestConsumer $requestedConsumer;
+	public ?int $searchStatus;
 
-	public PermissiblePurpose $permissiblePurpose;
+	public ?RequestConsumer $requestedConsumer;
 
-	public string $entityID;
+	public ?PermissiblePurpose $permissiblePurpose;
 
-	public int $document;
+	public ?string $entityID;
 
-	public string $consumerId;
+	public ?int $document;
 
-	public string $componentIdentifier;
+	public ?string $consumerId;
 
+	public ?string $componentIdentifier;
+
+	/** @var mixed */
 	public $bureau;
 
 	/** @var Applicant[] */
-	public array $applicants;
+	public ?array $applicants;
 
 	/**
 	 * @param Applicant[] $applicants
 	 * @param mixed       $bureau
 	 */
 	public function __construct(
-		array $applicants,
+		?array $applicants,
 		$bureau,
-		string $componentIdentifier,
-		string $consumerId,
-		int $document,
-		string $entityID,
-		PermissiblePurpose $permissiblePurpose,
-		RequestConsumer $requestedConsumer,
-		int $searchStatus,
-		TransactionsControl $transactionControl,
-		string $version
+		?string $componentIdentifier,
+		?string $consumerId,
+		?int $document,
+		?string $entityID,
+		?PermissiblePurpose $permissiblePurpose,
+		?RequestConsumer $requestedConsumer,
+		?int $searchStatus,
+		?TransactionsControl $transactionControl,
+		?string $version
 	) {
 		$this->applicants = $applicants;
 		$this->bureau = $bureau;
@@ -60,5 +70,18 @@ final class Credit
 		$this->searchStatus = $searchStatus;
 		$this->transactionControl = $transactionControl;
 		$this->version = $version;
+	}
+
+	protected static function serializationConfig(): ArraySerializationConfig
+	{
+		return new ArraySerializationConfig(
+			ArraySerializationConfig::pascalSerializedName(),
+			[
+				'applicants' => Applicant::class,
+			],
+			[
+				'bureau' => ArraySerializationConfig::mixedCustomSerializer(),
+			]
+		);
 	}
 }

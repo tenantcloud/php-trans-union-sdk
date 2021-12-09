@@ -2,24 +2,29 @@
 
 namespace TenantCloud\TransUnionSDK\Reports\Data\Credit\TransactionsControl;
 
-final class TransactionsControlOptions
+use TenantCloud\TransUnionSDK\Shared\ArraySerializationHack\ArraySerializable;
+use TenantCloud\TransUnionSDK\Shared\ArraySerializationHack\MagicArraySerializable;
+
+final class TransactionsControlOptions implements ArraySerializable
 {
-	public bool $processingEnvironmentSpecified;
+	use MagicArraySerializable;
 
-	public bool $pointOfSaleIndicatorSpecified;
+	public ?bool $processingEnvironmentSpecified;
 
-	public bool $languageSpecified;
+	public ?bool $pointOfSaleIndicatorSpecified;
 
-	public bool $countrySpecified;
+	public ?bool $languageSpecified;
 
-	public bool $contractualRelationshipSpecified;
+	public ?bool $countrySpecified;
+
+	public ?bool $contractualRelationshipSpecified;
 
 	public function __construct(
-		bool $contractualRelationshipSpecified,
-		bool $countrySpecified,
-		bool $languageSpecified,
-		bool $pointOfSaleIndicatorSpecified,
-		bool $processingEnvironmentSpecified
+		?bool $contractualRelationshipSpecified,
+		?bool $countrySpecified,
+		?bool $languageSpecified,
+		?bool $pointOfSaleIndicatorSpecified,
+		?bool $processingEnvironmentSpecified
 	) {
 		$this->contractualRelationshipSpecified = $contractualRelationshipSpecified;
 		$this->countrySpecified = $countrySpecified;

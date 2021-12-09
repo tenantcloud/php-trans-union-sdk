@@ -6,46 +6,55 @@ use Carbon\Carbon;
 use TenantCloud\TransUnionSDK\Reports\Data\Criminal\Disclaimer;
 use TenantCloud\TransUnionSDK\Reports\Data\Criminal\Identity;
 use TenantCloud\TransUnionSDK\Reports\Data\Shared\RequestConsumer;
+use TenantCloud\TransUnionSDK\Shared\ArraySerializationHack\ArraySerializable;
+use TenantCloud\TransUnionSDK\Shared\ArraySerializationHack\ArraySerializationConfig;
+use TenantCloud\TransUnionSDK\Shared\ArraySerializationHack\MagicArraySerializable;
+use Tests\TenantCloud\TransUnionSDK\Reports\Data\CriminalTest;
 
-final class Criminal
+/**
+ * @see CriminalTest
+ */
+final class Criminal implements ArraySerializable
 {
-	public int $sexOffenderIdentityCount;
+	use MagicArraySerializable;
 
-	public RequestConsumer $requestedConsumer;
+	public ?int $sexOffenderIdentityCount;
 
-	public string $permissiblePurpose;
+	public ?RequestConsumer $requestedConsumer;
 
-	public int $otherIdentityCount;
+	public ?string $permissiblePurpose;
 
-	public int $oFACIdentityCount;
+	public ?int $otherIdentityCount;
 
-	public int $mostWantedIdentityCount;
+	public ?int $oFACIdentityCount;
+
+	public ?int $mostWantedIdentityCount;
 
 	/** @var Identity[] */
-	public array $identities;
+	public ?array $identities;
 
 	/** @var Disclaimer[] */
-	public array $disclaimers;
+	public ?array $disclaimers;
 
-	public int $criminalIdentityCount;
+	public ?int $criminalIdentityCount;
 
-	public Carbon $createdOn;
+	public ?Carbon $createdOn;
 
 	/**
 	 * @param Disclaimer[] $disclaimers
 	 * @param Identity[]   $identities
 	 */
 	public function __construct(
-		Carbon $createdOn,
-		int $criminalIdentityCount,
-		array $disclaimers,
-		array $identities,
-		int $mostWantedIdentityCount,
-		int $oFACIdentityCount,
-		int $otherIdentityCount,
-		string $permissiblePurpose,
-		RequestConsumer $requestedConsumer,
-		int $sexOffenderIdentityCount
+		?Carbon $createdOn,
+		?int $criminalIdentityCount,
+		?array $disclaimers,
+		?array $identities,
+		?int $mostWantedIdentityCount,
+		?int $oFACIdentityCount,
+		?int $otherIdentityCount,
+		?string $permissiblePurpose,
+		?RequestConsumer $requestedConsumer,
+		?int $sexOffenderIdentityCount
 	) {
 		$this->createdOn = $createdOn;
 		$this->criminalIdentityCount = $criminalIdentityCount;
@@ -57,5 +66,16 @@ final class Criminal
 		$this->permissiblePurpose = $permissiblePurpose;
 		$this->requestedConsumer = $requestedConsumer;
 		$this->sexOffenderIdentityCount = $sexOffenderIdentityCount;
+	}
+
+	protected static function serializationConfig(): ArraySerializationConfig
+	{
+		return new ArraySerializationConfig(
+			ArraySerializationConfig::pascalSerializedName(),
+			[
+				'disclaimers' => Disclaimer::class,
+				'identities'  => Identity::class,
+			],
+		);
 	}
 }

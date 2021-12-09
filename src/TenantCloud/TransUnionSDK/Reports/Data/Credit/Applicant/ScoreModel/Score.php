@@ -2,33 +2,38 @@
 
 namespace TenantCloud\TransUnionSDK\Reports\Data\Credit\Applicant\ScoreModel;
 
-use TenantCloud\TransUnionSDK\Reports\Data\Credit\Applicant\ScoreModel\Score\ScoreFactors;
+use TenantCloud\TransUnionSDK\Reports\Data\Credit\Applicant\ScoreModel\Score\ScoreFactor;
+use TenantCloud\TransUnionSDK\Shared\ArraySerializationHack\ArraySerializable;
+use TenantCloud\TransUnionSDK\Shared\ArraySerializationHack\ArraySerializationConfig;
+use TenantCloud\TransUnionSDK\Shared\ArraySerializationHack\MagicArraySerializable;
 
-final class Score
+final class Score implements ArraySerializable
 {
-	public string $scoreCard;
+	use MagicArraySerializable;
 
-	public string $results;
+	public ?string $scoreCard;
 
-	public string $noScoreReason;
+	public ?string $results;
 
-	public bool $fileInquiriesImpactedScore;
+	public ?string $noScoreReason;
 
-	/** @var ScoreFactors[] */
-	public array $factors;
+	public ?bool $fileInquiriesImpactedScore;
 
-	public bool $derogatoryAlert;
+	/** @var ScoreFactor[] */
+	public ?array $factors;
+
+	public ?bool $derogatoryAlert;
 
 	/**
-	 * @param ScoreFactors[] $factors
+	 * @param ScoreFactor[] $factors
 	 */
 	public function __construct(
-		bool $derogatoryAlert,
-		array $factors,
-		bool $fileInquiriesImpactedScore,
-		string $noScoreReason,
-		string $results,
-		string $scoreCard
+		?bool $derogatoryAlert,
+		?array $factors,
+		?bool $fileInquiriesImpactedScore,
+		?string $noScoreReason,
+		?string $results,
+		?string $scoreCard
 	) {
 		$this->derogatoryAlert = $derogatoryAlert;
 		$this->factors = $factors;
@@ -36,5 +41,15 @@ final class Score
 		$this->noScoreReason = $noScoreReason;
 		$this->results = $results;
 		$this->scoreCard = $scoreCard;
+	}
+
+	protected static function serializationConfig(): ArraySerializationConfig
+	{
+		return new ArraySerializationConfig(
+			ArraySerializationConfig::pascalSerializedName(),
+			[
+				'factors' => ScoreFactor::class,
+			]
+		);
 	}
 }

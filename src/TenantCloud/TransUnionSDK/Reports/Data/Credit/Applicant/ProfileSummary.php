@@ -5,71 +5,75 @@ namespace TenantCloud\TransUnionSDK\Reports\Data\Credit\Applicant;
 use TenantCloud\TransUnionSDK\Reports\Data\Credit\Applicant\ProfileSummary\DerogationItems;
 use TenantCloud\TransUnionSDK\Reports\Data\Credit\Applicant\ProfileSummary\PastDueItem;
 use TenantCloud\TransUnionSDK\Reports\Data\Credit\Applicant\ProfileSummary\SummaryBalance;
+use TenantCloud\TransUnionSDK\Shared\ArraySerializationHack\ArraySerializable;
+use TenantCloud\TransUnionSDK\Shared\ArraySerializationHack\MagicArraySerializable;
 
-final class ProfileSummary
+final class ProfileSummary implements ArraySerializable
 {
-	public Tradeline $tradeline;
+	use MagicArraySerializable;
 
-	public SummaryBalance $total;
+	public ?Tradeline $tradeline;
 
-	public SummaryBalance $revolving;
+	public ?SummaryBalance $total;
 
-	public float $revolveBalance;
+	public ?SummaryBalance $revolving;
 
-	public float $revolveAvailPercent;
+	public ?float $revolveBalance;
 
-	public float $realEstatePayment;
+	public ?float $revolveAvailPercent;
 
-	public float $realEstateBalance;
+	public ?float $realEstatePayment;
 
-	public int $publicRecordCount;
+	public ?float $realEstateBalance;
 
-	public PastDueItem $pastDueItems;
+	public ?int $publicRecordCount;
 
-	public float $pastDueAmount;
+	public ?PastDueItem $pastDueItems;
 
-	public SummaryBalance $open;
+	public ?float $pastDueAmount;
 
-	public int $numberOfInquiries;
+	public ?SummaryBalance $open;
 
-	public SummaryBalance $mortgage;
+	public ?int $numberOfInquiries;
 
-	public float $monthlyPayment;
+	public ?SummaryBalance $mortgage;
 
-	public SummaryBalance $installment;
+	public ?float $monthlyPayment;
 
-	public float $installBalance;
+	public ?SummaryBalance $installment;
+
+	public ?float $installBalance;
 
 	/** @var mixed */
 	public $inquiry;
 
-	public DerogationItems $derogItems;
+	public ?DerogationItems $derogItems;
 
-	public SummaryBalance $closedWithBal;
+	public ?SummaryBalance $closedWithBal;
 
 	/**
 	 * @param mixed $inquiry
 	 */
 	public function __construct(
-		SummaryBalance $closedWithBal,
-		DerogationItems $derogItems,
+		?SummaryBalance $closedWithBal,
+		?DerogationItems $derogItems,
 		$inquiry,
-		float $installBalance,
-		SummaryBalance $installment,
-		float $monthlyPayment,
-		SummaryBalance $mortgage,
-		int $numberOfInquiries,
-		SummaryBalance $open,
-		float $pastDueAmount,
-		PastDueItem $pastDueItems,
-		int $publicRecordCount,
-		float $realEstateBalance,
-		float $realEstatePayment,
-		float $revolveAvailPercent,
-		float $revolveBalance,
-		SummaryBalance $revolving,
-		SummaryBalance $total,
-		Tradeline $tradeline
+		?float $installBalance,
+		?SummaryBalance $installment,
+		?float $monthlyPayment,
+		?SummaryBalance $mortgage,
+		?int $numberOfInquiries,
+		?SummaryBalance $open,
+		?float $pastDueAmount,
+		?PastDueItem $pastDueItems,
+		?int $publicRecordCount,
+		?float $realEstateBalance,
+		?float $realEstatePayment,
+		?float $revolveAvailPercent,
+		?float $revolveBalance,
+		?SummaryBalance $revolving,
+		?SummaryBalance $total,
+		?Tradeline $tradeline
 	) {
 		$this->closedWithBal = $closedWithBal;
 		$this->derogItems = $derogItems;

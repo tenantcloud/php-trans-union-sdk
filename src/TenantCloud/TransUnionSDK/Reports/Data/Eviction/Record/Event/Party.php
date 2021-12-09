@@ -2,45 +2,50 @@
 
 namespace TenantCloud\TransUnionSDK\Reports\Data\Eviction\Record\Event;
 
-final class Party
+use TenantCloud\TransUnionSDK\Shared\ArraySerializationHack\ArraySerializable;
+use TenantCloud\TransUnionSDK\Shared\ArraySerializationHack\MagicArraySerializable;
+
+final class Party implements ArraySerializable
 {
-	public string $type;
+	use MagicArraySerializable;
 
-	public string $suffix;
+	public ?string $type;
 
-	public string $sSN;
+	public ?string $suffix;
 
-	public string $phoneNumber;
+	public ?string $sSN;
 
-	public string $middleName;
+	public ?string $phoneNumber;
 
-	public string $maskedSSN;
+	public ?string $middleName;
 
-	public string $lastName;
+	public ?string $maskedSSN;
 
-	public string $gender;
+	public ?string $lastName;
 
-	public string $fullName;
+	public ?string $gender;
 
-	public string $firstName;
+	public ?string $fullName;
 
-	public string $birthDate;
+	public ?string $firstName;
 
-	public string $address;
+	public ?string $birthDate;
+
+	public ?string $address;
 
 	public function __construct(
-		string $address,
-		string $birthDate,
-		string $firstName,
-		string $fullName,
-		string $gender,
-		string $lastName,
-		string $maskedSSN,
-		string $middleName,
-		string $phoneNumber,
-		string $sSN,
-		string $suffix,
-		string $type
+		?string $address,
+		?string $birthDate,
+		?string $firstName,
+		?string $fullName,
+		?string $gender,
+		?string $lastName,
+		?string $maskedSSN,
+		?string $middleName,
+		?string $phoneNumber,
+		?string $sSN,
+		?string $suffix,
+		?string $type
 	) {
 		$this->address = $address;
 		$this->birthDate = $birthDate;

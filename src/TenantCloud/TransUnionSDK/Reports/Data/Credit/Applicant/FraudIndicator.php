@@ -2,12 +2,17 @@
 
 namespace TenantCloud\TransUnionSDK\Reports\Data\Credit\Applicant;
 
-final class FraudIndicator
+use TenantCloud\TransUnionSDK\Shared\ArraySerializationHack\ArraySerializable;
+use TenantCloud\TransUnionSDK\Shared\ArraySerializationHack\MagicArraySerializable;
+
+final class FraudIndicator implements ArraySerializable
 {
-	public string $indicator;
+	use MagicArraySerializable;
+
+	public ?string $indicator;
 
 	public function __construct(
-		string $indicator
+		?string $indicator
 	) {
 		$this->indicator = $indicator;
 	}

@@ -2,24 +2,29 @@
 
 namespace TenantCloud\TransUnionSDK\Reports\Data\Credit\Applicant\ProfileSummary;
 
-final class DerogationItems
+use TenantCloud\TransUnionSDK\Shared\ArraySerializationHack\ArraySerializable;
+use TenantCloud\TransUnionSDK\Shared\ArraySerializationHack\MagicArraySerializable;
+
+final class DerogationItems implements ArraySerializable
 {
-	public int $publicRecordCount;
+	use MagicArraySerializable;
 
-	public int $occuranceHistCount;
+	public ?int $publicRecordCount;
 
-	public int $negTradelineCount;
+	public ?int $occuranceHistCount;
 
-	public int $histNegTradelineCount;
+	public ?int $negTradelineCount;
 
-	public int $collectionCount;
+	public ?int $histNegTradelineCount;
+
+	public ?int $collectionCount;
 
 	public function __construct(
-		int $collectionCount,
-		int $histNegTradelineCount,
-		int $negTradelineCount,
-		int $occuranceHistCount,
-		int $publicRecordCount
+		?int $collectionCount,
+		?int $histNegTradelineCount,
+		?int $negTradelineCount,
+		?int $occuranceHistCount,
+		?int $publicRecordCount
 	) {
 		$this->collectionCount = $collectionCount;
 		$this->histNegTradelineCount = $histNegTradelineCount;

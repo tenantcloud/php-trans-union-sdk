@@ -3,22 +3,26 @@
 namespace TenantCloud\TransUnionSDK\Reports\Data\Eviction\Record\Event;
 
 use TenantCloud\TransUnionSDK\Reports\Data\Eviction\Record\Event\Court\CourtAddress;
+use TenantCloud\TransUnionSDK\Shared\ArraySerializationHack\ArraySerializable;
+use TenantCloud\TransUnionSDK\Shared\ArraySerializationHack\MagicArraySerializable;
 
-final class Court
+final class Court implements ArraySerializable
 {
-	public string $page;
+	use MagicArraySerializable;
 
-	public string $name;
+	public ?string $page;
 
-	public string $book;
+	public ?string $name;
 
-	public CourtAddress $address;
+	public ?string $book;
+
+	public ?CourtAddress $address;
 
 	public function __construct(
-		CourtAddress $address,
-		string $book,
-		string $name,
-		string $page
+		?CourtAddress $address,
+		?string $book,
+		?string $name,
+		?string $page
 	) {
 		$this->address = $address;
 		$this->book = $book;

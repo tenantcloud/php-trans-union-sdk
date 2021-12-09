@@ -5,28 +5,32 @@ namespace TenantCloud\TransUnionSDK\Reports\Data\Credit;
 use TenantCloud\TransUnionSDK\Reports\Data\Credit\TransactionsControl\TransactionsControlOptions;
 use TenantCloud\TransUnionSDK\Reports\Data\Credit\TransactionsControl\TransactionsControlSubscriber;
 use TenantCloud\TransUnionSDK\Reports\Data\Credit\TransactionsControl\TransactionsControlTracking;
+use TenantCloud\TransUnionSDK\Shared\ArraySerializationHack\ArraySerializable;
+use TenantCloud\TransUnionSDK\Shared\ArraySerializationHack\MagicArraySerializable;
 
-final class TransactionsControl
+final class TransactionsControl implements ArraySerializable
 {
-	public string $userRefNumber;
+	use MagicArraySerializable;
 
-	public TransactionsControlTracking $tracking;
+	public ?string $userRefNumber;
 
-	public TransactionsControlSubscriber $subscriber;
+	public ?TransactionsControlTracking $tracking;
 
-	public TransactionsControlOptions $options;
+	public ?TransactionsControlSubscriber $subscriber;
 
-	public string $customerLogin;
+	public ?TransactionsControlOptions $options;
 
-	public string $clientVendorSoftware;
+	public ?string $customerLogin;
+
+	public ?string $clientVendorSoftware;
 
 	public function __construct(
-		string $clientVendorSoftware,
-		string $customerLogin,
-		TransactionsControlOptions $options,
-		TransactionsControlSubscriber $subscriber,
-		TransactionsControlTracking $tracking,
-		string $userRefNumber
+		?string $clientVendorSoftware,
+		?string $customerLogin,
+		?TransactionsControlOptions $options,
+		?TransactionsControlSubscriber $subscriber,
+		?TransactionsControlTracking $tracking,
+		?string $userRefNumber
 	) {
 		$this->clientVendorSoftware = $clientVendorSoftware;
 		$this->customerLogin = $customerLogin;

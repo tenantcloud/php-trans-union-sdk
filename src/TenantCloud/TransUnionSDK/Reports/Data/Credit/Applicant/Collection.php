@@ -34,7 +34,7 @@ final class Collection implements ArraySerializable
 
 	public ?Carbon $dateOpened;
 
-	public ?Carbon $dateClosedIndicator;
+	public ?string $dateClosedIndicator;
 
 	public ?Carbon $dateClosed;
 
@@ -67,7 +67,7 @@ final class Collection implements ArraySerializable
 		?string $currentMOP,
 		?string $customerNumber,
 		?Carbon $dateClosed,
-		?Carbon $dateClosedIndicator,
+		?string $dateClosedIndicator,
 		?Carbon $dateOpened,
 		?Carbon $datePaidOut,
 		?Carbon $dateReported,

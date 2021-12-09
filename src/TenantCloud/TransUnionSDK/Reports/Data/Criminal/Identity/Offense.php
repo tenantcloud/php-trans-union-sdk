@@ -27,6 +27,8 @@ final class Offense implements ArraySerializable
 
 	public ?string $probationDate;
 
+	public ?string $releaseDate;
+
 	public ?string $pleaDate;
 
 	public ?string $plea;
@@ -110,6 +112,7 @@ final class Offense implements ArraySerializable
 		?string $plea,
 		?string $pleaDate,
 		?string $probationDate,
+		?string $releaseDate,
 		?string $probationTerm,
 		?string $sentenceDate,
 		?string $sentenceTerm,
@@ -147,6 +150,7 @@ final class Offense implements ArraySerializable
 		$this->plea = $plea;
 		$this->pleaDate = $pleaDate;
 		$this->probationDate = $probationDate;
+		$this->releaseDate = $releaseDate;
 		$this->probationTerm = $probationTerm;
 		$this->sentenceDate = $sentenceDate;
 		$this->sentenceTerm = $sentenceTerm;

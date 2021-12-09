@@ -3,7 +3,6 @@
 namespace TenantCloud\TransUnionSDK\Reports\Data\Credit\Applicant;
 
 use Carbon\Carbon;
-use TenantCloud\TransUnionSDK\Reports\Data\Credit\Applicant\Tradeline\TermsFrequency;
 use TenantCloud\TransUnionSDK\Shared\ArraySerializationHack\ArraySerializable;
 use TenantCloud\TransUnionSDK\Shared\ArraySerializationHack\ArraySerializationConfig;
 use TenantCloud\TransUnionSDK\Shared\ArraySerializationHack\MagicArraySerializable;
@@ -20,7 +19,7 @@ final class Tradeline implements ArraySerializable
 
 	public ?int $times30DaysLate;
 
-	public ?TermsFrequency $termsFrequencyOfPayment;
+	public ?string $termsFrequencyOfPayment;
 
 	public ?float $termsAmountOfPayment;
 
@@ -57,6 +56,8 @@ final class Tradeline implements ArraySerializable
 
 	public ?string $notes;
 
+	public ?Carbon $dateReported;
+
 	public ?string $narrativeCode4;
 
 	public ?string $narrativeCode3;
@@ -79,7 +80,9 @@ final class Tradeline implements ArraySerializable
 
 	public ?Carbon $dateOpened;
 
-	public ?Carbon $dateClosedIndicator;
+	public ?Carbon $dateVerified;
+
+	public ?string $dateClosedIndicator;
 
 	public ?Carbon $dateClosed;
 
@@ -92,6 +95,8 @@ final class Tradeline implements ArraySerializable
 	public ?float $balanceAmount;
 
 	public ?float $amountPastDue;
+
+	public ?string $amount2Qualifier;
 
 	public ?float $amount2;
 
@@ -115,13 +120,15 @@ final class Tradeline implements ArraySerializable
 		?float $amount1,
 		?string $amount1Qualifier,
 		?float $amount2,
+		?string $amount2Qualifier,
 		?float $amountPastDue,
 		?float $balanceAmount,
 		?Carbon $balanceDate,
 		?float $creditLimit,
 		?string $currentMOP,
 		?Carbon $dateClosed,
-		?Carbon $dateClosedIndicator,
+		?string $dateClosedIndicator,
+		?Carbon $dateVerified,
 		?Carbon $dateOpened,
 		?Carbon $datePaidOut,
 		?float $highCredit,
@@ -133,6 +140,7 @@ final class Tradeline implements ArraySerializable
 		?string $narrativeCode2,
 		?string $narrativeCode3,
 		?string $narrativeCode4,
+		?Carbon $dateReported,
 		?string $notes,
 		$openClosed,
 		?string $originalCreditor,
@@ -150,7 +158,7 @@ final class Tradeline implements ArraySerializable
 		?string $subscriberName,
 		?string $terms,
 		?float $termsAmountOfPayment,
-		?TermsFrequency $termsFrequencyOfPayment,
+		?string $termsFrequencyOfPayment,
 		?int $times30DaysLate,
 		?int $times60DaysLate,
 		?int $times90DaysLate,
@@ -162,6 +170,7 @@ final class Tradeline implements ArraySerializable
 		$this->amount1 = $amount1;
 		$this->amount1Qualifier = $amount1Qualifier;
 		$this->amount2 = $amount2;
+		$this->amount2Qualifier = $amount2Qualifier;
 		$this->amountPastDue = $amountPastDue;
 		$this->balanceAmount = $balanceAmount;
 		$this->balanceDate = $balanceDate;
@@ -169,6 +178,7 @@ final class Tradeline implements ArraySerializable
 		$this->currentMOP = $currentMOP;
 		$this->dateClosed = $dateClosed;
 		$this->dateClosedIndicator = $dateClosedIndicator;
+		$this->dateVerified = $dateVerified;
 		$this->dateOpened = $dateOpened;
 		$this->datePaidOut = $datePaidOut;
 		$this->highCredit = $highCredit;
@@ -180,6 +190,7 @@ final class Tradeline implements ArraySerializable
 		$this->narrativeCode2 = $narrativeCode2;
 		$this->narrativeCode3 = $narrativeCode3;
 		$this->narrativeCode4 = $narrativeCode4;
+		$this->dateReported = $dateReported;
 		$this->notes = $notes;
 		$this->openClosed = $openClosed;
 		$this->originalCreditor = $originalCreditor;

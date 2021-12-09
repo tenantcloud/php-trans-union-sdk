@@ -53,6 +53,8 @@ final class PublicRecord implements ArraySerializable
 
 	public ?Carbon $dateFiled;
 
+	public ?string $courtCode;
+
 	public ?string $courtType;
 
 	public ?string $courtLocationState;
@@ -72,6 +74,7 @@ final class PublicRecord implements ArraySerializable
 		?string $courtLocationCity,
 		?string $courtLocationState,
 		?string $courtType,
+		?string $courtCode,
 		?Carbon $dateFiled,
 		?Carbon $dateFiledOriginal,
 		?Carbon $dateReported,
@@ -100,6 +103,7 @@ final class PublicRecord implements ArraySerializable
 		$this->courtLocationCity = $courtLocationCity;
 		$this->courtLocationState = $courtLocationState;
 		$this->courtType = $courtType;
+		$this->courtCode = $courtCode;
 		$this->dateFiled = $dateFiled;
 		$this->dateFiledOriginal = $dateFiledOriginal;
 		$this->dateReported = $dateReported;

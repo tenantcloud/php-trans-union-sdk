@@ -1,0 +1,44 @@
+<?php
+
+namespace TenantCloud\TransUnionSDK\Reports\Data\Interfaces;
+
+use Carbon\Carbon;
+
+class FileSummary
+{
+	public string $subMarket;
+
+	public number $sSNMatchIndicator;
+
+	public string $market;
+
+	public Carbon $inFileSinceDate;
+
+	public number $fileMatchIndicator;
+
+	public number $fileHitIndicator;
+
+	public CreditDataStatus $creditDataStatus;
+
+	public bool $consumerStatementIndicator;
+
+	public function __construct(
+		bool $consumerStatementIndicator,
+		CreditDataStatus $creditDataStatus,
+		number $fileHitIndicator,
+		number $fileMatchIndicator,
+		Carbon $inFileSinceDate,
+		string $market,
+		number $sSNMatchIndicator,
+		string $subMarket
+	) {
+		$this->consumerStatementIndicator = $consumerStatementIndicator;
+		$this->creditDataStatus = $creditDataStatus;
+		$this->fileHitIndicator = $fileHitIndicator;
+		$this->fileMatchIndicator = $fileMatchIndicator;
+		$this->inFileSinceDate = $inFileSinceDate;
+		$this->market = $market;
+		$this->sSNMatchIndicator = $sSNMatchIndicator;
+		$this->subMarket = $subMarket;
+	}
+}

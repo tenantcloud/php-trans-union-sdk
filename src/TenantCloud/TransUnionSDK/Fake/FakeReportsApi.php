@@ -51,7 +51,7 @@ final class FakeReportsApi implements ReportsApi
 	 */
 	public function find(int $requestRenterId, ReportProduct $productType): FoundReport
 	{
-		$report = json_decode($this->filesystem->get(__DIR__ . "/../../../../resources/reports/{$productType}.json"), true, 512, JSON_THROW_ON_ERROR);
+		$report = json_decode($this->filesystem->get(__DIR__ . "/../../../../resources/reports/default/{$productType}.json"), true, 512, JSON_THROW_ON_ERROR);
 
 		return new FoundReport(30, $report);
 	}

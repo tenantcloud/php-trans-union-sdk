@@ -17,6 +17,7 @@ use TenantCloud\TransUnionSDK\Shared\PhoneType;
  * @method self   setLastName(string $name)
  * @method self   setPhoneNumber(string $number)
  * @method self   setSocialSecurityNumber(string $ssn)
+ * @method string getSocialSecurityNumber()
  * @method self   setAcceptedTermsAndConditions(bool $value)
  */
 final class CreateRenterPersonDTO extends CamelDataTransferObject

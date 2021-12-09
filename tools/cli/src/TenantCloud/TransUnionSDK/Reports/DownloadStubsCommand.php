@@ -2,6 +2,7 @@
 
 namespace Dev\TenantCloud\TransUnionSDK\Reports;
 
+use Dev\TenantCloud\TransUnionSDK\Reports\ReportStubDownloader\PersonDTO;
 use Illuminate\Console\Command;
 
 class DownloadStubsCommand extends Command
@@ -9,7 +10,7 @@ class DownloadStubsCommand extends Command
 	/**
 	 * @inheritdoc
 	 */
-	protected $signature = 'trans_union:reports:download_stubs';
+	protected $signature = 'trans-union:reports:download-stubs';
 
 	/**
 	 * @inheritdoc
@@ -18,6 +19,11 @@ class DownloadStubsCommand extends Command
 
 	public function handle(ReportStubDownloader $reportStubDownloader): void
 	{
-		$reportStubDownloader->downloadAll();
+		foreach ($reportStubDownloader->downloadAll() as [$person, $product]) {
+			/** @var PersonDTO $person */
+			$this->info("Downloaded {$product} report for {$person->firstName} {$person->lastName}");
+		}
+
+		$this->info('Done!');
 	}
 }

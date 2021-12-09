@@ -11,7 +11,7 @@ class Collection
 
 	public string $remarksCode;
 
-	public number $pastDue;
+	public float $pastDue;
 
 	public string $narrativeCode2;
 
@@ -21,7 +21,7 @@ class Collection
 
 	public string $industryCode;
 
-	public number $highCredit;
+	public float $highCredit;
 
 	public Carbon $dateVerified;
 
@@ -39,7 +39,7 @@ class Collection
 
 	public string $currentMOP;
 
-	public number $currentBalance;
+	public float $currentBalance;
 
 	public string $creditorsName;
 
@@ -60,7 +60,7 @@ class Collection
 		string $collectionAgencyName,
 		string $collectionComments,
 		string $creditorsName,
-		number $currentBalance,
+		float $currentBalance,
 		string $currentMOP,
 		string $customerNumber,
 		Carbon $dateClosed,
@@ -69,12 +69,12 @@ class Collection
 		Carbon $datePaidOut,
 		Carbon $dateReported,
 		Carbon $dateVerified,
-		number $highCredit,
+		float $highCredit,
 		string $industryCode,
 		string $loanType,
 		string $narrativeCode1,
 		string $narrativeCode2,
-		number $pastDue,
+		float $pastDue,
 		string $remarksCode,
 		string $verificationIndicator
 	) {

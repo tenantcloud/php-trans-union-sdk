@@ -4,25 +4,25 @@ namespace TenantCloud\TransUnionSDK\Reports\Data\Interfaces;
 
 class PastDueItem
 {
-	public number $totalPastDue;
+	public float $totalPastDue;
 
-	public number $revolvingPastDue;
+	public float $revolvingPastDue;
 
-	public number $openPastDue;
+	public float $openPastDue;
 
-	public number $mortgagePastDue;
+	public float $mortgagePastDue;
 
-	public number $installmentPastDue;
+	public float $installmentPastDue;
 
-	public number $closedWithBalPastDue;
+	public float $closedWithBalPastDue;
 
 	public function __construct(
-		number $closedWithBalPastDue,
-		number $installmentPastDue,
-		number $mortgagePastDue,
-		number $openPastDue,
-		number $revolvingPastDue,
-		number $totalPastDue
+		float $closedWithBalPastDue,
+		float $installmentPastDue,
+		float $mortgagePastDue,
+		float $openPastDue,
+		float $revolvingPastDue,
+		float $totalPastDue
 	) {
 		$this->closedWithBalPastDue = $closedWithBalPastDue;
 		$this->installmentPastDue = $installmentPastDue;

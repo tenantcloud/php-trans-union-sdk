@@ -8,15 +8,15 @@ class FileSummary
 {
 	public string $subMarket;
 
-	public number $sSNMatchIndicator;
+	public int $sSNMatchIndicator;
 
 	public string $market;
 
 	public Carbon $inFileSinceDate;
 
-	public number $fileMatchIndicator;
+	public int $fileMatchIndicator;
 
-	public number $fileHitIndicator;
+	public int $fileHitIndicator;
 
 	public CreditDataStatus $creditDataStatus;
 
@@ -25,11 +25,11 @@ class FileSummary
 	public function __construct(
 		bool $consumerStatementIndicator,
 		CreditDataStatus $creditDataStatus,
-		number $fileHitIndicator,
-		number $fileMatchIndicator,
+		int $fileHitIndicator,
+		int $fileMatchIndicator,
 		Carbon $inFileSinceDate,
 		string $market,
-		number $sSNMatchIndicator,
+		int $sSNMatchIndicator,
 		string $subMarket
 	) {
 		$this->consumerStatementIndicator = $consumerStatementIndicator;

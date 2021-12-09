@@ -10,55 +10,59 @@ class ProfileSummary
 
 	public SummaryBalance $revolving;
 
-	public number $revolveBalance;
+	public float $revolveBalance;
 
-	public number $revolveAvailPercent;
+	public float $revolveAvailPercent;
 
-	public number $realEstatePayment;
+	public float $realEstatePayment;
 
-	public number $realEstateBalance;
+	public float $realEstateBalance;
 
-	public number $publicRecordCount;
+	public int $publicRecordCount;
 
 	public PastDueItem $pastDueItems;
 
-	public number $pastDueAmount;
+	public float $pastDueAmount;
 
 	public SummaryBalance $open;
 
-	public number $numberOfInquiries;
+	public int $numberOfInquiries;
 
 	public SummaryBalance $mortgage;
 
-	public number $monthlyPayment;
+	public float $monthlyPayment;
 
 	public SummaryBalance $installment;
 
-	public number $installBalance;
+	public float $installBalance;
 
-	public number $inquiry;
+	/** @var mixed */
+	public $inquiry;
 
 	public DerogationItems $derogItems;
 
 	public SummaryBalance $closedWithBal;
 
+	/**
+	 * @param mixed $inquiry
+	 */
 	public function __construct(
 		SummaryBalance $closedWithBal,
 		DerogationItems $derogItems,
-		number $inquiry,
-		number $installBalance,
+		$inquiry,
+		float $installBalance,
 		SummaryBalance $installment,
-		number $monthlyPayment,
+		float $monthlyPayment,
 		SummaryBalance $mortgage,
-		number $numberOfInquiries,
+		int $numberOfInquiries,
 		SummaryBalance $open,
-		number $pastDueAmount,
+		float $pastDueAmount,
 		PastDueItem $pastDueItems,
-		number $publicRecordCount,
-		number $realEstateBalance,
-		number $realEstatePayment,
-		number $revolveAvailPercent,
-		number $revolveBalance,
+		int $publicRecordCount,
+		float $realEstateBalance,
+		float $realEstatePayment,
+		float $revolveAvailPercent,
+		float $revolveBalance,
 		SummaryBalance $revolving,
 		SummaryBalance $total,
 		Tradeline $tradeline

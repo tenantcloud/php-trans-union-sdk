@@ -27,7 +27,7 @@ class PublicRecord
 
 	public string $lienClass;
 
-	public number $liabilitiesAmount;
+	public float $liabilitiesAmount;
 
 	public string $legalDesignator;
 
@@ -55,16 +55,16 @@ class PublicRecord
 
 	public string $courtLocationCity;
 
-	public number $assetAmount;
+	public float $assetAmount;
 
-	public number $amount;
+	public float $amount;
 
 	public string $accountDesignator;
 
 	public function __construct(
 		string $accountDesignator,
-		number $amount,
-		number $assetAmount,
+		float $amount,
+		float $assetAmount,
 		string $courtLocationCity,
 		string $courtLocationState,
 		string $courtType,
@@ -78,7 +78,7 @@ class PublicRecord
 		string $industryCode,
 		string $intendedDispositionCode,
 		string $legalDesignator,
-		number $liabilitiesAmount,
+		float $liabilitiesAmount,
 		string $lienClass,
 		string $memberCode,
 		string $narrativeCode1,

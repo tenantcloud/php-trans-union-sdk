@@ -10,7 +10,7 @@ class Credit
 
 	public TransactionsControl $transactionControl;
 
-	public number $searchStatus;
+	public int $searchStatus;
 
 	public RequestConsumer $requestedConsumer;
 
@@ -18,9 +18,9 @@ class Credit
 
 	public string $entityID;
 
-	public number $document;
+	public int $document;
 
-	public number $consumerId;
+	public string $consumerId;
 
 	public string $componentIdentifier;
 
@@ -37,12 +37,12 @@ class Credit
 		array $applicants,
 		$bureau,
 		string $componentIdentifier,
-		number $consumerId,
-		number $document,
+		string $consumerId,
+		int $document,
 		string $entityID,
 		PermissiblePurpose $permissiblePurpose,
 		RequestConsumer $requestedConsumer,
-		number $searchStatus,
+		int $searchStatus,
 		TransactionsControl $transactionControl,
 		string $version
 	) {

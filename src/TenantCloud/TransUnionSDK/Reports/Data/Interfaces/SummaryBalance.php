@@ -4,25 +4,25 @@ namespace TenantCloud\TransUnionSDK\Reports\Data\Interfaces;
 
 class SummaryBalance
 {
-	public number $percentCreditAvail;
+	public float $percentCreditAvail;
 
-	public number $monthlyPayment;
+	public float $monthlyPayment;
 
-	public number $highCredit;
+	public float $highCredit;
 
-	public number $creditLimit;
+	public float $creditLimit;
 
-	public number $count;
+	public int $count;
 
-	public number $balance;
+	public float $balance;
 
 	public function __construct(
-		number $balance,
-		number $count,
-		number $creditLimit,
-		number $highCredit,
-		number $monthlyPayment,
-		number $percentCreditAvail
+		float $balance,
+		int $count,
+		float $creditLimit,
+		float $highCredit,
+		float $monthlyPayment,
+		float $percentCreditAvail
 	) {
 		$this->balance = $balance;
 		$this->count = $count;

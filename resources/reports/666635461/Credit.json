@@ -1,0 +1,138 @@
+{
+    "Document": 1,
+    "Version": "2.3",
+    "ComponentIdentifier": null,
+    "Bureau": null,
+    "ConsumerId": null,
+    "Applicants": [
+        {
+            "Status": {
+                "ReportDate": "2021-12-09T00:00:00",
+                "RecordFound": 0,
+                "FrozenFile": false,
+                "ThinFile": true,
+                "BureauStatus": {
+                    "Code": [
+                        {
+                            "CodeDescription": "99",
+                            "CodeType": "TU MESSAGE",
+                            "Description": "Requested AddOn (code: 07030) not received. Reason: Bureau is Unable to Deliver Score\/Add-On",
+                            "Key": null
+                        },
+                        {
+                            "CodeDescription": "99",
+                            "CodeType": "TU MESSAGE",
+                            "Description": "** HAWK: Clear for all searches.",
+                            "Key": null
+                        }
+                    ]
+                },
+                "AddressDiscrepancyIndicator": null,
+                "BureauErrorMessage": null
+            },
+            "FirstName": "MICHAEL",
+            "LastName": "REUSH",
+            "MiddleName": null,
+            "Suffix": null,
+            "SSNMessage": "No credit file found",
+            "Addresses": [
+                {
+                    "Unparsed": null,
+                    "RecordCode": null,
+                    "StreetAddress": "5962 N BLACK RIVER RD",
+                    "City": "CHEBOYGAN",
+                    "State": "MI",
+                    "PostalCode": "49721",
+                    "DateReported": "2021-12-09T00:00:00",
+                    "SourceIndicator": "I",
+                    "AddressQualifier": "Current Address",
+                    "Status": "current"
+                }
+            ],
+            "Akas": null,
+            "PublicRecords": null,
+            "Tradelines": null,
+            "ReportRetrievedOn": "2021-12-09T08:58:03.6449031-06:00",
+            "Employments": null,
+            "Collections": null,
+            "InquirySubscriber": null,
+            "ProfileSummary": null,
+            "ConsumerStatement": null,
+            "ConsumerRightsStatements": null,
+            "ScoreModel": null,
+            "Ofac": null,
+            "FraudIndicators": [],
+            "Phones": [],
+            "IncomeEstimate": null,
+            "FileSummary": {
+                "FileHitIndicator": 2,
+                "SSNMatchIndicator": 0,
+                "FileMatchIndicator": 0,
+                "ConsumerStatementIndicator": false,
+                "Market": "06",
+                "SubMarket": "TR",
+                "CreditDataStatus": {
+                    "suppressed": false,
+                    "suppressedSpecified": true,
+                    "doNotPromote": {
+                        "indicator": false,
+                        "dateOfExpiration": null
+                    },
+                    "freeze": {
+                        "indicator": false,
+                        "typeSpecified": false
+                    },
+                    "minor": false,
+                    "minorSpecified": true,
+                    "disputed": false,
+                    "disputedSpecified": true
+                },
+                "InFileSinceDate": "2021-12-09T00:00:00"
+            },
+            "FileNumber": "01"
+        }
+    ],
+    "EntityID": "ea2b81b2-cff4-4f24-b914-bb2a6645f454",
+    "SearchStatus": 1,
+    "TransactionControl": {
+        "UserRefNumber": "C5B330DF-72E8-41DB-90D6-",
+        "Subscriber": {
+            "IndustryCode": "Z",
+            "MemberCode": "3560255",
+            "InquirySubscriberPrefixCode": "0622",
+            "Password": null,
+            "Name": null
+        },
+        "Options": {
+            "ProcessingEnvironmentSpecified": false,
+            "CountrySpecified": false,
+            "LanguageSpecified": false,
+            "ContractualRelationshipSpecified": false,
+            "PointOfSaleIndicatorSpecified": false
+        },
+        "CustomerLogin": null,
+        "ClientVendorSoftware": null,
+        "Tracking": {
+            "Id": null,
+            "TransactionTimeStamp": "2021-12-09T08:58:03.459-06:00",
+            "TransactionTimeStampSpecified": true
+        }
+    },
+    "RequestedConsumer": {
+        "FirstName": "MICHAEL",
+        "MiddleName": null,
+        "LastName": "REUSH",
+        "Address": {
+            "AddressLine1": "5962 N Black River",
+            "AddressLine2": null,
+            "AddressLine3": null,
+            "AddressLine4": null,
+            "Locality": "Cheboygan",
+            "Region": "MI",
+            "PostalCode": "49721",
+            "Country": null
+        },
+        "GenerationalSuffix": null
+    },
+    "PermissiblePurpose": "TenantScreening"
+}

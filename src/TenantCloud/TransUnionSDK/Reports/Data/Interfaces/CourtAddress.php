@@ -44,13 +44,13 @@ class CourtAddress
 
 	public string $city;
 
-	public number $buildingNumber;
+	public int $buildingNumber;
 
 	public string $addressTypeCode;
 
 	public string $addressType;
 
-	public number $addressNumber;
+	public int $addressNumber;
 
 	public string $addressClassificationCode;
 
@@ -62,10 +62,10 @@ class CourtAddress
 		string $address1,
 		string $address2,
 		string $addressClassificationCode,
-		number $addressNumber,
+		int $addressNumber,
 		string $addressType,
 		string $addressTypeCode,
-		number $buildingNumber,
+		int $buildingNumber,
 		string $city,
 		string $country,
 		string $county,

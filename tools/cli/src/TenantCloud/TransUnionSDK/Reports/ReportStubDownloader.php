@@ -61,12 +61,12 @@ class ReportStubDownloader
 	/**
 	 * @return Generator<int, array{PersonDTO, ReportProduct}>
 	 */
-	public function downloadAll(): Generator
+	public function downloadAll(iterable $people): Generator
 	{
 		$landlordId = $this->createLandlord();
 		$propertyId = $this->createProperty($landlordId);
 
-		foreach ($this->people() as $data) {
+		foreach ($people as $data) {
 			/** @var iterable<ReportProduct> $products */
 			/** @var PersonDTO $person */
 			[$products, $person] = $data;
@@ -106,52 +106,6 @@ class ReportStubDownloader
 				yield [$person, $product];
 			}
 		}
-	}
-
-	private function people(): Generator
-	{
-		yield [
-			[ReportProduct::$CREDIT],
-			new PersonDTO(
-				'Chapoton',
-				'John',
-			 	Carbon::createFromDate(1970, 8, 15),
-				'666221955'
-			),
-			'default'
-		];
-
-		yield [
-			[ReportProduct::$CRIMINAL],
-			new PersonDTO(
-				'Jacfirst',
-				'Beclast',
-				Carbon::createFromDate(1970, 8, 15),
-				'999010001'
-			),
-			'default'
-		];
-
-		yield [
-			[ReportProduct::$EVICTION],
-			new PersonDTO(
-				'Test',
-				'Tenant',
-				Carbon::createFromDate(1940, 1, 1),
-				'999912345'
-			),
-			'default'
-		];
-
-		yield [
-			[ReportProduct::$CREDIT, ReportProduct::$CRIMINAL, ReportProduct::$EVICTION],
-			new PersonDTO(
-				'William',
-				'Thorne',
-				Carbon::createFromDate(1920, 1, 1),
-				'666622631'
-			)
-		];
 	}
 
 	private function download(

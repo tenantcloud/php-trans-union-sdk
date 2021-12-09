@@ -19,7 +19,7 @@ class Tradeline
 
 	public TermsFrequency $termsFrequencyOfPayment;
 
-	public number $termsAmountOfPayment;
+	public float $termsAmountOfPayment;
 
 	public string $terms;
 
@@ -53,13 +53,13 @@ class Tradeline
 
 	public string $notes;
 
-	public number $narrativeCode4;
+	public string $narrativeCode4;
 
-	public number $narrativeCode3;
+	public string $narrativeCode3;
 
-	public number $narrativeCode2;
+	public string $narrativeCode2;
 
-	public number $narrativeCode1;
+	public string $narrativeCode1;
 
 	public Carbon $maximumdelinqDate;
 
@@ -69,7 +69,7 @@ class Tradeline
 
 	public string $industryCode;
 
-	public number $highCredit;
+	public float $highCredit;
 
 	public Carbon $datePaidOut;
 
@@ -81,21 +81,21 @@ class Tradeline
 
 	public string $currentMOP;
 
-	public number $creditLimit;
+	public float $creditLimit;
 
-	public number $balanceDate;
+	public Carbon $balanceDate;
 
-	public number $balanceAmount;
+	public float $balanceAmount;
 
-	public number $amountPastDue;
+	public float $amountPastDue;
 
-	public number $accountAmount2QualifierDesignator;
+	public string $accountAmount2QualifierDesignator;
 
-	public number $amount2;
+	public float $amount2;
 
-	public number $amount1Qualifier;
+	public string $amount1Qualifier;
 
-	public number $amount1;
+	public float $amount1;
 
 	public AccountType $accountType;
 
@@ -110,28 +110,28 @@ class Tradeline
 		string $accountDesignator,
 		string $accountNumber,
 		AccountType $accountType,
-		number $amount1,
-		number $amount1Qualifier,
-		number $amount2,
-		number $accountAmount2QualifierDesignator,
-		number $amountPastDue,
-		number $balanceAmount,
-		number $balanceDate,
-		number $creditLimit,
+		float $amount1,
+		string $amount1Qualifier,
+		float $amount2,
+		string $accountAmount2QualifierDesignator,
+		float $amountPastDue,
+		float $balanceAmount,
+		Carbon $balanceDate,
+		float $creditLimit,
 		string $currentMOP,
 		Carbon $dateClosed,
 		Carbon $dateClosedIndicator,
 		Carbon $dateOpened,
 		Carbon $datePaidOut,
-		number $highCredit,
+		float $highCredit,
 		string $industryCode,
 		string $loanType,
 		string $maximumDelinqMOP,
 		Carbon $maximumdelinqDate,
-		number $narrativeCode1,
-		number $narrativeCode2,
-		number $narrativeCode3,
-		number $narrativeCode4,
+		string $narrativeCode1,
+		string $narrativeCode2,
+		string $narrativeCode3,
+		string $narrativeCode4,
 		string $notes,
 		$openClosed,
 		string $originalCreditor,
@@ -148,11 +148,11 @@ class Tradeline
 		string $subscriberId,
 		string $subscriberName,
 		string $terms,
-		number $termsAmountOfPayment,
+		float $termsAmountOfPayment,
 		TermsFrequency $termsFrequencyOfPayment,
-		number $times30DaysLate,
-		number $times60DaysLate,
-		number $times90DaysLate,
+		int $times30DaysLate,
+		int $times60DaysLate,
+		int $times90DaysLate,
 		string $verificationIndicator
 	) {
 		$this->accountDesignator = $accountDesignator;

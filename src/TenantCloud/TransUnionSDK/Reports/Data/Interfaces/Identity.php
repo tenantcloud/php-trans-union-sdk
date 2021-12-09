@@ -11,7 +11,7 @@ class Identity
 
 	public string $title;
 
-	public number $supervisionCount;
+	public int $supervisionCount;
 
 	public string $suffix;
 
@@ -25,7 +25,7 @@ class Identity
 
 	public string $sex;
 
-	public number $sentencingCount;
+	public int $sentencingCount;
 
 	public string $scarMarkTattoo;
 
@@ -44,7 +44,7 @@ class Identity
 
 	public string $lastName;
 
-	public number $incidentCount;
+	public int $incidentCount;
 
 	public string $imageUrl;
 
@@ -73,7 +73,7 @@ class Identity
 
 	public string $criminalIdNumber;
 
-	public number $courtActionCount;
+	public int $courtActionCount;
 
 	public string $county;
 
@@ -85,7 +85,7 @@ class Identity
 
 	public IdentityCase $case;
 
-	public number $bookingCount;
+	public int $bookingCount;
 
 	public string $bodyBuild;
 
@@ -93,7 +93,7 @@ class Identity
 
 	public Carbon $birthDate;
 
-	public number $arrestCount;
+	public int $arrestCount;
 
 	/** @var mixed[] */
 	public array $aliases;
@@ -114,17 +114,17 @@ class Identity
 		string $address2,
 		string $age,
 		array $aliases,
-		number $arrestCount,
+		int $arrestCount,
 		Carbon $birthDate,
 		string $birthPlace,
 		string $bodyBuild,
-		number $bookingCount,
+		int $bookingCount,
 		IdentityCase $case,
 		string $citizenship,
 		string $city,
 		string $complexion,
 		string $county,
-		number $courtActionCount,
+		int $courtActionCount,
 		string $criminalIdNumber,
 		Carbon $dateTimeModified,
 		string $driversLicenseExpirationYear,
@@ -138,7 +138,7 @@ class Identity
 		string $height,
 		array $idNumbers,
 		string $imageUrl,
-		number $incidentCount,
+		int $incidentCount,
 		string $lastName,
 		string $middleName,
 		array $offenses,
@@ -147,14 +147,14 @@ class Identity
 		string $race,
 		string $remarks,
 		string $scarMarkTattoo,
-		number $sentencingCount,
+		int $sentencingCount,
 		string $sex,
 		string $sourceState,
 		string $ssn,
 		string $state,
 		string $stateKey,
 		string $suffix,
-		number $supervisionCount,
+		int $supervisionCount,
 		string $title,
 		string $weight
 	) {

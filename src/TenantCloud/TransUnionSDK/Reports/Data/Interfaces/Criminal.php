@@ -6,17 +6,17 @@ use Carbon\Carbon;
 
 class Criminal
 {
-	public number $sexOffenderIdentityCount;
+	public int $sexOffenderIdentityCount;
 
 	public RequestConsumer $requestedConsumer;
 
 	public string $permissiblePurpose;
 
-	public number $otherIdentityCount;
+	public int $otherIdentityCount;
 
-	public number $oFACIdentityCount;
+	public int $oFACIdentityCount;
 
-	public number $mostWantedIdentityCount;
+	public int $mostWantedIdentityCount;
 
 	/** @var Identity[] */
 	public array $identities;
@@ -24,7 +24,7 @@ class Criminal
 	/** @var Disclaimer[] */
 	public array $disclaimers;
 
-	public number $criminalIdentityCount;
+	public int $criminalIdentityCount;
 
 	public Carbon $createdOn;
 
@@ -34,15 +34,15 @@ class Criminal
 	 */
 	public function __construct(
 		Carbon $createdOn,
-		number $criminalIdentityCount,
+		int $criminalIdentityCount,
 		array $disclaimers,
 		array $identities,
-		number $mostWantedIdentityCount,
-		number $oFACIdentityCount,
-		number $otherIdentityCount,
+		int $mostWantedIdentityCount,
+		int $oFACIdentityCount,
+		int $otherIdentityCount,
 		string $permissiblePurpose,
 		RequestConsumer $requestedConsumer,
-		number $sexOffenderIdentityCount
+		int $sexOffenderIdentityCount
 	) {
 		$this->createdOn = $createdOn;
 		$this->criminalIdentityCount = $criminalIdentityCount;

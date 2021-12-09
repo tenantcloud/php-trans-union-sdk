@@ -59,7 +59,7 @@ class Event
 
 	public string $judgementSigned;
 
-	public number $judgeIdentificationNumber;
+	public string $judgeIdentificationNumber;
 
 	public string $inDispute;
 
@@ -134,7 +134,7 @@ class Event
 		string $filingType,
 		string $hearingResult,
 		string $inDispute,
-		number $judgeIdentificationNumber,
+		string $judgeIdentificationNumber,
 		string $judgementSigned,
 		string $judgmentAmount,
 		string $judgmentCondition,

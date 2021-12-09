@@ -13,6 +13,8 @@ use Webmozart\Assert\Assert;
 
 /**
  * This is a parody of a serializer, but it's still better than serializing everything by hand.
+ *
+ * No attempts were made to make this pretty or flexible as this should be replaced by a proper serializer ASAP.
  */
 trait MagicArraySerializable
 {

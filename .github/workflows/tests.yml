@@ -25,6 +25,7 @@ jobs:
                     php-version: ${{ matrix.php }}
                     tools: composer:v2
                     coverage: none
+                    extensions: intl
 
             -   name: Validate composer.json and composer.lock
                 run: composer validate

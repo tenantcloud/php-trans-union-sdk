@@ -59,7 +59,9 @@ class ReportStubDownloader
 	}
 
 	/**
-	 * @return Generator<int, array{PersonDTO, ReportProduct}>
+	 * @param iterable<array{array<ReportProduct<mixed>>, PersonDTO, string} | array{array<ReportProduct<mixed>>, PersonDTO}> $people
+	 *
+	 * @return Generator<int, array{PersonDTO, ReportProduct<mixed>}>
 	 */
 	public function downloadAll(iterable $people): Generator
 	{
@@ -67,7 +69,7 @@ class ReportStubDownloader
 		$propertyId = $this->createProperty($landlordId);
 
 		foreach ($people as $data) {
-			/** @var iterable<ReportProduct> $products */
+			/** @var iterable<ReportProduct<mixed>> $products */
 			/** @var PersonDTO $person */
 			[$products, $person] = $data;
 
@@ -108,6 +110,9 @@ class ReportStubDownloader
 		}
 	}
 
+	/**
+	 * @param ReportProduct<mixed> $reportProduct
+	 */
 	private function download(
 		int $landlordId,
 		int $propertyId,

@@ -16,3 +16,7 @@ parameters:
 		- '#Parameter \#3 \$ttl of method Psr\\SimpleCache\\CacheInterface::set\(\) expects DateInterval\|int\|null, Carbon\\Carbon given\.#i'
 		# I want to drop those DTO's and replace them with "native" ones + serialization, so just ignore it for now.
 		- '#Property .*DTO::\$fields type has no value type specified in iterable type array\.#i'
+		# Intentional.
+		-
+			message: '#Unreachable statement - code above always terminates\.#i'
+			path: 'tests/TenantCloud/TransUnionSDK/Reports/Data/*Test.php'

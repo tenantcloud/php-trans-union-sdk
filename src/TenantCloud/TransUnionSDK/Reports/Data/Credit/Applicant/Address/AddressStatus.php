@@ -4,6 +4,9 @@ namespace TenantCloud\TransUnionSDK\Reports\Data\Credit\Applicant\Address;
 
 use TenantCloud\Standard\Enum\ValueEnum;
 
+/**
+ * @extends ValueEnum<string>
+ */
 final class AddressStatus extends ValueEnum
 {
 	public static self $current; //current = 'current',

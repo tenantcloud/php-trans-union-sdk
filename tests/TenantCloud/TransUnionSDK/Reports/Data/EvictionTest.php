@@ -27,6 +27,9 @@ class EvictionTest extends TestCase
 		);
 	}
 
+	/**
+	 * @return Generator<array{string}>
+	 */
 	public function deserializesAndSerializesBackFromFileProvider(): Generator
 	{
 		$finder = (new Finder())

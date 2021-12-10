@@ -4,6 +4,9 @@ namespace TenantCloud\TransUnionSDK\Reports\Data\Criminal\Identity;
 
 use TenantCloud\Standard\Enum\ValueEnum;
 
+/**
+ * @extends ValueEnum<string>
+ */
 final class CriminalType extends ValueEnum
 {
 	public static self $criminal; //criminal = 'Criminal',

@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use function collect;
 use Illuminate\Support\Collection;
 use ReflectionClass;
+use ReflectionNamedType;
 use ReflectionParameter;
 use ReflectionProperty;
 use TenantCloud\Standard\Enum\ValueEnum;
@@ -18,20 +19,31 @@ use Webmozart\Assert\Assert;
  */
 trait MagicArraySerializable
 {
+	/**
+	 * @param array<mixed, mixed> $data
+	 *
+	 * @return static
+	 */
 	public static function fromArray(array $data): self
 	{
 		$config = static::serializationConfig();
 
+		/** @var Collection<mixed> $values */
 		$values = static::constructorParameters()
 			->map(function (ReflectionParameter $parameter) use ($config, $data) {
 				$serializedName = ($config->serializedName)($parameter->getName());
 				$value = $data[$serializedName];
 
 				if ($value !== null) {
+					/** @var callable(mixed): mixed|null $deserializer */
 					$deserializer = $config->custom[$parameter->getName()][1] ?? null;
 
 					if (!$deserializer && $parameter->getType()) {
-						$type = $parameter->getType()->getName();
+						$type = $parameter->getType();
+
+						assert($type instanceof ReflectionNamedType);
+
+						$type = $type->getName();
 
 						$deserializeWithType = function (string $type, $value) {
 							if (is_a($type, Carbon::class, true)) {
@@ -82,6 +94,9 @@ trait MagicArraySerializable
 		);
 	}
 
+	/**
+	 * @return Collection<ReflectionProperty>
+	 */
 	private static function properties(): Collection
 	{
 		return collect(
@@ -90,6 +105,9 @@ trait MagicArraySerializable
 		);
 	}
 
+	/**
+	 * @return Collection<ReflectionParameter>
+	 */
 	private static function constructorParameters(): Collection
 	{
 		return collect(
@@ -99,6 +117,9 @@ trait MagicArraySerializable
 		);
 	}
 
+	/**
+	 * @return array<string, mixed>
+	 */
 	public function toArray(): array
 	{
 		$config = static::serializationConfig();
@@ -109,10 +130,15 @@ trait MagicArraySerializable
 				$value = $property->getValue($this);
 
 				if ($value !== null) {
+					/** @var callable(mixed): mixed|null $serializer */
 					$serializer = $config->custom[$property->getName()][0] ?? null;
 
 					if (!$serializer && $property->getType()) {
-						$type = $property->getType()->getName();
+						$type = $property->getType();
+
+						assert($type instanceof ReflectionNamedType);
+
+						$type = $type->getName();
 
 						$serializeWithType = function (string $type, $value) {
 							if (is_a($type, Carbon::class, true)) {

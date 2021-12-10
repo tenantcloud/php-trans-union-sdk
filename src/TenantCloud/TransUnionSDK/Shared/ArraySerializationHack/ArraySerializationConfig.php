@@ -10,13 +10,13 @@ class ArraySerializationConfig
 	/** @var array<string, string> */
 	public array $arrays;
 
-	/** @var array<string, array{callable, callable}> */
+	/** @var array<string, array{callable | null, callable | null}|array{callable}> */
 	public array $custom;
 
 	/**
-	 * @param callable(string): string                 $serializedName
-	 * @param array<string, string>                    $arrays
-	 * @param array<string, array{callable, callable}> $custom
+	 * @param callable(string): string                                               $serializedName
+	 * @param array<string, string>                                                  $arrays
+	 * @param array<string, array{callable | null, callable | null}|array{callable}> $custom
 	 */
 	public function __construct(
 		callable $serializedName,
@@ -28,6 +28,11 @@ class ArraySerializationConfig
 		$this->custom = $custom;
 	}
 
+	/**
+	 * @param array<string, string> $custom
+	 *
+	 * @return callable(string): string
+	 */
 	public static function pascalSerializedName(array $custom = []): callable
 	{
 		return fn (string $propertyName) => $custom[$propertyName] ?? ucfirst($propertyName);
@@ -38,6 +43,9 @@ class ArraySerializationConfig
 		return fn (string $propertyName) => lcfirst($propertyName);
 	}
 
+	/**
+	 * @return array{callable(mixed): mixed, callable(mixed): mixed}
+	 */
 	public static function mixedCustomSerializer(): array
 	{
 		return [

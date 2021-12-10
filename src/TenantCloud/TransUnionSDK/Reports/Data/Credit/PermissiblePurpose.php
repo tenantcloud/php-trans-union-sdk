@@ -4,6 +4,9 @@ namespace TenantCloud\TransUnionSDK\Reports\Data\Credit;
 
 use TenantCloud\Standard\Enum\ValueEnum;
 
+/**
+ * @extends ValueEnum<string>
+ */
 final class PermissiblePurpose extends ValueEnum
 {
 	public static self $tenantScreening; //tenantScreening = 'TenantScreening',

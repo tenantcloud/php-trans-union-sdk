@@ -30,6 +30,9 @@ class DownloadStubsCommand extends Command
 		$this->info('Done!');
 	}
 
+	/**
+	 * @return Generator<array{array<ReportProduct<mixed>>, PersonDTO, string} | array{array<ReportProduct<mixed>>, PersonDTO}>
+	 */
 	private function people(): Generator
 	{
 		yield [

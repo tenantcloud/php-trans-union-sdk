@@ -4,6 +4,9 @@ namespace TenantCloud\TransUnionSDK\Reports\Data\Credit\Applicant\PublicRecord;
 
 use TenantCloud\Standard\Enum\ValueEnum;
 
+/**
+ * @extends ValueEnum<string>
+ */
 final class PublicRecordType extends ValueEnum
 {
 	public static self $bankruptcies; //bankruptcies = 'BANKRUPTCIES',

@@ -4,6 +4,7 @@ namespace TenantCloud\TransUnionSDK\Reports\Data\Credit\TransactionsControl;
 
 use Carbon\Carbon;
 use TenantCloud\TransUnionSDK\Shared\ArraySerializationHack\ArraySerializable;
+use TenantCloud\TransUnionSDK\Shared\ArraySerializationHack\ArraySerializationConfig;
 use TenantCloud\TransUnionSDK\Shared\ArraySerializationHack\MagicArraySerializable;
 
 final class TransactionsControlTracking implements ArraySerializable
@@ -24,5 +25,18 @@ final class TransactionsControlTracking implements ArraySerializable
 		$this->id = $id;
 		$this->transactionTimeStamp = $transactionTimeStamp;
 		$this->transactionTimeStampSpecified = $transactionTimeStampSpecified;
+	}
+
+	protected static function serializationConfig(): ArraySerializationConfig
+	{
+		return new ArraySerializationConfig(
+			ArraySerializationConfig::pascalSerializedName(),
+			[],
+			[
+				'transactionTimeStamp' => [
+					fn (Carbon $date) => $date->isoFormat('YYYY-MM-DD[T]HH:mm:ss.SSSZ'),
+				],
+			]
+		);
 	}
 }

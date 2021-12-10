@@ -104,7 +104,7 @@ final class Tradeline implements ArraySerializable
 
 	public ?float $amount1;
 
-	public ?AccountType $accountType;
+	public ?string $accountType;
 
 	public ?string $accountNumber;
 
@@ -116,7 +116,7 @@ final class Tradeline implements ArraySerializable
 	public function __construct(
 		?string $accountDesignator,
 		?string $accountNumber,
-		?AccountType $accountType,
+		?string $accountType,
 		?float $amount1,
 		?string $amount1Qualifier,
 		?float $amount2,

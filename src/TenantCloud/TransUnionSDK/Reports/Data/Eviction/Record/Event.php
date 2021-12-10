@@ -228,6 +228,12 @@ final class Event implements ArraySerializable
 			[
 				'parties' => Party::class,
 			],
+			[
+				'filingDate' => [
+					// 02/18/2020
+					fn (Carbon $date) => $date->isoFormat('MM/DD/YYYY'),
+				],
+			]
 		);
 	}
 }

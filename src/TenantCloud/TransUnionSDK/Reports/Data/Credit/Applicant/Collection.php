@@ -50,7 +50,7 @@ final class Collection implements ArraySerializable
 
 	public ?string $collectionAgencyName;
 
-	public ?AccountType $accountType;
+	public ?string $accountType;
 
 	public ?string $accountNumber;
 
@@ -59,7 +59,7 @@ final class Collection implements ArraySerializable
 	public function __construct(
 		?string $accountDesignator,
 		?string $accountNumber,
-		?AccountType $accountType,
+		?string $accountType,
 		?string $collectionAgencyName,
 		?string $collectionComments,
 		?string $creditorsName,

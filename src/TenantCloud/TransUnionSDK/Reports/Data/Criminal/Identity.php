@@ -224,6 +224,16 @@ final class Identity implements ArraySerializable
 				'idNumbers' => IdNumber::class,
 				'offenses'  => Offense::class,
 			],
+			[
+				'birthDate' => [
+					// 02/18/2020
+					fn (Carbon $date) => $date->isoFormat('MM/DD/YYYY'),
+				],
+				'dateTimeModified' => [
+					// 02/18/2020 16:50:15
+					fn (Carbon $date) => $date->isoFormat('MM/DD/YYYY HH:mm:ss'),
+				],
+			]
 		);
 	}
 }

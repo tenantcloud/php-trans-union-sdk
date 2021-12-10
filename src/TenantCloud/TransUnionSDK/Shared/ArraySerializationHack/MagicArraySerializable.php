@@ -28,43 +28,43 @@ trait MagicArraySerializable
 				$value = $data[$serializedName];
 
 				if ($value !== null) {
-					$deserializeWithType = function (string $type, $value) {
-						if (is_a($type, Carbon::class, true)) {
-							if ($value === 'N/A' || $value === 'XX/XX/XXXX') {
-								return null;
+					$deserializer = $config->custom[$parameter->getName()][1] ?? null;
+
+					if (!$deserializer && $parameter->getType()) {
+						$type = $parameter->getType()->getName();
+
+						$deserializeWithType = function (string $type, $value) {
+							if (is_a($type, Carbon::class, true)) {
+								if ($value === 'N/A' || $value === 'XX/XX/XXXX') {
+									return null;
+								}
+
+								return $type::parse($value);
 							}
 
-							return $type::parse($value);
-						}
+							if (is_a($type, ArraySerializable::class, true)) {
+								return $type::fromArray($value);
+							}
 
-						if (is_a($type, ArraySerializable::class, true)) {
-							return $type::fromArray($value);
-						}
+							if (is_a($type, ValueEnum::class, true)) {
+								return $type::fromValue($value);
+							}
 
-						if (is_a($type, ValueEnum::class, true)) {
-							return $type::fromValue($value);
-						}
-
-						return $value;
-					};
-
-					if ($parameter->getType()) {
-						$type = $parameter->getType()->getName();
+							return $value;
+						};
 
 						if ($type === 'array') {
 							Assert::keyExists($config->arrays, $parameter->getName(), "Please specify array type for {$parameter->getName()} in " . static::class);
 
-							$value = array_map(fn ($innerValue) => $deserializeWithType($config->arrays[$parameter->getName()], $innerValue), $value);
+							$deserializer = fn ($value) => array_map(fn ($innerValue) => $deserializeWithType($config->arrays[$parameter->getName()], $innerValue), $value);
+						} else {
+							$deserializer = fn ($value) => $deserializeWithType($type, $value);
 						}
-
-						$value = $deserializeWithType($type, $value);
-					} else {
-						Assert::keyExists($config->custom, $parameter->getName(), "Please specify custom deserializer for {$parameter->getName()} in " . static::class);
-
-						$deserializer = $config->custom[$parameter->getName()][1];
-
-						$value = ($deserializer)($value);
 					}
+
+					Assert::notNull($deserializer, "Please specify a deserializer for {$parameter->getName()} in " . static::class);
+
+					$value = $deserializer($value);
 				}
 
 				return $value;
@@ -109,39 +109,40 @@ trait MagicArraySerializable
 				$value = $property->getValue($this);
 
 				if ($value !== null) {
-					$serializeWithType = function (string $type, $value) {
-						if (is_a($type, Carbon::class, true)) {
-							return $value->toISOString();
-						}
+					$serializer = $config->custom[$property->getName()][0] ?? null;
 
-						if (is_a($type, ArraySerializable::class, true)) {
-							return $value->toArray();
-						}
-
-						if (is_a($type, ValueEnum::class, true)) {
-							return $value->value();
-						}
-
-						return $value;
-					};
-
-					if ($property->getType()) {
+					if (!$serializer && $property->getType()) {
 						$type = $property->getType()->getName();
+
+						$serializeWithType = function (string $type, $value) {
+							if (is_a($type, Carbon::class, true)) {
+								// 2019-10-01T00:00:00
+								return $value->toDateTimeLocalString();
+							}
+
+							if (is_a($type, ArraySerializable::class, true)) {
+								return $value->toArray();
+							}
+
+							if (is_a($type, ValueEnum::class, true)) {
+								return $value->value();
+							}
+
+							return $value;
+						};
 
 						if ($type === 'array') {
 							Assert::keyExists($config->arrays, $property->getName(), "Please specify array type for {$property->getName()} in " . static::class);
 
-							$value = array_map(fn ($innerValue) => $serializeWithType($config->arrays[$property->getName()], $innerValue), $value);
+							$serializer = fn ($value) => array_map(fn ($innerValue) => $serializeWithType($config->arrays[$property->getName()], $innerValue), $value);
+						} else {
+							$serializer = fn ($value) => $serializeWithType($type, $value);
 						}
-
-						$value = $serializeWithType($type, $value);
-					} else {
-						Assert::keyExists($config->custom, $property->getName(), "Please specify custom serializer for {$property->getName()} in " . static::class);
-
-						$serializer = $config->custom[$property->getName()][0];
-
-						$value = ($serializer)($value);
 					}
+
+					Assert::notNull($serializer, "Please specify a serializer for {$property->getName()} in " . static::class);
+
+					$value = $serializer($value);
 				}
 
 				return [

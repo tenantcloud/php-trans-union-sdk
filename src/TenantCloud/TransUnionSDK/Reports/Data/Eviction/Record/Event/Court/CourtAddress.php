@@ -4,6 +4,7 @@ namespace TenantCloud\TransUnionSDK\Reports\Data\Eviction\Record\Event\Court;
 
 use Carbon\Carbon;
 use TenantCloud\TransUnionSDK\Shared\ArraySerializationHack\ArraySerializable;
+use TenantCloud\TransUnionSDK\Shared\ArraySerializationHack\ArraySerializationConfig;
 use TenantCloud\TransUnionSDK\Shared\ArraySerializationHack\MagicArraySerializable;
 
 final class CourtAddress implements ArraySerializable
@@ -116,5 +117,19 @@ final class CourtAddress implements ArraySerializable
 		$this->verificationDate = $verificationDate;
 		$this->zipCode = $zipCode;
 		$this->zipExtensionCode = $zipExtensionCode;
+	}
+
+	protected static function serializationConfig(): ArraySerializationConfig
+	{
+		return new ArraySerializationConfig(
+			ArraySerializationConfig::pascalSerializedName(),
+			[],
+			[
+				'reportDate' => [
+					// 02/18/2020
+					fn (Carbon $date) => $date->isoFormat('MM/DD/YYYY'),
+				],
+			]
+		);
 	}
 }

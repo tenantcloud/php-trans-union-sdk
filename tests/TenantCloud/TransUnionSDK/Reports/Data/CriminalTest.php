@@ -17,6 +17,8 @@ class CriminalTest extends TestCase
 	 */
 	public function testDeserializesAndSerializesBackFromFile(string $jsonPath): void
 	{
+		$this->markTestSkipped('Only ran manually.');
+
 		$data = json_decode(file_get_contents($jsonPath), true, 512, JSON_THROW_ON_ERROR);
 
 		self::assertEquals(

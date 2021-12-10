@@ -3,7 +3,6 @@
 namespace TenantCloud\TransUnionSDK\Reports\Data\Credit\Applicant;
 
 use Carbon\Carbon;
-use TenantCloud\TransUnionSDK\Reports\Data\Credit\Applicant\Address\AddressQualifier;
 use TenantCloud\TransUnionSDK\Reports\Data\Credit\Applicant\Address\AddressStatus;
 use TenantCloud\TransUnionSDK\Shared\ArraySerializationHack\ArraySerializable;
 use TenantCloud\TransUnionSDK\Shared\ArraySerializationHack\MagicArraySerializable;
@@ -30,10 +29,10 @@ final class Address implements ArraySerializable
 
 	public ?string $city;
 
-	public ?AddressQualifier $addressQualifier;
+	public ?string $addressQualifier;
 
 	public function __construct(
-		?AddressQualifier $addressQualifier,
+		?string $addressQualifier,
 		?string $city,
 		?Carbon $dateReported,
 		?string $postalCode,

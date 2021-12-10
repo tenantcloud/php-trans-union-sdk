@@ -98,24 +98,28 @@ final class ReportsApiImpl implements ReportsApi
 
 		$response = psr_response_to_json($jsonResponse);
 
-		$reports = array_map(static function ($data) {
-			$data = $data['reportData'];
+		$reportData = $response['reportResponseModelDetails'][0]['reportData'];
 
-			switch ($product = ReportProduct::fromValue($data['providerName'])) {
-				case ReportProduct::$CREDIT:
-					return Credit::fromArray($data);
+		switch ($productType) {
+			case ReportProduct::$CREDIT:
+				$report = Credit::fromArray($reportData);
 
-				case ReportProduct::$EVICTION:
-					return Eviction::fromArray($data);
+				break;
 
-				case ReportProduct::$CRIMINAL:
-					return Criminal::fromArray($data);
+			case ReportProduct::$EVICTION:
+				$report = Eviction::fromArray($reportData);
 
-				default:
-					throw new InvalidArgumentException("Report product {$product} is not supported.");
-			}
-		}, $response['reportResponseModelDetails']);
+				break;
 
-		return new FoundReport($response['reportsExpireNumberOfDays'], $reports[0]);
+			case ReportProduct::$CRIMINAL:
+				$report = Criminal::fromArray($reportData);
+
+				break;
+
+			default:
+				throw new InvalidArgumentException("Report product {$productType} is not supported.");
+		}
+
+		return new FoundReport($response['reportsExpireNumberOfDays'], $report);
 	}
 }

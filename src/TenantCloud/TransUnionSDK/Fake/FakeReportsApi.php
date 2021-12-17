@@ -55,21 +55,21 @@ final class FakeReportsApi implements ReportsApi
 	 */
 	public function find(int $requestRenterId, ReportProduct $productType): FoundReport
 	{
-		$reportData = json_decode($this->filesystem->get(__DIR__ . "/../../../../resources/reports/default/{$productType}.json"), true, 512, JSON_THROW_ON_ERROR);
+		$foundReport = $this->findArray($requestRenterId, $productType);
 
 		switch ($productType) {
 			case ReportProduct::$CREDIT:
-				$report = Credit::fromArray($reportData);
+				$report = Credit::fromArray($foundReport->report());
 
 				break;
 
 			case ReportProduct::$EVICTION:
-				$report = Eviction::fromArray($reportData);
+				$report = Eviction::fromArray($foundReport->report());
 
 				break;
 
 			case ReportProduct::$CRIMINAL:
-				$report = Criminal::fromArray($reportData);
+				$report = Criminal::fromArray($foundReport->report());
 
 				break;
 
@@ -77,6 +77,24 @@ final class FakeReportsApi implements ReportsApi
 				throw new InvalidArgumentException("Report product {$productType} is not supported.");
 		}
 
-		return new FoundReport(30, $report);
+		return new FoundReport($foundReport->expires(), $report);
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function findArray(int $requestRenterId, ReportProduct $productType): FoundReport
+	{
+		$reportData = json_decode(
+			$this->filesystem->get(__DIR__ . "/../../../../resources/reports/default/{$productType}.json"),
+			true,
+			512,
+			JSON_THROW_ON_ERROR
+		);
+
+		return new FoundReport(
+			now()->addDays(30),
+			$reportData
+		);
 	}
 }

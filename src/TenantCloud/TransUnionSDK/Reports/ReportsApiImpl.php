@@ -84,7 +84,7 @@ final class ReportsApiImpl implements ReportsApi
 	/**
 	 * {@inheritdoc}
 	 */
-	public function find(int $requestRenterId, ReportProduct $productType): FoundReport
+	public function findArray(int $requestRenterId, ReportProduct $productType): FoundReport
 	{
 		$jsonResponse = $this->httpClient->get(
 			str_replace('{request_renter_id}', (string) $requestRenterId, self::FIND_REPORT_API_PATH),
@@ -98,21 +98,32 @@ final class ReportsApiImpl implements ReportsApi
 
 		$response = psr_response_to_json($jsonResponse);
 
-		$reportData = $response['reportResponseModelDetails'][0]['reportData'];
+		return new FoundReport(
+			now()->addDays($response['reportsExpireNumberOfDays']),
+			$response['reportResponseModelDetails'][0]['reportData']
+		);
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function find(int $requestRenterId, ReportProduct $productType): FoundReport
+	{
+		$foundReport = $this->findArray($requestRenterId, $productType);
 
 		switch ($productType) {
 			case ReportProduct::$CREDIT:
-				$report = Credit::fromArray($reportData);
+				$report = Credit::fromArray($foundReport->report());
 
 				break;
 
 			case ReportProduct::$EVICTION:
-				$report = Eviction::fromArray($reportData);
+				$report = Eviction::fromArray($foundReport->report());
 
 				break;
 
 			case ReportProduct::$CRIMINAL:
-				$report = Criminal::fromArray($reportData);
+				$report = Criminal::fromArray($foundReport->report());
 
 				break;
 
@@ -120,6 +131,6 @@ final class ReportsApiImpl implements ReportsApi
 				throw new InvalidArgumentException("Report product {$productType} is not supported.");
 		}
 
-		return new FoundReport($response['reportsExpireNumberOfDays'], $report);
+		return new FoundReport($foundReport->expires(), $report);
 	}
 }

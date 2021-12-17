@@ -29,4 +29,15 @@ interface ReportsApi
 	 * @return FoundReport<ReportType>
 	 */
 	public function find(int $requestRenterId, ReportProduct $productType): FoundReport;
+
+	/**
+	 * Find a ready report in array format.
+	 *
+	 * @experimental Will be deleted once {@see find()} is stable.
+	 *
+	 * @param ReportProduct<mixed> $productType
+	 *
+	 * @return FoundReport<array>
+	 */
+	public function findArray(int $requestRenterId, ReportProduct $productType): FoundReport;
 }

@@ -15,7 +15,7 @@ final class CourtAddress implements ArraySerializable
 
 	public ?string $zipCode;
 
-	public ?string $verificationDate;
+	public ?Carbon $verificationDate;
 
 	public ?string $urbanizationName;
 
@@ -87,7 +87,7 @@ final class CourtAddress implements ArraySerializable
 		?string $type,
 		?string $unitType,
 		?string $urbanizationName,
-		?string $verificationDate,
+		?Carbon $verificationDate,
 		?string $zipCode,
 		?string $zipExtensionCode
 	) {

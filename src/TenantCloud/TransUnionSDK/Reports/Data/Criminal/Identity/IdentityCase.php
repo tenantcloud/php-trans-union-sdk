@@ -2,6 +2,7 @@
 
 namespace TenantCloud\TransUnionSDK\Reports\Data\Criminal\Identity;
 
+use Carbon\Carbon;
 use TenantCloud\TransUnionSDK\Shared\ArraySerializationHack\ArraySerializable;
 use TenantCloud\TransUnionSDK\Shared\ArraySerializationHack\ArraySerializationConfig;
 use TenantCloud\TransUnionSDK\Shared\ArraySerializationHack\MagicArraySerializable;
@@ -12,30 +13,30 @@ final class IdentityCase implements ArraySerializable
 
 	public ?string $title;
 
-	public ?string $statusEndDate;
+	public ?Carbon $statusEndDate;
 
 	public ?string $statusDescription;
 
-	public ?string $statusDate;
+	public ?Carbon $statusDate;
 
-	public ?string $statusBeginDate;
+	public ?Carbon $statusBeginDate;
 
 	/** @var Offense[] */
 	public ?array $offenses;
 
 	public ?string $jurisdiction;
 
-	public ?string $filingDate;
+	public ?Carbon $filingDate;
 
 	public ?string $filingAgency;
 
-	public ?string $dispositionDate;
+	public ?Carbon $dispositionDate;
 
 	public ?string $disposition;
 
 	public ?string $county;
 
-	public ?string $completionDate;
+	public ?Carbon $completionDate;
 
 	public ?string $caseNumber;
 
@@ -46,18 +47,18 @@ final class IdentityCase implements ArraySerializable
 	 */
 	public function __construct(
 		?string $caseNumber,
-		?string $completionDate,
+		?Carbon $completionDate,
 		?string $county,
 		?string $disposition,
-		?string $dispositionDate,
+		?Carbon $dispositionDate,
 		?string $filingAgency,
-		?string $filingDate,
+		?Carbon $filingDate,
 		?string $jurisdiction,
 		?array $offenses,
-		?string $statusBeginDate,
-		?string $statusDate,
+		?Carbon $statusBeginDate,
+		?Carbon $statusDate,
 		?string $statusDescription,
-		?string $statusEndDate,
+		?Carbon $statusEndDate,
 		?string $title,
 		?string $type
 	) {
@@ -85,6 +86,32 @@ final class IdentityCase implements ArraySerializable
 			[
 				'offenses' => Offense::class,
 			],
+			[
+				'completionDate' => [
+					// 20200218
+					fn (Carbon $date) => $date->isoFormat('YYYYMMDD'),
+				],
+				'dispositionDate' => [
+					// 20200218
+					fn (Carbon $date) => $date->isoFormat('YYYYMMDD'),
+				],
+				'filingDate' => [
+					// 20200218
+					fn (Carbon $date) => $date->isoFormat('YYYYMMDD'),
+				],
+				'statusBeginDate' => [
+					// 20200218
+					fn (Carbon $date) => $date->isoFormat('YYYYMMDD'),
+				],
+				'statusDate' => [
+					// 20200218
+					fn (Carbon $date) => $date->isoFormat('YYYYMMDD'),
+				],
+				'statusEndDate' => [
+					// 20200218
+					fn (Carbon $date) => $date->isoFormat('YYYYMMDD'),
+				],
+			]
 		);
 	}
 }

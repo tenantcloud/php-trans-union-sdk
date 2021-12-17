@@ -124,6 +124,10 @@ final class Record implements ArraySerializable
 					// 02/18/2020
 					fn (Carbon $date) => $date->isoFormat('MM/DD/YYYY'),
 				],
+				'releaseDate' => [
+					// 02/18/2020
+					fn (Carbon $date) => $date->isoFormat('MM/DD/YYYY'),
+				],
 			]
 		);
 	}

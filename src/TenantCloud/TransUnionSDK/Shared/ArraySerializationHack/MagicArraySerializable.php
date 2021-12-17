@@ -47,7 +47,7 @@ trait MagicArraySerializable
 
 						$deserializeWithType = function (string $type, $value) {
 							if (is_a($type, Carbon::class, true)) {
-								if ($value === 'N/A' || $value === 'XX/XX/XXXX') {
+								if ($value === 'N/A' || $value === 'XX/XX/XXXX' || $value === '') {
 									return null;
 								}
 

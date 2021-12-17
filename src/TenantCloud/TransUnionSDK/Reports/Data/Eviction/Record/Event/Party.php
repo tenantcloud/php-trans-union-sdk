@@ -2,6 +2,7 @@
 
 namespace TenantCloud\TransUnionSDK\Reports\Data\Eviction\Record\Event;
 
+use Carbon\Carbon;
 use TenantCloud\TransUnionSDK\Shared\ArraySerializationHack\ArraySerializable;
 use TenantCloud\TransUnionSDK\Shared\ArraySerializationHack\MagicArraySerializable;
 
@@ -29,13 +30,13 @@ final class Party implements ArraySerializable
 
 	public ?string $firstName;
 
-	public ?string $birthDate;
+	public ?Carbon $birthDate;
 
 	public ?string $address;
 
 	public function __construct(
 		?string $address,
-		?string $birthDate,
+		?Carbon $birthDate,
 		?string $firstName,
 		?string $fullName,
 		?string $gender,

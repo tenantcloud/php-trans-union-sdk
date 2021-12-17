@@ -2,7 +2,9 @@
 
 namespace TenantCloud\TransUnionSDK\Reports\Data\Criminal\Identity;
 
+use Carbon\Carbon;
 use TenantCloud\TransUnionSDK\Shared\ArraySerializationHack\ArraySerializable;
+use TenantCloud\TransUnionSDK\Shared\ArraySerializationHack\ArraySerializationConfig;
 use TenantCloud\TransUnionSDK\Shared\ArraySerializationHack\MagicArraySerializable;
 
 final class Offense implements ArraySerializable
@@ -13,7 +15,7 @@ final class Offense implements ArraySerializable
 
 	public ?string $statute;
 
-	public ?string $statusDate;
+	public ?Carbon $statusDate;
 
 	public ?string $status;
 
@@ -21,25 +23,25 @@ final class Offense implements ArraySerializable
 
 	public ?string $sentenceTerm;
 
-	public ?string $sentenceDate;
+	public ?Carbon $sentenceDate;
 
 	public ?string $probationTerm;
 
-	public ?string $probationDate;
+	public ?Carbon $probationDate;
 
-	public ?string $releaseDate;
+	public ?Carbon $releaseDate;
 
-	public ?string $pleaDate;
+	public ?Carbon $pleaDate;
 
 	public ?string $plea;
 
 	public ?string $paroleTerm;
 
-	public ?string $paroleDate;
+	public ?Carbon $paroleDate;
 
 	public ?string $offenseTypeDescription;
 
-	public ?string $offenseDate;
+	public ?Carbon $offenseDate;
 
 	public ?string $offenseCounty;
 
@@ -55,17 +57,17 @@ final class Offense implements ArraySerializable
 
 	public ?string $fines;
 
-	public ?string $dispositionStatusDate;
+	public ?Carbon $dispositionStatusDate;
 
 	public ?string $dispositionStatus;
 
 	public ?string $dispositionDescription;
 
-	public ?string $dispositionDate;
+	public ?Carbon $dispositionDate;
 
 	public ?string $dispositionCounty;
 
-	public ?string $dispositionConvictionDate;
+	public ?Carbon $dispositionConvictionDate;
 
 	public ?string $description;
 
@@ -77,27 +79,27 @@ final class Offense implements ArraySerializable
 
 	public ?string $chargeModifier;
 
-	public ?string $chargeDate;
+	public ?Carbon $chargeDate;
 
-	public ?string $arrestDate;
+	public ?Carbon $arrestDate;
 
-	public ?string $admittedDate;
+	public ?Carbon $admittedDate;
 
 	public function __construct(
-		?string $admittedDate,
-		?string $arrestDate,
-		?string $chargeDate,
+		?Carbon $admittedDate,
+		?Carbon $arrestDate,
+		?Carbon $chargeDate,
 		?string $chargeModifier,
 		?string $class,
 		?string $courtCosts,
 		?string $degree,
 		?string $description,
-		?string $dispositionConvictionDate,
+		?Carbon $dispositionConvictionDate,
 		?string $dispositionCounty,
-		?string $dispositionDate,
+		?Carbon $dispositionDate,
 		?string $dispositionDescription,
 		?string $dispositionStatus,
-		?string $dispositionStatusDate,
+		?Carbon $dispositionStatusDate,
 		?string $fines,
 		?string $level,
 		?string $maxSentenceTerm,
@@ -105,20 +107,20 @@ final class Offense implements ArraySerializable
 		?string $ncicCode,
 		?int $numberOfCounts,
 		?string $offenseCounty,
-		?string $offenseDate,
+		?Carbon $offenseDate,
 		?string $offenseTypeDescription,
-		?string $paroleDate,
+		?Carbon $paroleDate,
 		?string $paroleTerm,
 		?string $plea,
-		?string $pleaDate,
-		?string $probationDate,
-		?string $releaseDate,
+		?Carbon $pleaDate,
+		?Carbon $probationDate,
+		?Carbon $releaseDate,
 		?string $probationTerm,
-		?string $sentenceDate,
+		?Carbon $sentenceDate,
 		?string $sentenceTerm,
 		?string $sequence,
 		?string $status,
-		?string $statusDate,
+		?Carbon $statusDate,
 		?string $statute,
 		?string $type
 	) {
@@ -159,5 +161,43 @@ final class Offense implements ArraySerializable
 		$this->statusDate = $statusDate;
 		$this->statute = $statute;
 		$this->type = $type;
+	}
+
+	protected static function serializationConfig(): ArraySerializationConfig
+	{
+		return new ArraySerializationConfig(
+			ArraySerializationConfig::pascalSerializedName(),
+			[],
+			[
+				'offenseDate' => [
+					// 20200218
+					fn (Carbon $date) => $date->isoFormat('YYYYMMDD'),
+				],
+				'chargeDate' => [
+					// 20200218
+					fn (Carbon $date) => $date->isoFormat('YYYYMMDD'),
+				],
+				'statusDate' => [
+					// 20200218
+					fn (Carbon $date) => $date->isoFormat('YYYYMMDD'),
+				],
+				'pleaDate' => [
+					// 20200218
+					fn (Carbon $date) => $date->isoFormat('YYYYMMDD'),
+				],
+				'dispositionDate' => [
+					// 20200218
+					fn (Carbon $date) => $date->isoFormat('YYYYMMDD'),
+				],
+				'dispositionStatusDate' => [
+					// 20200218
+					fn (Carbon $date) => $date->isoFormat('YYYYMMDD'),
+				],
+				'sentenceDate' => [
+					// 20200218
+					fn (Carbon $date) => $date->isoFormat('YYYYMMDD'),
+				],
+			]
+		);
 	}
 }

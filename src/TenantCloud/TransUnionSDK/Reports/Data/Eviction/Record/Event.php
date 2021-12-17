@@ -21,11 +21,11 @@ final class Event implements ArraySerializable
 
 	public ?string $type;
 
-	public ?string $satisfactionDate;
+	public ?Carbon $satisfactionDate;
 
 	public ?string $restitutionOfPremises;
 
-	public ?string $responseFiledDate;
+	public ?Carbon $responseFiledDate;
 
 	public ?string $response;
 
@@ -80,7 +80,7 @@ final class Event implements ArraySerializable
 
 	public ?string $disposition;
 
-	public ?string $disposedDate;
+	public ?Carbon $disposedDate;
 
 	public ?string $dismissedType;
 
@@ -104,7 +104,7 @@ final class Event implements ArraySerializable
 
 	public ?string $book;
 
-	public ?string $bankruptcyAssetDisclosureDate;
+	public ?Carbon $bankruptcyAssetDisclosureDate;
 
 	public ?string $assetsAvailableForDistribution;
 
@@ -122,7 +122,7 @@ final class Event implements ArraySerializable
 		?string $amountOrLiability,
 		?string $assets,
 		?string $assetsAvailableForDistribution,
-		?string $bankruptcyAssetDisclosureDate,
+		?Carbon $bankruptcyAssetDisclosureDate,
 		?string $book,
 		?string $caseDescription,
 		?string $caseNumber,
@@ -134,7 +134,7 @@ final class Event implements ArraySerializable
 		?Court $court,
 		?Carbon $dismissalDate,
 		?string $dismissedType,
-		?string $disposedDate,
+		?Carbon $disposedDate,
 		?string $disposition,
 		?string $eventID,
 		?Carbon $filingDate,
@@ -161,9 +161,9 @@ final class Event implements ArraySerializable
 		?Carbon $releaseDate,
 		?string $rentAmount,
 		?string $response,
-		?string $responseFiledDate,
+		?Carbon $responseFiledDate,
 		?string $restitutionOfPremises,
-		?string $satisfactionDate,
+		?Carbon $satisfactionDate,
 		?string $type,
 		?Carbon $vacatedDate,
 		?Carbon $writSatisfiedDate,
@@ -230,6 +230,10 @@ final class Event implements ArraySerializable
 			],
 			[
 				'filingDate' => [
+					// 02/18/2020
+					fn (Carbon $date) => $date->isoFormat('MM/DD/YYYY'),
+				],
+				'releaseDate' => [
 					// 02/18/2020
 					fn (Carbon $date) => $date->isoFormat('MM/DD/YYYY'),
 				],

@@ -4,6 +4,7 @@ namespace TenantCloud\TransUnionSDK\Reports\Data\Credit;
 
 use Carbon\Carbon;
 use TenantCloud\TransUnionSDK\Reports\Data\Credit\Applicant\Address;
+use TenantCloud\TransUnionSDK\Reports\Data\Credit\Applicant\Aka;
 use TenantCloud\TransUnionSDK\Reports\Data\Credit\Applicant\Collection;
 use TenantCloud\TransUnionSDK\Reports\Data\Credit\Applicant\Employment;
 use TenantCloud\TransUnionSDK\Reports\Data\Credit\Applicant\FileSummary;
@@ -77,15 +78,15 @@ final class Applicant implements ArraySerializable
 	/** @var Collection[]|null */
 	public ?array $collections;
 
-	/** @var mixed */
-	public $akas;
+	/** @var Aka[]|null */
+	public ?array $akas;
 
 	/** @var Address[] */
 	public ?array $addresses;
 
 	/**
 	 * @param Address[]           $addresses
-	 * @param mixed               $akas
+	 * @param Aka[]               $akas
 	 * @param Collection[]|null   $collections
 	 * @param mixed               $consumerRightsStatements
 	 * @param mixed               $consumerStatement
@@ -100,7 +101,7 @@ final class Applicant implements ArraySerializable
 	 */
 	public function __construct(
 		?array $addresses,
-		$akas,
+		?array $akas,
 		?array $collections,
 		$consumerRightsStatements,
 		$consumerStatement,
@@ -156,6 +157,7 @@ final class Applicant implements ArraySerializable
 			ArraySerializationConfig::pascalSerializedName(),
 			[
 				'addresses'         => Address::class,
+				'akas'              => Aka::class,
 				'collections'       => Collection::class,
 				'employments'       => Employment::class,
 				'fraudIndicators'   => FraudIndicator::class,
@@ -165,7 +167,6 @@ final class Applicant implements ArraySerializable
 				'tradelines'        => Tradeline::class,
 			],
 			[
-				'akas'                     => ArraySerializationConfig::mixedCustomSerializer(),
 				'consumerRightsStatements' => ArraySerializationConfig::mixedCustomSerializer(),
 				'consumerStatement'        => ArraySerializationConfig::mixedCustomSerializer(),
 				'incomeEstimate'           => ArraySerializationConfig::mixedCustomSerializer(),

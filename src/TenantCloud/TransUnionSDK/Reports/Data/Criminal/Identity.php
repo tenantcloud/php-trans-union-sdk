@@ -3,6 +3,7 @@
 namespace TenantCloud\TransUnionSDK\Reports\Data\Criminal;
 
 use Carbon\Carbon;
+use TenantCloud\TransUnionSDK\Reports\Data\Criminal\Identity\Alias;
 use TenantCloud\TransUnionSDK\Reports\Data\Criminal\Identity\CriminalType;
 use TenantCloud\TransUnionSDK\Reports\Data\Criminal\Identity\IdentityCase;
 use TenantCloud\TransUnionSDK\Reports\Data\Criminal\Identity\IdNumber;
@@ -103,7 +104,7 @@ final class Identity implements ArraySerializable
 
 	public ?int $arrestCount;
 
-	/** @var mixed[] */
+	/** @var Alias[] */
 	public ?array $aliases;
 
 	public ?string $age;
@@ -113,7 +114,7 @@ final class Identity implements ArraySerializable
 	public ?string $address1;
 
 	/**
-	 * @param mixed[]    $aliases
+	 * @param Alias[]    $aliases
 	 * @param IdNumber[] $idNumbers
 	 * @param Offense[]  $offenses
 	 */
@@ -220,7 +221,7 @@ final class Identity implements ArraySerializable
 		return new ArraySerializationConfig(
 			ArraySerializationConfig::pascalSerializedName(),
 			[
-				'aliases'   => 'mixed',
+				'aliases'   => Alias::class,
 				'idNumbers' => IdNumber::class,
 				'offenses'  => Offense::class,
 			],

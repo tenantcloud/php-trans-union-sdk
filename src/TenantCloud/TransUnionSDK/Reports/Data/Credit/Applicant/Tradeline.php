@@ -3,6 +3,7 @@
 namespace TenantCloud\TransUnionSDK\Reports\Data\Credit\Applicant;
 
 use Carbon\Carbon;
+use TenantCloud\TransUnionSDK\Reports\Data\Credit\Applicant\Tradeline\PaymentPatternItem;
 use TenantCloud\TransUnionSDK\Shared\ArraySerializationHack\ArraySerializable;
 use TenantCloud\TransUnionSDK\Shared\ArraySerializationHack\ArraySerializationConfig;
 use TenantCloud\TransUnionSDK\Shared\ArraySerializationHack\MagicArraySerializable;
@@ -47,7 +48,8 @@ final class Tradeline implements ArraySerializable
 
 	public ?Carbon $paymentPatternStartDate;
 
-	public ?string $paymentPattern;
+	/** @var PaymentPatternItem[]|null */
+	public ?array $paymentPattern;
 
 	public ?string $originalCreditor;
 
@@ -111,7 +113,8 @@ final class Tradeline implements ArraySerializable
 	public ?string $accountDesignator;
 
 	/**
-	 * @param mixed $openClosed
+	 * @param mixed                     $openClosed
+	 * @param PaymentPatternItem[]|null $paymentPattern
 	 */
 	public function __construct(
 		?string $accountDesignator,
@@ -144,7 +147,7 @@ final class Tradeline implements ArraySerializable
 		?string $notes,
 		$openClosed,
 		?string $originalCreditor,
-		?string $paymentPattern,
+		?array $paymentPattern,
 		?Carbon $paymentPatternStartDate,
 		?Carbon $previous1Date,
 		?Carbon $previous1Rate,
@@ -221,7 +224,11 @@ final class Tradeline implements ArraySerializable
 			ArraySerializationConfig::pascalSerializedName(),
 			[],
 			[
-				'openClosed' => ArraySerializationConfig::mixedCustomSerializer(),
+				'openClosed'     => ArraySerializationConfig::mixedCustomSerializer(),
+				'paymentPattern' => [
+					fn (array $value)  => implode('', $value),
+					fn (string $value) => array_map(fn (string $item) => PaymentPatternItem::fromValue($item), mb_str_split($value)),
+				],
 			]
 		);
 	}

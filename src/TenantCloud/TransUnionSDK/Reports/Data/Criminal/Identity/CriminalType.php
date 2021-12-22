@@ -9,19 +9,19 @@ use TenantCloud\Standard\Enum\ValueEnum;
  */
 final class CriminalType extends ValueEnum
 {
-	public static self $criminal; //criminal = 'Criminal',
+	public static self $CRIMINAL;
 
-	public static self $ofac; //ofac = 'OFAC',
+	public static self $OFAC;
 
-	public static self $mostWanted; //mostWanted = 'MostWanted',
+	public static self $MOST_WANTED;
 
-	public static self $sexOffender; //sexOffender = 'SexOffender',
+	public static self $SEX_OFFENDER;
 
 	protected static function initializeInstances(): void
 	{
-		self::$criminal = new self('Criminal');
-		self::$ofac = new self('OFAC');
-		self::$mostWanted = new self('MostWanted');
-		self::$sexOffender = new self('SexOffender');
+		self::$CRIMINAL = new self('Criminal');
+		self::$OFAC = new self('OFAC');
+		self::$MOST_WANTED = new self('MostWanted');
+		self::$SEX_OFFENDER = new self('SexOffender');
 	}
 }

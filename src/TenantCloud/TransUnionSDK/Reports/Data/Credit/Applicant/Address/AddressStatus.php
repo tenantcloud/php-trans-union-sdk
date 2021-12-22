@@ -9,16 +9,16 @@ use TenantCloud\Standard\Enum\ValueEnum;
  */
 final class AddressStatus extends ValueEnum
 {
-	public static self $current; //current = 'current',
+	public static self $CURRENT;
 
-	public static self $previous; //previous = 'previous',
+	public static self $PREVIOUS;
 
-	public static self $secondPrevious; //secondPrevious = 'secondPrevious',
+	public static self $SECOND_PREVIOUS;
 
 	protected static function initializeInstances(): void
 	{
-		self::$current = new self('current');
-		self::$previous = new self('previous');
-		self::$secondPrevious = new self('secondPrevious');
+		self::$CURRENT = new self('current');
+		self::$PREVIOUS = new self('previous');
+		self::$SECOND_PREVIOUS = new self('secondPrevious');
 	}
 }

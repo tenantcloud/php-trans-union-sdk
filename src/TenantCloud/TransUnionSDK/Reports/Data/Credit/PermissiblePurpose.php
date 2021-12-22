@@ -9,10 +9,10 @@ use TenantCloud\Standard\Enum\ValueEnum;
  */
 final class PermissiblePurpose extends ValueEnum
 {
-	public static self $tenantScreening; //tenantScreening = 'TenantScreening',
+	public static self $TENANT_SCREENING;
 
 	protected static function initializeInstances(): void
 	{
-		self::$tenantScreening = new self('TenantScreening');
+		self::$TENANT_SCREENING = new self('TenantScreening');
 	}
 }

@@ -37,7 +37,7 @@ interface ReportsApi
 	 *
 	 * @param ReportProduct<mixed> $productType
 	 *
-	 * @return FoundReport<array>
+	 * @return FoundReport<array<string, mixed>>
 	 */
 	public function findArray(int $requestRenterId, ReportProduct $productType): FoundReport;
 }

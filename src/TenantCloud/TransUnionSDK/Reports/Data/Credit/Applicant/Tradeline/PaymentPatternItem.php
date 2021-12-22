@@ -4,6 +4,9 @@ namespace TenantCloud\TransUnionSDK\Reports\Data\Credit\Applicant\Tradeline;
 
 use TenantCloud\Standard\Enum\ValueEnum;
 
+/**
+ * @extends ValueEnum<string>
+ */
 final class PaymentPatternItem extends ValueEnum
 {
 	public static self $NOT_AVAILABLE;

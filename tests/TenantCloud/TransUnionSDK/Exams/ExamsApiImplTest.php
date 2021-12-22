@@ -56,7 +56,7 @@ class ExamsApiImplTest extends TestCase
 	}
 
 	/**
-	 * @return array[][]
+	 * @return array<array{array<string, mixed>}>
 	 */
 	public function requestThrowsManualVerificationRequiredExceptionWhenResponseIsProvider(): array
 	{

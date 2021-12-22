@@ -4,6 +4,10 @@ namespace TenantCloud\TransUnionSDK\Fake;
 
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Filesystem\Filesystem;
+use InvalidArgumentException;
+use TenantCloud\TransUnionSDK\Reports\Data\Credit;
+use TenantCloud\TransUnionSDK\Reports\Data\Criminal;
+use TenantCloud\TransUnionSDK\Reports\Data\Eviction;
 use TenantCloud\TransUnionSDK\Reports\FoundReport;
 use TenantCloud\TransUnionSDK\Reports\ReportDeliveryStatus;
 use TenantCloud\TransUnionSDK\Reports\ReportDeliveryStatusChangedEvent;
@@ -51,8 +55,46 @@ final class FakeReportsApi implements ReportsApi
 	 */
 	public function find(int $requestRenterId, ReportProduct $productType): FoundReport
 	{
-		$report = json_decode($this->filesystem->get(__DIR__ . "/../../../../resources/reports/{$productType}.json"), true, 512, JSON_THROW_ON_ERROR);
+		$foundReport = $this->findArray($requestRenterId, $productType);
 
-		return new FoundReport(30, $report);
+		switch ($productType) {
+			case ReportProduct::$CREDIT:
+				$report = Credit::fromArray($foundReport->report());
+
+				break;
+
+			case ReportProduct::$EVICTION:
+				$report = Eviction::fromArray($foundReport->report());
+
+				break;
+
+			case ReportProduct::$CRIMINAL:
+				$report = Criminal::fromArray($foundReport->report());
+
+				break;
+
+			default:
+				throw new InvalidArgumentException("Report product {$productType} is not supported.");
+		}
+
+		return new FoundReport($foundReport->expires(), $report);
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function findArray(int $requestRenterId, ReportProduct $productType): FoundReport
+	{
+		$reportData = json_decode(
+			$this->filesystem->get(__DIR__ . "/../../../../resources/reports/default/{$productType}.json"),
+			true,
+			512,
+			JSON_THROW_ON_ERROR
+		);
+
+		return new FoundReport(
+			now()->addDays(30),
+			$reportData
+		);
 	}
 }

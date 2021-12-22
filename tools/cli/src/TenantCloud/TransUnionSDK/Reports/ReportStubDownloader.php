@@ -3,8 +3,12 @@
 namespace Dev\TenantCloud\TransUnionSDK\Reports;
 
 use Carbon\Carbon;
+use Dev\TenantCloud\TransUnionSDK\Reports\ReportStubDownloader\PersonDTO;
+use Generator;
 use Illuminate\Filesystem\Filesystem;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
+use InvalidArgumentException;
 use TenantCloud\TransUnionSDK\Client\TransUnionClient;
 use TenantCloud\TransUnionSDK\Exams\RequestExamDTO;
 use TenantCloud\TransUnionSDK\Exams\RequestExamPersonDTO;
@@ -54,104 +58,82 @@ class ReportStubDownloader
 		$this->evictionBundleId = $evictionBundleId;
 	}
 
-	public function downloadAll(): void
+	/**
+	 * @param iterable<array{array<ReportProduct<mixed>>, PersonDTO, string} | array{array<ReportProduct<mixed>>, PersonDTO}> $people
+	 *
+	 * @return Generator<int, array{PersonDTO, ReportProduct<mixed>}>
+	 */
+	public function downloadAll(iterable $people): Generator
 	{
 		$landlordId = $this->createLandlord();
 		$propertyId = $this->createProperty($landlordId);
 
-		$this->download(
-			$landlordId,
-			$propertyId,
-			$this->creditBundleId,
-			ReportProduct::$CREDIT,
-			CreateRenterDTO::create()
-				->setPerson(
-					CreateRenterPersonDTO::create()
-						->setFirstName('Chapoton')
-						->setLastName('John')
-						->setDateOfBirth(Carbon::createFromDate(1970, 8, 15))
-						->setPhoneNumber('18143008317')
-						->setPhoneType(PhoneType::$MOBILE)
-						->setSocialSecurityNumber('666221955')
-						->setHomeAddress(
-							AddressDTO::create()
-								->setAddressLine1('5962 N Black River')
-								->setLocality('Cheboygan')
-								->setRegion('MI')
-								->setCountry('US')
-								->setPostalCode('49721')
+		foreach ($people as $data) {
+			/** @var iterable<ReportProduct<mixed>> $products */
+			/** @var PersonDTO $person */
+			[$products, $person] = $data;
+
+			$identifier = $data[2] ?? $person->socialSecurityNumber;
+
+			foreach ($products as $product) {
+				$this->download(
+					$landlordId,
+					$propertyId,
+					$identifier,
+					$product,
+					CreateRenterDTO::create()
+						->setPerson(
+							CreateRenterPersonDTO::create()
+								->setFirstName($person->firstName)
+								->setLastName($person->lastName)
+								->setDateOfBirth($person->dateOfBirth)
+								->setPhoneNumber('18143008317')
+								->setPhoneType(PhoneType::$MOBILE)
+								->setSocialSecurityNumber($person->socialSecurityNumber)
+								->setHomeAddress(
+									AddressDTO::create()
+										->setAddressLine1('5962 N Black River')
+										->setLocality('Cheboygan')
+										->setRegion('MI')
+										->setCountry('US')
+										->setPostalCode('49721')
+								)
+								->setAcceptedTermsAndConditions(true)
 						)
-						->setAcceptedTermsAndConditions(true)
-				)
-				->setIncomeFrequency(IncomeFrequency::$PER_MONTH)
-				->setOtherIncomeFrequency(IncomeFrequency::$PER_MONTH)
-				->setEmploymentStatus(EmploymentStatus::$EMPLOYED)
-		);
-		$this->download(
-			$landlordId,
-			$propertyId,
-			$this->criminalBundleId,
-			ReportProduct::$CRIMINAL,
-			CreateRenterDTO::create()
-				->setPerson(
-					CreateRenterPersonDTO::create()
-						->setFirstName('Jacfirst')
-						->setLastName('Beclast')
-						->setDateOfBirth(Carbon::createFromDate(1970, 8, 15))
-						->setPhoneNumber('18143008317')
-						->setPhoneType(PhoneType::$MOBILE)
-						->setSocialSecurityNumber('999010001')
-						->setHomeAddress(
-							AddressDTO::create()
-								->setAddressLine1('5001 N Interstate Ave')
-								->setLocality('Portland')
-								->setRegion('OR')
-								->setCountry('US')
-								->setPostalCode('97217')
-						)
-						->setAcceptedTermsAndConditions(true)
-				)
-				->setIncomeFrequency(IncomeFrequency::$PER_MONTH)
-				->setOtherIncomeFrequency(IncomeFrequency::$PER_MONTH)
-				->setEmploymentStatus(EmploymentStatus::$EMPLOYED)
-		);
-		$this->download(
-			$landlordId,
-			$propertyId,
-			$this->evictionBundleId,
-			ReportProduct::$EVICTION,
-			CreateRenterDTO::create()
-				->setPerson(
-					CreateRenterPersonDTO::create()
-						->setFirstName('Test')
-						->setLastName('Tenant')
-						->setDateOfBirth(Carbon::createFromDate(1940, 1, 1))
-						->setPhoneNumber('18143008317')
-						->setPhoneType(PhoneType::$MOBILE)
-						->setSocialSecurityNumber('999912345')
-						->setHomeAddress(
-							AddressDTO::create()
-								->setAddressLine1('123 Example Ave')
-								->setLocality('Pleasantville')
-								->setRegion('OH')
-								->setCountry('US')
-								->setPostalCode('99123')
-						)
-						->setAcceptedTermsAndConditions(true)
-				)
-				->setIncomeFrequency(IncomeFrequency::$PER_MONTH)
-				->setOtherIncomeFrequency(IncomeFrequency::$PER_MONTH)
-				->setEmploymentStatus(EmploymentStatus::$EMPLOYED)
-		);
+						->setIncomeFrequency(IncomeFrequency::$PER_MONTH)
+						->setOtherIncomeFrequency(IncomeFrequency::$PER_MONTH)
+						->setEmploymentStatus(EmploymentStatus::$EMPLOYED)
+				);
+
+				yield [$person, $product];
+			}
+		}
 	}
 
+	/**
+	 * @param ReportProduct<mixed> $reportProduct
+	 */
 	private function download(
 		int $landlordId,
 		int $propertyId,
-		int $bundleId,
+		string $identifier,
 		ReportProduct $reportProduct,
 		CreateRenterDTO $renterData
 	): void {
+		switch ($reportProduct) {
+			case ReportProduct::$CREDIT:
+				$bundleId = $this->creditBundleId;
+				break;
+			case ReportProduct::$CRIMINAL:
+				$bundleId = $this->criminalBundleId;
+				break;
+			case ReportProduct::$EVICTION:
+				$bundleId = $this->evictionBundleId;
+				break;
+			default:
+				throw new InvalidArgumentException();
+		}
+
 		// Create renter
 		$renterId = $this->client
 			->renters()
@@ -216,9 +198,9 @@ class ReportStubDownloader
 			->find($requestRenterId, $reportProduct);
 
 		// Save
-		$dir = __DIR__ . '/../../../../../../resources/reports';
+		$dir = __DIR__ . '/../../../../../../resources/reports/' . $identifier;
 		$this->filesystem->ensureDirectoryExists($dir);
-		$this->filesystem->put("{$dir}/{$reportProduct}.json", json_encode($report->report(), JSON_THROW_ON_ERROR));
+		$this->filesystem->put("{$dir}/{$reportProduct}.json", json_encode($report->report(), JSON_THROW_ON_ERROR | JSON_PRESERVE_ZERO_FRACTION | JSON_PRETTY_PRINT));
 	}
 
 	private function createLandlord(): int

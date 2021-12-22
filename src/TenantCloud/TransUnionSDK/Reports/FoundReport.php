@@ -19,9 +19,9 @@ final class FoundReport
 	/**
 	 * @param R $report
 	 */
-	public function __construct(int $reportsExpireInDays, $report)
+	public function __construct(Carbon $expires, $report)
 	{
-		$this->expires = now()->addDays($reportsExpireInDays);
+		$this->expires = $expires;
 		$this->report = $report;
 	}
 

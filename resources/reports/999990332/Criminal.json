@@ -1,0 +1,32 @@
+{
+    "RequestedConsumer": {
+        "FirstName": "Mountain",
+        "MiddleName": null,
+        "LastName": "Lion",
+        "Address": {
+            "AddressLine1": "5962 N Black River",
+            "AddressLine2": null,
+            "AddressLine3": null,
+            "AddressLine4": null,
+            "Locality": "Cheboygan",
+            "Region": "MI",
+            "PostalCode": "49721",
+            "Country": null
+        },
+        "GenerationalSuffix": null
+    },
+    "CriminalIdentityCount": 0,
+    "SexOffenderIdentityCount": 0,
+    "MostWantedIdentityCount": 0,
+    "OFACIdentityCount": 0,
+    "OtherIdentityCount": 0,
+    "Identities": [],
+    "CreatedOn": "2021-12-09T09:04:25.2901341-06:00",
+    "Disclaimers": [
+        {
+            "Key": "CriminalFCRA",
+            "Value": "All data provided is intended solely for the customer who initially receives such data from the provider. The provider cannot guarantee or warrant the accuracy, correctness, or completeness of the data. The provider delivers all data to customers on an 'as is' 'as available' basis without any express or implied warranty, guaranty, or representation of any kind concerning the data itself, its merchantability, or its fitness for a particular purpose or function. Neither the provider nor any of their affiliates shall be liable for any damages of whatever kind may result from the customer's reliance on (or use of) the data provided, even if the provider, or any of their affiliates has been alerted to the possibility of such damages. The data information may include records that have been expunged, sealed, or otherwise have become inaccessible to the public since that date. By accessing any such data, the customer acknowledges and agrees that the customer has not relied on anything that may be inconsistent with this Legal Statement."
+        }
+    ],
+    "PermissiblePurpose": "TenantScreening"
+}

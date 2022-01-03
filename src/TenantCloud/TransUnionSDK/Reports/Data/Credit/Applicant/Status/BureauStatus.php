@@ -11,11 +11,11 @@ final class BureauStatus implements ArraySerializable
 {
 	use MagicArraySerializable;
 
-	/** @var BureauCodeData[] */
+	/** @var array<BureauCodeData|null>|null */
 	public ?array $code;
 
 	/**
-	 * @param BureauCodeData[] $code
+	 * @param array<BureauCodeData|null>|null $code
 	 */
 	public function __construct(
 		?array $code

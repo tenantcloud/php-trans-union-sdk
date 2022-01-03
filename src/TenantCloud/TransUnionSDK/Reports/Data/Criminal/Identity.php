@@ -100,7 +100,7 @@ final class Identity implements ArraySerializable
 
 	public ?string $birthPlace;
 
-	public ?Carbon $birthDate;
+	public ?string $birthDate;
 
 	public ?int $arrestCount;
 
@@ -124,7 +124,7 @@ final class Identity implements ArraySerializable
 		?string $age,
 		?array $aliases,
 		?int $arrestCount,
-		?Carbon $birthDate,
+		?string $birthDate,
 		?string $birthPlace,
 		?string $bodyBuild,
 		?int $bookingCount,
@@ -226,10 +226,6 @@ final class Identity implements ArraySerializable
 				'offenses'  => Offense::class,
 			],
 			[
-				'birthDate' => [
-					// 02/18/2020
-					fn (Carbon $date) => $date->isoFormat('MM/DD/YYYY'),
-				],
 				'dateTimeModified' => [
 					// 02/18/2020 16:50:15
 					fn (Carbon $date) => $date->isoFormat('MM/DD/YYYY HH:mm:ss'),

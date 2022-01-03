@@ -4,6 +4,7 @@ namespace TenantCloud\TransUnionSDK\Reports\Data\Eviction\Record\Event;
 
 use Carbon\Carbon;
 use TenantCloud\TransUnionSDK\Shared\ArraySerializationHack\ArraySerializable;
+use TenantCloud\TransUnionSDK\Shared\ArraySerializationHack\ArraySerializationConfig;
 use TenantCloud\TransUnionSDK\Shared\ArraySerializationHack\MagicArraySerializable;
 
 final class Party implements ArraySerializable
@@ -32,10 +33,14 @@ final class Party implements ArraySerializable
 
 	public ?Carbon $birthDate;
 
-	public ?string $address;
+	/** @var mixed|null */
+	public $address;
 
+	/**
+	 * @param mixed|null $address
+	 */
 	public function __construct(
-		?string $address,
+		$address,
 		?Carbon $birthDate,
 		?string $firstName,
 		?string $fullName,
@@ -60,5 +65,16 @@ final class Party implements ArraySerializable
 		$this->sSN = $sSN;
 		$this->suffix = $suffix;
 		$this->type = $type;
+	}
+
+	protected static function serializationConfig(): ArraySerializationConfig
+	{
+		return new ArraySerializationConfig(
+			ArraySerializationConfig::pascalSerializedName(),
+			[],
+			[
+				'address' => ArraySerializationConfig::mixedCustomSerializer(),
+			]
+		);
 	}
 }

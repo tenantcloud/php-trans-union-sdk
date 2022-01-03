@@ -46,6 +46,10 @@ trait MagicArraySerializable
 						$type = $type->getName();
 
 						$deserializeWithType = function (string $type, $value) {
+							if ($value === null) {
+								return null;
+							}
+
 							if (is_a($type, Carbon::class, true)) {
 								if ($value === 'N/A' || $value === 'XX/XX/XXXX' || $value === '') {
 									return null;
@@ -141,6 +145,10 @@ trait MagicArraySerializable
 						$type = $type->getName();
 
 						$serializeWithType = function (string $type, $value) {
+							if ($value === null) {
+								return null;
+							}
+
 							if (is_a($type, Carbon::class, true)) {
 								// 2019-10-01T00:00:00
 								return $value->toDateTimeLocalString();

@@ -15,6 +15,9 @@ final class FakeRequestRentersApi implements RequestRentersApi
 	/** @var array<int, array<int>> */
 	private array $requestRentersPerPerson = [];
 
+	/** @var array<int, CreateRequestRenterDTO> */
+	private array $requestPerId = [];
+
 	private FakeTransUnionClient $client;
 
 	public function __construct(FakeTransUnionClient $client)
@@ -33,6 +36,7 @@ final class FakeRequestRentersApi implements RequestRentersApi
 			...($this->requestRentersPerPerson[$data->getRenterId()] ?? []),
 			$id,
 		];
+		$this->requestPerId[$id] = $data;
 
 		return $id;
 	}
@@ -66,5 +70,13 @@ final class FakeRequestRentersApi implements RequestRentersApi
 	public function byRenter(int $id): array
 	{
 		return $this->requestRentersPerPerson[$id] ?? [];
+	}
+
+	/**
+	 * Get request renter by ID.
+	 */
+	public function byId(int $id): ?CreateRequestRenterDTO
+	{
+		return $this->requestPerId[$id] ?? null;
 	}
 }

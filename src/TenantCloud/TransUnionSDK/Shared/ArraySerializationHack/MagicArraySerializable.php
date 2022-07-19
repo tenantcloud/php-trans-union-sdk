@@ -28,7 +28,7 @@ trait MagicArraySerializable
 	{
 		$config = static::serializationConfig();
 
-		/** @var Collection<mixed> $values */
+		/** @var Collection<int, mixed> $values */
 		$values = static::constructorParameters()
 			->map(function (ReflectionParameter $parameter) use ($config, $data) {
 				$serializedName = ($config->serializedName)($parameter->getName());
@@ -99,7 +99,7 @@ trait MagicArraySerializable
 	}
 
 	/**
-	 * @return Collection<ReflectionProperty>
+	 * @return Collection<int, ReflectionProperty>
 	 */
 	private static function properties(): Collection
 	{
@@ -110,7 +110,7 @@ trait MagicArraySerializable
 	}
 
 	/**
-	 * @return Collection<ReflectionParameter>
+	 * @return Collection<int, ReflectionParameter>
 	 */
 	private static function constructorParameters(): Collection
 	{

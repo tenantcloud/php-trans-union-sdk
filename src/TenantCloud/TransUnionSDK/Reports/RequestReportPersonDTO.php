@@ -11,12 +11,19 @@ use TenantCloud\TransUnionSDK\Shared\PhoneType;
 /**
  * @method int  getPersonId()
  * @method self setPersonId(int $renterId)
+ * @method string getEmailAddress()
  * @method self setEmailAddress(string $email)
+ * @method string getFirstName()
  * @method self setFirstName(string $name)
+ * @method string getMiddleName()
  * @method self setMiddleName(string $name)
+ * @method string getLastName()
  * @method self setLastName(string $name)
+ * @method string getPhoneNumber()
  * @method self setPhoneNumber(string $number)
+ * @method string getSocialSecurityNumber()
  * @method self setSocialSecurityNumber(string $ssn)
+ * @method bool getAcceptedTermsAndConditions()
  * @method self setAcceptedTermsAndConditions(bool $value)
  */
 final class RequestReportPersonDTO extends CamelDataTransferObject

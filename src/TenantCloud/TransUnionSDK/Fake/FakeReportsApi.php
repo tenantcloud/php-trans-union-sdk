@@ -101,6 +101,9 @@ final class FakeReportsApi implements ReportsApi
 		);
 	}
 
+	/**
+	 * @return array<ReportProduct>|null
+	 */
 	private function availableTypesFromRenterName(int $requestRenterId): ?array
 	{
 		$requestRenter = $this->transUnionClient

@@ -52,7 +52,7 @@ final class FakeRentersApi implements RentersApi
 		$this->dataPerId[$id] = $newData;
 	}
 
-	public function byId($id): ?RequestReportPersonDTO
+	public function byId(int $id): ?RequestReportPersonDTO
 	{
 		return $this->dataPerId[$id] ?? null;
 	}

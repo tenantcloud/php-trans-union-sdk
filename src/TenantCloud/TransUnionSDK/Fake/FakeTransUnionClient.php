@@ -32,7 +32,7 @@ final class FakeTransUnionClient implements TransUnionClient
 		$this->rentersApi = new FakeRentersApi($this);
 		$this->propertiesApi = new FakePropertiesApi();
 		$this->requestsApi = new FakeRequestsApi($this);
-		$this->reportsApi = new FakeReportsApi($eventDispatcher, $filesystem);
+		$this->reportsApi = new FakeReportsApi($this, $eventDispatcher, $filesystem);
 		$this->tokensApi = new FakeTokensApi();
 	}
 

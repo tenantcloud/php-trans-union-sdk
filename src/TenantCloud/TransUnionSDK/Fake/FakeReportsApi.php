@@ -20,12 +20,15 @@ use TenantCloud\TransUnionSDK\Reports\RequestReportDTO;
  */
 final class FakeReportsApi implements ReportsApi
 {
+	private FakeTransUnionClient $transUnionClient;
+
 	private Dispatcher $dispatcher;
 
 	private Filesystem $filesystem;
 
-	public function __construct(Dispatcher $dispatcher, Filesystem $filesystem)
+	public function __construct(FakeTransUnionClient $transUnionClient, Dispatcher $dispatcher, Filesystem $filesystem)
 	{
+		$this->transUnionClient = $transUnionClient;
 		$this->dispatcher = $dispatcher;
 		$this->filesystem = $filesystem;
 	}
@@ -43,7 +46,7 @@ final class FakeReportsApi implements ReportsApi
 	 */
 	public function availableTypes(int $requestRenterId): array
 	{
-		return [
+		return $this->availableTypesFromRenterName($requestRenterId) ?? [
 			ReportProduct::$CREDIT,
 			ReportProduct::$CRIMINAL,
 			ReportProduct::$EVICTION,
@@ -95,6 +98,43 @@ final class FakeReportsApi implements ReportsApi
 		return new FoundReport(
 			now()->addDays(30),
 			$reportData
+		);
+	}
+
+	private function availableTypesFromRenterName(int $requestRenterId): ?array
+	{
+		$requestRenter = $this->transUnionClient
+			->requests()
+			->renters()
+			->byId($requestRenterId);
+
+		if (!$requestRenter) {
+			return null;
+		}
+
+		$renter = $this->transUnionClient
+			->renters()
+			->byId($requestRenter->getRenterId());
+
+		if (!$renter) {
+			return null;
+		}
+
+		$haystack = $renter->getLastName();
+
+		if (!str_starts_with($haystack, 'Only')) {
+			return null;
+		}
+
+		return array_filter(
+			array_map(
+				fn (array $pair) => str_contains($haystack, $pair[0]) ? $pair[1] : null,
+				[
+					['credit', ReportProduct::$CREDIT],
+					['criminal', ReportProduct::$CRIMINAL],
+					['eviction', ReportProduct::$EVICTION],
+				]
+			)
 		);
 	}
 }

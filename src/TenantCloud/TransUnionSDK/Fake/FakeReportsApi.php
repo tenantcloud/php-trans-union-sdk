@@ -102,7 +102,7 @@ final class FakeReportsApi implements ReportsApi
 	}
 
 	/**
-	 * @return array<ReportProduct>|null
+	 * @return array<ReportProduct<mixed>>|null
 	 */
 	private function availableTypesFromRenterName(int $requestRenterId): ?array
 	{

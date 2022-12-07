@@ -23,7 +23,7 @@ final class RequestsApiImpl implements RequestsApi
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * @inheritDoc
 	 */
 	public function renters(): RequestRentersApi
 	{
@@ -31,7 +31,7 @@ final class RequestsApiImpl implements RequestsApi
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * @inheritDoc
 	 */
 	public function create(CreateRequestDTO $data): int
 	{

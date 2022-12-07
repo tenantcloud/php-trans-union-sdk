@@ -1,9 +1,9 @@
 <?php
 
-namespace Dev\TenantCloud\TransUnionSDK;
+namespace cli\src\TenantCloud\TransUnionSDK;
 
-use Dev\TenantCloud\TransUnionSDK\Reports\DownloadStubsCommand;
-use Dev\TenantCloud\TransUnionSDK\Reports\ReportStubDownloader;
+use cli\src\TenantCloud\TransUnionSDK\Reports\DownloadStubsCommand;
+use cli\src\TenantCloud\TransUnionSDK\Reports\ReportStubDownloader;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\ServiceProvider;

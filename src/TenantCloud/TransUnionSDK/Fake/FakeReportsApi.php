@@ -34,7 +34,7 @@ final class FakeReportsApi implements ReportsApi
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * @inheritDoc
 	 */
 	public function request(RequestReportDTO $data): void
 	{
@@ -42,7 +42,7 @@ final class FakeReportsApi implements ReportsApi
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * @inheritDoc
 	 */
 	public function availableTypes(int $requestRenterId): array
 	{
@@ -54,7 +54,7 @@ final class FakeReportsApi implements ReportsApi
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * @inheritDoc
 	 */
 	public function find(int $requestRenterId, ReportProduct $productType): FoundReport
 	{
@@ -84,7 +84,7 @@ final class FakeReportsApi implements ReportsApi
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * @inheritDoc
 	 */
 	public function findArray(int $requestRenterId, ReportProduct $productType): FoundReport
 	{

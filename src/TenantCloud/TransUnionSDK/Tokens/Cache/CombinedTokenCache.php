@@ -21,7 +21,7 @@ final class CombinedTokenCache implements TokenCache
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * @inheritDoc
 	 */
 	public function get(string $clientId): ?Token
 	{
@@ -37,7 +37,7 @@ final class CombinedTokenCache implements TokenCache
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * @inheritDoc
 	 */
 	public function set(string $clientId, Token $token): void
 	{
@@ -47,7 +47,7 @@ final class CombinedTokenCache implements TokenCache
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * @inheritDoc
 	 */
 	public function unset(string $clientId): void
 	{

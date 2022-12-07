@@ -23,7 +23,7 @@ final class RentersApiImpl implements RentersApi
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * @inheritDoc
 	 */
 	public function create(CreateRenterDTO $data): int
 	{
@@ -46,7 +46,7 @@ final class RentersApiImpl implements RentersApi
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * @inheritDoc
 	 */
 	public function update($id, CreateRenterDTO $data): void
 	{

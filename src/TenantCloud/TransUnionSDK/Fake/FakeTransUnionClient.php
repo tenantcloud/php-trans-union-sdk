@@ -37,7 +37,7 @@ final class FakeTransUnionClient implements TransUnionClient
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * @inheritDoc
 	 */
 	public function isTestMode(): bool
 	{
@@ -45,7 +45,7 @@ final class FakeTransUnionClient implements TransUnionClient
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * @inheritDoc
 	 */
 	public function exams(): FakeExamsApi
 	{
@@ -53,7 +53,7 @@ final class FakeTransUnionClient implements TransUnionClient
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * @inheritDoc
 	 */
 	public function landlords(): FakeLandlordsApi
 	{
@@ -61,7 +61,7 @@ final class FakeTransUnionClient implements TransUnionClient
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * @inheritDoc
 	 */
 	public function renters(): FakeRentersApi
 	{
@@ -69,7 +69,7 @@ final class FakeTransUnionClient implements TransUnionClient
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * @inheritDoc
 	 */
 	public function properties(): FakePropertiesApi
 	{
@@ -77,7 +77,7 @@ final class FakeTransUnionClient implements TransUnionClient
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * @inheritDoc
 	 */
 	public function requests(): FakeRequestsApi
 	{
@@ -85,7 +85,7 @@ final class FakeTransUnionClient implements TransUnionClient
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * @inheritDoc
 	 */
 	public function reports(): FakeReportsApi
 	{
@@ -93,7 +93,7 @@ final class FakeTransUnionClient implements TransUnionClient
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * @inheritDoc
 	 */
 	public function tokens(): FakeTokensApi
 	{

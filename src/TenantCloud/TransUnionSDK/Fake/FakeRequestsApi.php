@@ -18,7 +18,7 @@ final class FakeRequestsApi implements RequestsApi
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * @inheritDoc
 	 */
 	public function renters(): FakeRequestRentersApi
 	{
@@ -26,7 +26,7 @@ final class FakeRequestsApi implements RequestsApi
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * @inheritDoc
 	 */
 	public function create(CreateRequestDTO $data): int
 	{

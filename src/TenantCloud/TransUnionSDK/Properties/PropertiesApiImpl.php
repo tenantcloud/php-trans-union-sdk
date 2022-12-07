@@ -22,7 +22,7 @@ final class PropertiesApiImpl implements PropertiesApi
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * @inheritDoc
 	 */
 	public function create(CreatePropertyDTO $data): int
 	{
@@ -39,7 +39,7 @@ final class PropertiesApiImpl implements PropertiesApi
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * @inheritDoc
 	 */
 	public function update($id, CreatePropertyDTO $data): void
 	{

@@ -20,7 +20,7 @@ use TenantCloud\TransUnionSDK\Shared\PhoneType;
  */
 final class CreateLandlordDTO extends CamelDataTransferObject
 {
-	/** {@inheritdoc} */
+	/** @inheritDoc */
 	protected array $fields = [
 		'landlordId',
 		'emailAddress',

@@ -13,7 +13,7 @@ final class InMemoryTokenCache implements TokenCache
 	private $tokens;
 
 	/**
-	 * {@inheritdoc}
+	 * @inheritDoc
 	 */
 	public function get(string $clientId): ?Token
 	{
@@ -29,7 +29,7 @@ final class InMemoryTokenCache implements TokenCache
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * @inheritDoc
 	 */
 	public function set(string $clientId, Token $token): void
 	{
@@ -37,7 +37,7 @@ final class InMemoryTokenCache implements TokenCache
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * @inheritDoc
 	 */
 	public function unset(string $clientId): void
 	{

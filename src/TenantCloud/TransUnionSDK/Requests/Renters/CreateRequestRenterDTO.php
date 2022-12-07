@@ -21,7 +21,7 @@ use TenantCloud\DataTransferObjects\CamelDataTransferObject;
  */
 final class CreateRequestRenterDTO extends CamelDataTransferObject
 {
-	/** {@inheritdoc} */
+	/** @inheritDoc */
 	protected array $fields = [
 		'requestId',
 		'landlordId',

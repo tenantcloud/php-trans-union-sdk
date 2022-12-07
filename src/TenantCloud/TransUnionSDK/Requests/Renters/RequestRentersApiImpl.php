@@ -24,7 +24,7 @@ final class RequestRentersApiImpl implements RequestRentersApi
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * @inheritDoc
 	 */
 	public function create(CreateRequestRenterDTO $data): int
 	{
@@ -41,7 +41,7 @@ final class RequestRentersApiImpl implements RequestRentersApi
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * @inheritDoc
 	 */
 	public function cancel(int $id): void
 	{
@@ -49,7 +49,7 @@ final class RequestRentersApiImpl implements RequestRentersApi
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * @inheritDoc
 	 */
 	public function isVerified(int $id, RequestReportPersonDTO $data): bool
 	{

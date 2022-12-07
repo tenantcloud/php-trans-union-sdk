@@ -14,7 +14,7 @@ use TenantCloud\TransUnionSDK\Shared\IncomeFrequency;
  */
 final class CreateRenterDTO extends CamelDataTransferObject
 {
-	/** {@inheritdoc} */
+	/** @inheritDoc */
 	protected array $fields = [
 		'person',
 		'income',

@@ -14,7 +14,7 @@ final class RenterRole extends ValueEnum
 	public static self $CO_SIGNER;
 
 	/**
-	 * {@inheritdoc}
+	 * @inheritDoc
 	 */
 	protected static function initializeInstances(): void
 	{

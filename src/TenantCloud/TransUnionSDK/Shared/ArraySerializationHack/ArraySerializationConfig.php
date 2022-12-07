@@ -14,8 +14,8 @@ class ArraySerializationConfig
 	public array $custom;
 
 	/**
-	 * @param callable(string): string                                               $serializedName
-	 * @param array<string, string>                                                  $arrays
+	 * @param callable(string): string $serializedName
+	 * @param array<string, string>    $arrays
 	 * @param array<string, array{callable | null, callable | null}|array{callable}> $custom
 	 */
 	public function __construct(

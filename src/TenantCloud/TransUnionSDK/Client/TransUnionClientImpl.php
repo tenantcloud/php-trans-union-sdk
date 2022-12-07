@@ -94,7 +94,7 @@ final class TransUnionClientImpl implements TransUnionClient
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * @inheritDoc
 	 */
 	public function isTestMode(): bool
 	{
@@ -102,7 +102,7 @@ final class TransUnionClientImpl implements TransUnionClient
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * @inheritDoc
 	 */
 	public function exams(): ExamsApi
 	{
@@ -110,7 +110,7 @@ final class TransUnionClientImpl implements TransUnionClient
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * @inheritDoc
 	 */
 	public function landlords(): LandlordsApi
 	{
@@ -118,7 +118,7 @@ final class TransUnionClientImpl implements TransUnionClient
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * @inheritDoc
 	 */
 	public function renters(): RentersApi
 	{
@@ -126,7 +126,7 @@ final class TransUnionClientImpl implements TransUnionClient
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * @inheritDoc
 	 */
 	public function tokens(): TokensApi
 	{
@@ -134,7 +134,7 @@ final class TransUnionClientImpl implements TransUnionClient
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * @inheritDoc
 	 */
 	public function properties(): PropertiesApi
 	{
@@ -142,7 +142,7 @@ final class TransUnionClientImpl implements TransUnionClient
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * @inheritDoc
 	 */
 	public function requests(): RequestsApi
 	{
@@ -150,7 +150,7 @@ final class TransUnionClientImpl implements TransUnionClient
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * @inheritDoc
 	 */
 	public function reports(): ReportsApi
 	{

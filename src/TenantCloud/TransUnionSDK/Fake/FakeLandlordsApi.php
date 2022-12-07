@@ -11,7 +11,7 @@ use TenantCloud\TransUnionSDK\Landlords\LandlordsApi;
 final class FakeLandlordsApi implements LandlordsApi
 {
 	/**
-	 * {@inheritdoc}
+	 * @inheritDoc
 	 */
 	public function create(CreateLandlordDTO $data): int
 	{
@@ -19,7 +19,7 @@ final class FakeLandlordsApi implements LandlordsApi
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * @inheritDoc
 	 */
 	public function update($id, CreateLandlordDTO $data): void
 	{

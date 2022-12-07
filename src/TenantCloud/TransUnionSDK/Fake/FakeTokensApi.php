@@ -12,7 +12,7 @@ use TenantCloud\TransUnionSDK\Tokens\TokensApi;
 final class FakeTokensApi implements TokensApi
 {
 	/**
-	 * {@inheritdoc}
+	 * @inheritDoc
 	 */
 	public function create(string $clientId, string $apiKey): Token
 	{

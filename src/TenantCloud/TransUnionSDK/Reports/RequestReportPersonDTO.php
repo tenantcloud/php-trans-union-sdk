@@ -28,7 +28,7 @@ use TenantCloud\TransUnionSDK\Shared\PhoneType;
  */
 final class RequestReportPersonDTO extends CamelDataTransferObject
 {
-	/** {@inheritdoc} */
+	/** @inheritDoc */
 	protected array $fields = [
 		'personId',
 		'emailAddress',

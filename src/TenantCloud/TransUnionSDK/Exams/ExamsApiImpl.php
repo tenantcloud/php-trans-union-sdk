@@ -34,7 +34,7 @@ final class ExamsApiImpl implements ExamsApi
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * @inheritDoc
 	 */
 	public function request(RequestExamDTO $data): ExamRequest
 	{
@@ -78,7 +78,7 @@ final class ExamsApiImpl implements ExamsApi
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * @inheritDoc
 	 */
 	public function submitAnswers(SubmitExamAnswersDTO $data): void
 	{

@@ -31,7 +31,7 @@ final class FakeExamsApi implements ExamsApi
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * @inheritDoc
 	 */
 	public function request(RequestExamDTO $data): ExamRequest
 	{
@@ -61,7 +61,7 @@ final class FakeExamsApi implements ExamsApi
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * @inheritDoc
 	 */
 	public function submitAnswers(SubmitExamAnswersDTO $data): void
 	{

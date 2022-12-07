@@ -22,7 +22,7 @@ final class TokensApiImpl implements TokensApi
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * @inheritDoc
 	 */
 	public function create(string $clientId, string $apiKey): Token
 	{

@@ -14,7 +14,7 @@ final class ReportDeliveryStatus extends ValueEnum
 	public static self $UPDATED;
 
 	/**
-	 * {@inheritdoc}
+	 * @inheritDoc
 	 */
 	protected static function initializeInstances(): void
 	{

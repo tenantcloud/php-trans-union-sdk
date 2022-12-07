@@ -1,9 +1,9 @@
 <?php
 
-namespace Dev\TenantCloud\TransUnionSDK\Reports;
+namespace cli\src\TenantCloud\TransUnionSDK\Reports;
 
 use Carbon\Carbon;
-use Dev\TenantCloud\TransUnionSDK\Reports\ReportStubDownloader\PersonDTO;
+use cli\src\TenantCloud\TransUnionSDK\Reports\ReportStubDownloader\PersonDTO;
 use Generator;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Arr;

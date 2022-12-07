@@ -14,7 +14,7 @@ use TenantCloud\DataTransferObjects\CamelDataTransferObject;
  */
 final class SubmitExamAnswersDTO extends CamelDataTransferObject
 {
-	/** {@inheritdoc} */
+	/** @inheritDoc */
 	protected array $fields = [
 		'requestRenterId',
 		'examId',

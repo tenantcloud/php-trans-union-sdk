@@ -22,7 +22,7 @@ use TenantCloud\TransUnionSDK\Shared\PhoneType;
  */
 final class CreateRenterPersonDTO extends CamelDataTransferObject
 {
-	/** {@inheritdoc} */
+	/** @inheritDoc */
 	protected array $fields = [
 		'personId',
 		'emailAddress',

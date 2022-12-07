@@ -14,7 +14,7 @@ final class ManualVerificationStatus extends ValueEnum
 	public static self $AUTHENTICATED;
 
 	/**
-	 * {@inheritdoc}
+	 * @inheritDoc
 	 */
 	protected static function initializeInstances(): void
 	{

@@ -24,7 +24,7 @@ final class ReportProduct extends ValueEnum
 	public static self $CREDIT;
 
 	/**
-	 * {@inheritdoc}
+	 * @inheritDoc
 	 */
 	protected static function initializeInstances(): void
 	{

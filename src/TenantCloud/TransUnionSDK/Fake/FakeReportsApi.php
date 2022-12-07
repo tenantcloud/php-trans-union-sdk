@@ -20,17 +20,11 @@ use TenantCloud\TransUnionSDK\Reports\RequestReportDTO;
  */
 final class FakeReportsApi implements ReportsApi
 {
-	private FakeTransUnionClient $transUnionClient;
-
-	private Dispatcher $dispatcher;
-
-	private Filesystem $filesystem;
-
-	public function __construct(FakeTransUnionClient $transUnionClient, Dispatcher $dispatcher, Filesystem $filesystem)
-	{
-		$this->transUnionClient = $transUnionClient;
-		$this->dispatcher = $dispatcher;
-		$this->filesystem = $filesystem;
+	public function __construct(
+		private readonly FakeTransUnionClient $transUnionClient,
+		private readonly Dispatcher $dispatcher,
+		private readonly Filesystem $filesystem
+	) {
 	}
 
 	/**

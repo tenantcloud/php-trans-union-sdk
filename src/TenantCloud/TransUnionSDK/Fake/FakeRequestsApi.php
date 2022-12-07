@@ -10,11 +10,9 @@ use TenantCloud\TransUnionSDK\Requests\RequestsApi;
  */
 final class FakeRequestsApi implements RequestsApi
 {
-	private FakeRequestRentersApi $rentersApi;
-
-	public function __construct(FakeTransUnionClient $client)
-	{
-		$this->rentersApi = new FakeRequestRentersApi($client);
+	public function __construct(
+		private readonly FakeRequestRentersApi $rentersApi,
+	) {
 	}
 
 	/**

@@ -2,6 +2,7 @@
 
 namespace TenantCloud\TransUnionSDK\Fake;
 
+use Illuminate\Contracts\Cache\Repository;
 use TenantCloud\TransUnionSDK\Renters\CreateRenterDTO;
 use TenantCloud\TransUnionSDK\Renters\RentersApi;
 use TenantCloud\TransUnionSDK\Reports\RequestReportPersonDTO;
@@ -11,14 +12,10 @@ use TenantCloud\TransUnionSDK\Reports\RequestReportPersonDTO;
  */
 final class FakeRentersApi implements RentersApi
 {
-	/** @var array<int, RequestReportPersonDTO> */
-	private array $dataPerId = [];
-
-	private FakeTransUnionClient $client;
-
-	public function __construct(FakeTransUnionClient $client)
-	{
-		$this->client = $client;
+	public function __construct(
+		private readonly FakeTransUnionClient $client,
+		private readonly Repository $cache,
+	) {
 	}
 
 	/**
@@ -26,12 +23,12 @@ final class FakeRentersApi implements RentersApi
 	 */
 	public function create(CreateRenterDTO $data): int
 	{
-		$id = random_int(1, PHP_INT_MAX);
+		$renter = RequestReportPersonDTO::from($data->getPerson()->toArray())
+			->setPersonId(random_int(1, PHP_INT_MAX));
 
-		$this->dataPerId[$id] = RequestReportPersonDTO::from($data->getPerson()->toArray())
-			->setPersonId($id);
+		$this->cache->put("renters.{$renter->getPersonId()}", $renter);
 
-		return $id;
+		return $renter->getPersonId();
 	}
 
 	/**
@@ -43,17 +40,17 @@ final class FakeRentersApi implements RentersApi
 			->setPersonId($id);
 
 		// If changed data - unpass exams
-		if ($newData != $this->dataPerId[$id]) {
+		if ($newData != $this->cache->get("renters.{$id}")) {
 			$this->client
 				->exams()
 				->unpassByRenter($id);
 		}
 
-		$this->dataPerId[$id] = $newData;
+		$this->cache->put("renters.{$id}", $newData);
 	}
 
 	public function byId(int $id): ?RequestReportPersonDTO
 	{
-		return $this->dataPerId[$id] ?? null;
+		return $this->cache->get("renters.{$id}");
 	}
 }

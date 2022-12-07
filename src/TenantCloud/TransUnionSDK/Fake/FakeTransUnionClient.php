@@ -2,8 +2,6 @@
 
 namespace TenantCloud\TransUnionSDK\Fake;
 
-use Illuminate\Contracts\Events\Dispatcher;
-use Illuminate\Filesystem\Filesystem;
 use TenantCloud\TransUnionSDK\Client\TransUnionClient;
 
 /**
@@ -11,29 +9,15 @@ use TenantCloud\TransUnionSDK\Client\TransUnionClient;
  */
 final class FakeTransUnionClient implements TransUnionClient
 {
-	private FakeExamsApi $examsApi;
-
-	private FakeLandlordsApi $landlordsApi;
-
-	private FakeRentersApi $rentersApi;
-
-	private FakePropertiesApi $propertiesApi;
-
-	private FakeRequestsApi $requestsApi;
-
-	private FakeReportsApi $reportsApi;
-
-	private FakeTokensApi $tokensApi;
-
-	public function __construct(Dispatcher $eventDispatcher, Filesystem $filesystem)
-	{
-		$this->examsApi = new FakeExamsApi($this);
-		$this->landlordsApi = new FakeLandlordsApi();
-		$this->rentersApi = new FakeRentersApi($this);
-		$this->propertiesApi = new FakePropertiesApi();
-		$this->requestsApi = new FakeRequestsApi($this);
-		$this->reportsApi = new FakeReportsApi($this, $eventDispatcher, $filesystem);
-		$this->tokensApi = new FakeTokensApi();
+	public function __construct(
+		private readonly FakeExamsApi $examsApi,
+		private readonly FakeLandlordsApi $landlordsApi,
+		private readonly FakeRentersApi $rentersApi,
+		private readonly FakePropertiesApi $propertiesApi,
+		private readonly FakeRequestsApi $requestsApi,
+		private readonly FakeReportsApi $reportsApi,
+		private readonly FakeTokensApi $tokensApi,
+	) {
 	}
 
 	/**

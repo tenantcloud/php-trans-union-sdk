@@ -9,7 +9,7 @@
 		"ext-intl": "*",
 		"illuminate/support": "^8.0 || ^9.0",
 		"tenantcloud/data-transfer-objects": "^1.0",
-		"tenantcloud/php-standard": "dev-native-enum-methods as 1.4.0",
+		"tenantcloud/php-standard": "^2.0",
 		"guzzlehttp/guzzle": "^7.4",
 		"tenantcloud/guzzle-helper": "^1.1"
     },

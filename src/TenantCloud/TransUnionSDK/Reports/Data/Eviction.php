@@ -22,10 +22,10 @@ final class Eviction implements ArraySerializable
 	 * @param Record[] $records
 	 */
 	public function __construct(
-		public ?Carbon $createdOn,
-		public ?array $disclaimers,
-		public ?array $records,
-		public ?RequestConsumer $requestedConsumer
+		public readonly ?Carbon $createdOn,
+		public readonly ?array $disclaimers,
+		public readonly ?array $records,
+		public readonly ?RequestConsumer $requestedConsumer
 	) {
 	}
 

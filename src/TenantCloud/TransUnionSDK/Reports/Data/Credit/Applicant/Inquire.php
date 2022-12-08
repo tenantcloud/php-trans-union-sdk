@@ -11,11 +11,11 @@ final class Inquire implements ArraySerializable
 	use MagicArraySerializable;
 
 	public function __construct(
-		public ?string $industryCode,
-		public ?Carbon $inquiryDate,
-		public ?string $subscriberId,
-		public ?string $subscriberName,
-		public ?string $type
+		public readonly ?string $industryCode,
+		public readonly ?Carbon $inquiryDate,
+		public readonly ?string $subscriberId,
+		public readonly ?string $subscriberName,
+		public readonly ?string $type
 	) {
 	}
 }

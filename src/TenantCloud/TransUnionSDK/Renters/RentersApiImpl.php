@@ -14,7 +14,7 @@ final class RentersApiImpl implements RentersApi
 	private const CREATE_RENTER_API_PATH = 'v1/Renters';
 	private const UPDATE_RENTER_API_PATH = 'v1/Renters';
 
-	public function __construct(private Client $httpClient)
+	public function __construct(private readonly Client $httpClient)
 	{
 	}
 

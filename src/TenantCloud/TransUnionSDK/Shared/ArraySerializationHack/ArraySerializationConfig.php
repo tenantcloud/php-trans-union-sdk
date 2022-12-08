@@ -14,8 +14,8 @@ class ArraySerializationConfig
 	 */
 	public function __construct(
 		callable $serializedName,
-		public array $arrays = [],
-		public array $custom = []
+		public readonly array $arrays = [],
+		public readonly array $custom = []
 	) {
 		$this->serializedName = $serializedName;
 	}

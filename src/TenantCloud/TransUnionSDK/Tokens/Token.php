@@ -9,11 +9,11 @@ use Carbon\Carbon;
  */
 final class Token
 {
-	private string $value;
-
-	public function __construct(public string $clientId, string $token, private Carbon $expiresAt)
-	{
-		$this->value = $token;
+	public function __construct(
+		public readonly string $clientId,
+		private readonly string $value,
+		private readonly Carbon $expiresAt
+	) {
 	}
 
 	/**

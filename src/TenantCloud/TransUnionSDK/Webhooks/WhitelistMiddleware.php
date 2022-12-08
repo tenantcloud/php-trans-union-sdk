@@ -18,7 +18,7 @@ final class WhitelistMiddleware
 	/**
 	 * @param array<string> $ips
 	 */
-	public function __construct(private array $ips, private bool $enabled = true)
+	public function __construct(private readonly array $ips, private readonly bool $enabled = true)
 	{
 	}
 

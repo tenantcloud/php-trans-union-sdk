@@ -11,8 +11,8 @@ final class CreditDataStatusFreeze implements ArraySerializable
 	use MagicArraySerializable;
 
 	public function __construct(
-		public ?bool $indicator,
-		public ?bool $typeSpecified
+		public readonly ?bool $indicator,
+		public readonly ?bool $typeSpecified
 	) {
 	}
 

@@ -10,7 +10,7 @@ final class FraudIndicator implements ArraySerializable
 	use MagicArraySerializable;
 
 	public function __construct(
-		public ?string $indicator
+		public readonly ?string $indicator
 	) {
 	}
 }

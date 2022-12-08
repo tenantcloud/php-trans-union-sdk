@@ -13,25 +13,25 @@ final class ProfileSummary implements ArraySerializable
 	use MagicArraySerializable;
 
 	public function __construct(
-		public ?SummaryBalance $closedWithBal,
-		public ?DerogationItems $derogItems,
-		public mixed $inquiry,
-		public ?float $installBalance,
-		public ?SummaryBalance $installment,
-		public ?float $monthlyPayment,
-		public ?SummaryBalance $mortgage,
-		public ?int $numberOfInquiries,
-		public ?SummaryBalance $open,
-		public ?float $pastDueAmount,
-		public ?PastDueItem $pastDueItems,
-		public ?int $publicRecordCount,
-		public ?float $realEstateBalance,
-		public ?float $realEstatePayment,
-		public ?float $revolveAvailPercent,
-		public ?float $revolveBalance,
-		public ?SummaryBalance $revolving,
-		public ?SummaryBalance $total,
-		public ?Tradeline $tradeline
+		public readonly ?SummaryBalance $closedWithBal,
+		public readonly ?DerogationItems $derogItems,
+		public readonly mixed $inquiry,
+		public readonly ?float $installBalance,
+		public readonly ?SummaryBalance $installment,
+		public readonly ?float $monthlyPayment,
+		public readonly ?SummaryBalance $mortgage,
+		public readonly ?int $numberOfInquiries,
+		public readonly ?SummaryBalance $open,
+		public readonly ?float $pastDueAmount,
+		public readonly ?PastDueItem $pastDueItems,
+		public readonly ?int $publicRecordCount,
+		public readonly ?float $realEstateBalance,
+		public readonly ?float $realEstatePayment,
+		public readonly ?float $revolveAvailPercent,
+		public readonly ?float $revolveBalance,
+		public readonly ?SummaryBalance $revolving,
+		public readonly ?SummaryBalance $total,
+		public readonly ?Tradeline $tradeline
 	) {
 	}
 }

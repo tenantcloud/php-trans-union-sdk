@@ -22,10 +22,10 @@ final class ReportsApiImpl implements ReportsApi
 	private const FIND_REPORT_API_PATH = 'v1/Landlords/ScreeningRequestRenters/{request_renter_id}/Reports';
 
 	public function __construct(
-		private Client $httpClient,
-		private bool $imitateEvents,
-		private QueueConnectionFactory $queueConnectionFactory,
-		private Dispatcher $busDispatcher
+		private readonly Client $httpClient,
+		private readonly bool $imitateEvents,
+		private readonly QueueConnectionFactory $queueConnectionFactory,
+		private readonly Dispatcher $busDispatcher
 	) {
 	}
 

@@ -10,7 +10,7 @@ use TenantCloud\TransUnionSDK\Tokens\Token;
  */
 final class LaravelCacheTokenCache implements TokenCache
 {
-	public function __construct(private Repository $repository, private string $prefix = 'trans_union:tokens:')
+	public function __construct(private readonly Repository $repository, private readonly string $prefix = 'trans_union:tokens:')
 	{
 	}
 

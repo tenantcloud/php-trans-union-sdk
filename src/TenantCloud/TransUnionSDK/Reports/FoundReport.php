@@ -14,7 +14,7 @@ final class FoundReport
 	/**
 	 * @param R $report
 	 */
-	public function __construct(private Carbon $expires, private $report)
+	public function __construct(private readonly Carbon $expires, private $report)
 	{
 	}
 

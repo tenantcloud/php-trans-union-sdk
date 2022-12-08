@@ -7,7 +7,9 @@ namespace TenantCloud\TransUnionSDK\Verification;
  */
 final class VerificationStatusChangedEvent
 {
-	public function __construct(public int $screeningRequestRenterId, public ManualVerificationStatus $status)
-	{
+	public function __construct(
+		public readonly int $screeningRequestRenterId,
+		public readonly ManualVerificationStatus $status
+	) {
 	}
 }

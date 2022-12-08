@@ -37,7 +37,7 @@ use Throwable;
  */
 final class TransUnionClientImpl implements TransUnionClient
 {
-	private Client $httpClient;
+	private readonly Client $httpClient;
 
 	/**
 	 * @param string                        $baseUrl       Base URL for the API
@@ -48,10 +48,10 @@ final class TransUnionClientImpl implements TransUnionClient
 		string $clientId,
 		string $apiKey,
 		callable $tokenResolver,
-		private QueueConnectionFactory $queueConnectionFactory,
-		private Dispatcher $busDispatcher,
-		private bool $imitateEvents = false,
-		private bool $testMode = false
+		private readonly QueueConnectionFactory $queueConnectionFactory,
+		private readonly Dispatcher $busDispatcher,
+		private readonly bool $imitateEvents = false,
+		private readonly bool $testMode = false
 	) {
 		$stack = HandlerStack::create();
 

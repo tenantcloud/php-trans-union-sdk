@@ -11,11 +11,11 @@ final class Aka implements ArraySerializable
 	use MagicArraySerializable;
 
 	public function __construct(
-		public ?string $firstName,
-		public ?string $lastName,
-		public ?string $middleName,
-		public ?string $suffix,
-		public ?Carbon $birthDate
+		public readonly ?string $firstName,
+		public readonly ?string $lastName,
+		public readonly ?string $middleName,
+		public readonly ?string $suffix,
+		public readonly ?Carbon $birthDate
 	) {
 	}
 }

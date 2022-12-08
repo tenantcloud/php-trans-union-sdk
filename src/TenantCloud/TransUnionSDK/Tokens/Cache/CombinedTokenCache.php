@@ -12,7 +12,7 @@ final class CombinedTokenCache implements TokenCache
 	/**
 	 * @param TokenCache[] $caches
 	 */
-	public function __construct(private array $caches)
+	public function __construct(private readonly array $caches)
 	{
 	}
 

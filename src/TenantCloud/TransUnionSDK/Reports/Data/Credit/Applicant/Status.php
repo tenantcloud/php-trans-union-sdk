@@ -12,13 +12,13 @@ final class Status implements ArraySerializable
 	use MagicArraySerializable;
 
 	public function __construct(
-		public ?string $addressDiscrepancyIndicator,
-		public ?string $bureauErrorMessage,
-		public ?BureauStatus $bureauStatus,
-		public ?bool $frozenFile,
-		public ?int $recordFound,
-		public ?Carbon $reportDate,
-		public ?bool $thinFile
+		public readonly ?string $addressDiscrepancyIndicator,
+		public readonly ?string $bureauErrorMessage,
+		public readonly ?BureauStatus $bureauStatus,
+		public readonly ?bool $frozenFile,
+		public readonly ?int $recordFound,
+		public readonly ?Carbon $reportDate,
+		public readonly ?bool $thinFile
 	) {
 	}
 }

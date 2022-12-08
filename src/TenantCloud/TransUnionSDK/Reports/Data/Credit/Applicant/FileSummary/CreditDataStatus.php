@@ -13,14 +13,14 @@ final class CreditDataStatus implements ArraySerializable
 	use MagicArraySerializable;
 
 	public function __construct(
-		public ?bool $disputed,
-		public ?bool $disputedSpecified,
-		public ?CreditDataStatusDoNotPromote $doNotPromote,
-		public ?CreditDataStatusFreeze $freeze,
-		public ?bool $minor,
-		public ?bool $minorSpecified,
-		public ?bool $suppressed,
-		public ?bool $suppressedSpecified
+		public readonly ?bool $disputed,
+		public readonly ?bool $disputedSpecified,
+		public readonly ?CreditDataStatusDoNotPromote $doNotPromote,
+		public readonly ?CreditDataStatusFreeze $freeze,
+		public readonly ?bool $minor,
+		public readonly ?bool $minorSpecified,
+		public readonly ?bool $suppressed,
+		public readonly ?bool $suppressedSpecified
 	) {
 	}
 

@@ -1,9 +1,9 @@
 <?php
 
-namespace cli\src\TenantCloud\TransUnionSDK;
+namespace Dev\TenantCloud\TransUnionSDK;
 
-use cli\src\TenantCloud\TransUnionSDK\Reports\DownloadStubsCommand;
-use cli\src\TenantCloud\TransUnionSDK\Reports\ReportStubDownloader;
+use Dev\TenantCloud\TransUnionSDK\Reports\DownloadStubsCommand;
+use Dev\TenantCloud\TransUnionSDK\Reports\ReportStubDownloader;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\ServiceProvider;
@@ -14,7 +14,7 @@ class DevTransUnionSDKServiceProvider extends ServiceProvider
 	public function register()
 	{
 		$this->mergeConfigFrom(
-			__DIR__ . '/../../../resources/trans_union.php',
+			__DIR__ . '/../../../../resources/trans_union.php',
 			'trans_union'
 		);
 

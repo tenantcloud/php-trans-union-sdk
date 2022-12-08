@@ -11,11 +11,11 @@ final class RequestConsumer implements ArraySerializable
 	use MagicArraySerializable;
 
 	public function __construct(
-		public ?ConsumerAddress $address,
-		public ?string $firstName,
-		public ?string $generationalSuffix,
-		public ?string $lastName,
-		public ?string $middleName
+		public readonly ?ConsumerAddress $address,
+		public readonly ?string $firstName,
+		public readonly ?string $generationalSuffix,
+		public readonly ?string $lastName,
+		public readonly ?string $middleName
 	) {
 	}
 }

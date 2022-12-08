@@ -15,21 +15,21 @@ final class IdentityCase implements ArraySerializable
 	 * @param Offense[] $offenses
 	 */
 	public function __construct(
-		public ?string $caseNumber,
-		public ?Carbon $completionDate,
-		public ?string $county,
-		public ?string $disposition,
-		public ?Carbon $dispositionDate,
-		public ?string $filingAgency,
-		public ?Carbon $filingDate,
-		public ?string $jurisdiction,
-		public ?array $offenses,
-		public ?Carbon $statusBeginDate,
-		public ?Carbon $statusDate,
-		public ?string $statusDescription,
-		public ?Carbon $statusEndDate,
-		public ?string $title,
-		public ?string $type
+		public readonly ?string $caseNumber,
+		public readonly ?Carbon $completionDate,
+		public readonly ?string $county,
+		public readonly ?string $disposition,
+		public readonly ?Carbon $dispositionDate,
+		public readonly ?string $filingAgency,
+		public readonly ?Carbon $filingDate,
+		public readonly ?string $jurisdiction,
+		public readonly ?array $offenses,
+		public readonly ?Carbon $statusBeginDate,
+		public readonly ?Carbon $statusDate,
+		public readonly ?string $statusDescription,
+		public readonly ?Carbon $statusEndDate,
+		public readonly ?string $title,
+		public readonly ?string $type
 	) {
 	}
 

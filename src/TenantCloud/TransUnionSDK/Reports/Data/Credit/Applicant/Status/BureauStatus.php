@@ -15,7 +15,7 @@ final class BureauStatus implements ArraySerializable
 	 * @param array<BureauCodeData|null>|null $code
 	 */
 	public function __construct(
-		public ?array $code
+		public readonly ?array $code
 	) {
 	}
 

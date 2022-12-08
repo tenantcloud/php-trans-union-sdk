@@ -14,7 +14,7 @@ final class LandlordsApiImpl implements LandlordsApi
 	private const CREATE_LANDLORD_API_PATH = 'v1/Landlords';
 	private const UPDATE_LANDLORD_API_PATH = 'v1/Landlords';
 
-	public function __construct(private Client $httpClient)
+	public function __construct(private readonly Client $httpClient)
 	{
 	}
 

@@ -7,7 +7,9 @@ namespace TenantCloud\TransUnionSDK\Reports;
  */
 final class ReportDeliveryStatusChangedEvent
 {
-	public function __construct(public int $screeningRequestRenterId, public ReportDeliveryStatus $status)
-	{
+	public function __construct(
+		public readonly int $screeningRequestRenterId,
+		public readonly ReportDeliveryStatus $status
+	) {
 	}
 }

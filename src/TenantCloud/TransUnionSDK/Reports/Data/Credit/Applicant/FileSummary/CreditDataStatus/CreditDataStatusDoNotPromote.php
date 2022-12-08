@@ -12,8 +12,8 @@ final class CreditDataStatusDoNotPromote implements ArraySerializable
 	use MagicArraySerializable;
 
 	public function __construct(
-		public ?Carbon $dateOfExpiration,
-		public ?bool $indicator
+		public readonly ?Carbon $dateOfExpiration,
+		public readonly ?bool $indicator
 	) {
 	}
 

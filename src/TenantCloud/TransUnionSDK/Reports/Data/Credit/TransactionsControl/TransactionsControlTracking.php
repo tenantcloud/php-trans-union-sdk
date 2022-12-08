@@ -12,9 +12,9 @@ final class TransactionsControlTracking implements ArraySerializable
 	use MagicArraySerializable;
 
 	public function __construct(
-		public ?string $id,
-		public ?Carbon $transactionTimeStamp,
-		public ?bool $transactionTimeStampSpecified
+		public readonly ?string $id,
+		public readonly ?Carbon $transactionTimeStamp,
+		public readonly ?bool $transactionTimeStampSpecified
 	) {
 	}
 

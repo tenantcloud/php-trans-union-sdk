@@ -11,10 +11,10 @@ final class Court implements ArraySerializable
 	use MagicArraySerializable;
 
 	public function __construct(
-		public ?CourtAddress $address,
-		public ?string $book,
-		public ?string $name,
-		public ?string $page
+		public readonly ?CourtAddress $address,
+		public readonly ?string $book,
+		public readonly ?string $name,
+		public readonly ?string $page
 	) {
 	}
 }

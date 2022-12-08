@@ -13,19 +13,19 @@ use TenantCloud\TransUnionSDK\Verification\TestModeVerificationAnswersFactory;
  */
 final class FakeTransUnionClient implements TransUnionClient
 {
-	private FakeExamsApi $examsApi;
+	private readonly FakeExamsApi $examsApi;
 
-	private FakeLandlordsApi $landlordsApi;
+	private readonly FakeLandlordsApi $landlordsApi;
 
-	private FakeRentersApi $rentersApi;
+	private readonly FakeRentersApi $rentersApi;
 
-	private FakePropertiesApi $propertiesApi;
+	private readonly FakePropertiesApi $propertiesApi;
 
-	private FakeRequestsApi $requestsApi;
+	private readonly FakeRequestsApi $requestsApi;
 
-	private FakeReportsApi $reportsApi;
+	private readonly FakeReportsApi $reportsApi;
 
-	private FakeTokensApi $tokensApi;
+	private readonly FakeTokensApi $tokensApi;
 
 	public function __construct(
 		Dispatcher $eventDispatcher,

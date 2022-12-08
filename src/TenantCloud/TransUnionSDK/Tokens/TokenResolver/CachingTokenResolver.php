@@ -7,7 +7,7 @@ use TenantCloud\TransUnionSDK\Tokens\Token;
 
 class CachingTokenResolver implements TokenResolver
 {
-	public function __construct(private TokenResolver $delegate, private TokenCache $cache)
+	public function __construct(private readonly TokenResolver $delegate, private readonly TokenCache $cache)
 	{
 	}
 

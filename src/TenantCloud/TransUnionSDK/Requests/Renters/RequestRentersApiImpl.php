@@ -15,7 +15,7 @@ final class RequestRentersApiImpl implements RequestRentersApi
 	private const CANCEL_RENTER_REQUEST_API_PATH = 'v1/ScreeningRequestRenters/{id}/Cancel';
 	private const IS_VERIFIED_RENTER_REQUEST_API_PATH = 'v1/ScreeningRequestRenters/{id}/Validate';
 
-	public function __construct(private Client $httpClient)
+	public function __construct(private readonly Client $httpClient)
 	{
 	}
 

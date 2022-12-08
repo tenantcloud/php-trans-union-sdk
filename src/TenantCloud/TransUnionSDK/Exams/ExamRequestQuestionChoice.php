@@ -7,7 +7,7 @@ namespace TenantCloud\TransUnionSDK\Exams;
  */
 final class ExamRequestQuestionChoice
 {
-	public function __construct(private string $key, private string $text)
+	public function __construct(private readonly string $key, private readonly string $text)
 	{
 	}
 

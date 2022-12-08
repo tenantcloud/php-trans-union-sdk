@@ -10,12 +10,12 @@ final class SummaryBalance implements ArraySerializable
 	use MagicArraySerializable;
 
 	public function __construct(
-		public ?float $balance,
-		public ?int $count,
-		public ?float $creditLimit,
-		public ?float $highCredit,
-		public ?float $monthlyPayment,
-		public ?float $percentCreditAvail
+		public readonly ?float $balance,
+		public readonly ?int $count,
+		public readonly ?float $creditLimit,
+		public readonly ?float $highCredit,
+		public readonly ?float $monthlyPayment,
+		public readonly ?float $percentCreditAvail
 	) {
 	}
 }

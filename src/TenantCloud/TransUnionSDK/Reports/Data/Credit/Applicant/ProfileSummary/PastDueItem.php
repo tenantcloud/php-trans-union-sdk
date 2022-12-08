@@ -10,12 +10,12 @@ final class PastDueItem implements ArraySerializable
 	use MagicArraySerializable;
 
 	public function __construct(
-		public ?float $closedWithBalPastDue,
-		public ?float $installmentPastDue,
-		public ?float $mortgagePastDue,
-		public ?float $openPastDue,
-		public ?float $revolvingPastDue,
-		public ?float $totalPastDue
+		public readonly ?float $closedWithBalPastDue,
+		public readonly ?float $installmentPastDue,
+		public readonly ?float $mortgagePastDue,
+		public readonly ?float $openPastDue,
+		public readonly ?float $revolvingPastDue,
+		public readonly ?float $totalPastDue
 	) {
 	}
 }

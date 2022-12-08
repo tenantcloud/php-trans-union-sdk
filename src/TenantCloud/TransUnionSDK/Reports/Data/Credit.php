@@ -22,17 +22,17 @@ final class Credit implements ArraySerializable
 	 * @param Applicant[] $applicants
 	 */
 	public function __construct(
-		public ?array $applicants,
-		public mixed $bureau,
-		public ?string $componentIdentifier,
-		public ?string $consumerId,
-		public ?int $document,
-		public ?string $entityID,
-		public ?PermissiblePurpose $permissiblePurpose,
-		public ?RequestConsumer $requestedConsumer,
-		public ?int $searchStatus,
-		public ?TransactionsControl $transactionControl,
-		public ?string $version
+		public readonly ?array $applicants,
+		public readonly mixed $bureau,
+		public readonly ?string $componentIdentifier,
+		public readonly ?string $consumerId,
+		public readonly ?int $document,
+		public readonly ?string $entityID,
+		public readonly ?PermissiblePurpose $permissiblePurpose,
+		public readonly ?RequestConsumer $requestedConsumer,
+		public readonly ?int $searchStatus,
+		public readonly ?TransactionsControl $transactionControl,
+		public readonly ?string $version
 	) {
 	}
 

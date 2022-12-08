@@ -10,9 +10,9 @@ final class Alias implements ArraySerializable
 	use MagicArraySerializable;
 
 	public function __construct(
-		public ?string $firstName,
-		public ?string $lastName,
-		public ?string $middleName
+		public readonly ?string $firstName,
+		public readonly ?string $lastName,
+		public readonly ?string $middleName
 	) {
 	}
 }

@@ -12,16 +12,16 @@ final class Address implements ArraySerializable
 	use MagicArraySerializable;
 
 	public function __construct(
-		public ?string $addressQualifier,
-		public ?string $city,
-		public ?Carbon $dateReported,
-		public ?string $postalCode,
-		public ?string $recordCode,
-		public ?string $sourceIndicator,
-		public ?string $state,
-		public ?AddressStatus $status,
-		public ?string $streetAddress,
-		public ?string $unparsed
+		public readonly ?string $addressQualifier,
+		public readonly ?string $city,
+		public readonly ?Carbon $dateReported,
+		public readonly ?string $postalCode,
+		public readonly ?string $recordCode,
+		public readonly ?string $sourceIndicator,
+		public readonly ?string $state,
+		public readonly ?AddressStatus $status,
+		public readonly ?string $streetAddress,
+		public readonly ?string $unparsed
 	) {
 	}
 }

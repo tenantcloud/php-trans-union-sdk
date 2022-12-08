@@ -23,16 +23,16 @@ final class Criminal implements ArraySerializable
 	 * @param Identity[]   $identities
 	 */
 	public function __construct(
-		public ?Carbon $createdOn,
-		public ?int $criminalIdentityCount,
-		public ?array $disclaimers,
-		public ?array $identities,
-		public ?int $mostWantedIdentityCount,
-		public ?int $oFACIdentityCount,
-		public ?int $otherIdentityCount,
-		public ?string $permissiblePurpose,
-		public ?RequestConsumer $requestedConsumer,
-		public ?int $sexOffenderIdentityCount
+		public readonly ?Carbon $createdOn,
+		public readonly ?int $criminalIdentityCount,
+		public readonly ?array $disclaimers,
+		public readonly ?array $identities,
+		public readonly ?int $mostWantedIdentityCount,
+		public readonly ?int $oFACIdentityCount,
+		public readonly ?int $otherIdentityCount,
+		public readonly ?string $permissiblePurpose,
+		public readonly ?RequestConsumer $requestedConsumer,
+		public readonly ?int $sexOffenderIdentityCount
 	) {
 	}
 

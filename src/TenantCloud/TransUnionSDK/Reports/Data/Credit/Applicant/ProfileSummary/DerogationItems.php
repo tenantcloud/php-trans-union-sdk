@@ -10,11 +10,11 @@ final class DerogationItems implements ArraySerializable
 	use MagicArraySerializable;
 
 	public function __construct(
-		public ?int $collectionCount,
-		public ?int $histNegTradelineCount,
-		public ?int $negTradelineCount,
-		public ?int $occuranceHistCount,
-		public ?int $publicRecordCount
+		public readonly ?int $collectionCount,
+		public readonly ?int $histNegTradelineCount,
+		public readonly ?int $negTradelineCount,
+		public readonly ?int $occuranceHistCount,
+		public readonly ?int $publicRecordCount
 	) {
 	}
 }

@@ -1,9 +1,9 @@
 <?php
 
-namespace cli\src\TenantCloud\TransUnionSDK\Reports;
+namespace Dev\TenantCloud\TransUnionSDK\Reports;
 
 use Carbon\Carbon;
-use cli\src\TenantCloud\TransUnionSDK\Reports\ReportStubDownloader\PersonDTO;
+use Dev\TenantCloud\TransUnionSDK\Reports\ReportStubDownloader\PersonDTO;
 use Generator;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Arr;
@@ -36,11 +36,11 @@ class ReportStubDownloader
 {
 
 	public function __construct(
-		private TransUnionClient $client,
-		private Filesystem       $filesystem,
-		private int              $creditBundleId,
-		private int              $criminalBundleId,
-		private int              $evictionBundleId
+		private readonly TransUnionClient $client,
+		private readonly Filesystem       $filesystem,
+		private readonly int              $creditBundleId,
+		private readonly int              $criminalBundleId,
+		private readonly int              $evictionBundleId
 	) {
 	}
 

@@ -13,7 +13,7 @@ final class TokensApiImpl implements TokensApi
 {
 	private const CREATE_TOKEN_API_PATH = 'v1/Tokens';
 
-	public function __construct(private Client $httpClient)
+	public function __construct(private readonly Client $httpClient)
 	{
 	}
 

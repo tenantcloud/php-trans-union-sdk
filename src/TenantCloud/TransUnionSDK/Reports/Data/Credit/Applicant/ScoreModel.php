@@ -11,9 +11,9 @@ final class ScoreModel implements ArraySerializable
 	use MagicArraySerializable;
 
 	public function __construct(
-		public ?string $code,
-		public ?Score $score,
-		public ?string $scoreName
+		public readonly ?string $code,
+		public readonly ?Score $score,
+		public readonly ?string $scoreName
 	) {
 	}
 }

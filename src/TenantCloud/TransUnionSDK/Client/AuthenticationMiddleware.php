@@ -24,7 +24,7 @@ final class AuthenticationMiddleware
 	/** @var callable Guzzle's handler which Guzzle passes to first closure in HandlerStack */
 	private $handler;
 
-	public function __construct(callable $handler, private TokenResolver $tokenResolver, private string $clientId, private string $apiKey)
+	public function __construct(callable $handler, private readonly TokenResolver $tokenResolver, private readonly string $clientId, private readonly string $apiKey)
 	{
 		$this->handler = $handler;
 	}

@@ -12,18 +12,18 @@ final class Party implements ArraySerializable
 	use MagicArraySerializable;
 
 	public function __construct(
-		public mixed $address,
-		public ?Carbon $birthDate,
-		public ?string $firstName,
-		public ?string $fullName,
-		public ?string $gender,
-		public ?string $lastName,
-		public ?string $maskedSSN,
-		public ?string $middleName,
-		public ?string $phoneNumber,
-		public ?string $sSN,
-		public ?string $suffix,
-		public ?string $type
+		public readonly mixed $address,
+		public readonly ?Carbon $birthDate,
+		public readonly ?string $firstName,
+		public readonly ?string $fullName,
+		public readonly ?string $gender,
+		public readonly ?string $lastName,
+		public readonly ?string $maskedSSN,
+		public readonly ?string $middleName,
+		public readonly ?string $phoneNumber,
+		public readonly ?string $sSN,
+		public readonly ?string $suffix,
+		public readonly ?string $type
 	) {
 	}
 

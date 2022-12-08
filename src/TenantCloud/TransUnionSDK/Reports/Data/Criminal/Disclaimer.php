@@ -10,8 +10,8 @@ final class Disclaimer implements ArraySerializable
 	use MagicArraySerializable;
 
 	public function __construct(
-		public ?string $key,
-		public ?string $value
+		public readonly ?string $key,
+		public readonly ?string $value
 	) {
 	}
 }

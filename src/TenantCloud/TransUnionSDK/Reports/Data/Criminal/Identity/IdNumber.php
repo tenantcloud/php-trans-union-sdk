@@ -10,9 +10,9 @@ final class IdNumber implements ArraySerializable
 	use MagicArraySerializable;
 
 	public function __construct(
-		public ?string $idNumberType,
-		public ?string $identityNumber,
-		public ?string $typeText
+		public readonly ?string $idNumberType,
+		public readonly ?string $identityNumber,
+		public readonly ?string $typeText
 	) {
 	}
 }

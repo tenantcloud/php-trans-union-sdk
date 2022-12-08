@@ -1,6 +1,6 @@
 <?php
 
-namespace cli\src\TenantCloud\TransUnionSDK\Reports\ReportStubDownloader;
+namespace Dev\TenantCloud\TransUnionSDK\Reports\ReportStubDownloader;
 
 use Carbon\Carbon;
 

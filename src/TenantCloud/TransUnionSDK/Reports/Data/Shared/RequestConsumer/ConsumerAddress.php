@@ -10,14 +10,14 @@ final class ConsumerAddress implements ArraySerializable
 	use MagicArraySerializable;
 
 	public function __construct(
-		public ?string $addressLine1,
-		public ?string $addressLine2,
-		public ?string $addressLine3,
-		public ?string $addressLine4,
-		public ?string $country,
-		public ?string $locality,
-		public ?string $postalCode,
-		public ?string $region
+		public readonly ?string $addressLine1,
+		public readonly ?string $addressLine2,
+		public readonly ?string $addressLine3,
+		public readonly ?string $addressLine4,
+		public readonly ?string $country,
+		public readonly ?string $locality,
+		public readonly ?string $postalCode,
+		public readonly ?string $region
 	) {
 	}
 }

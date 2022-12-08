@@ -10,10 +10,10 @@ final class BureauCodeData implements ArraySerializable
 	use MagicArraySerializable;
 
 	public function __construct(
-		public ?string $codeDescription,
-		public ?string $codeType,
-		public ?string $description,
-		public ?string $key
+		public readonly ?string $codeDescription,
+		public readonly ?string $codeType,
+		public readonly ?string $description,
+		public readonly ?string $key
 	) {
 	}
 }

@@ -10,8 +10,8 @@ final class ScoreFactor implements ArraySerializable
 	use MagicArraySerializable;
 
 	public function __construct(
-		public ?string $description,
-		public ?string $rank
+		public readonly ?string $description,
+		public readonly ?string $rank
 	) {
 	}
 }

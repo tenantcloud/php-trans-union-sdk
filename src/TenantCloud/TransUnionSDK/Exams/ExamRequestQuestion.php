@@ -10,7 +10,7 @@ final class ExamRequestQuestion
 	/**
 	 * @param ExamRequestQuestionChoice[] $choices
 	 */
-	public function __construct(private string $key, private string $text, private array $choices)
+	public function __construct(private readonly string $key, private readonly string $text, private readonly array $choices)
 	{
 	}
 

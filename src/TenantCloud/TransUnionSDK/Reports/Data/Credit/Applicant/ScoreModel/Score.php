@@ -15,12 +15,12 @@ final class Score implements ArraySerializable
 	 * @param ScoreFactor[] $factors
 	 */
 	public function __construct(
-		public ?bool $derogatoryAlert,
-		public ?array $factors,
-		public ?bool $fileInquiriesImpactedScore,
-		public ?string $noScoreReason,
-		public ?string $results,
-		public ?string $scoreCard
+		public readonly ?bool $derogatoryAlert,
+		public readonly ?array $factors,
+		public readonly ?bool $fileInquiriesImpactedScore,
+		public readonly ?string $noScoreReason,
+		public readonly ?string $results,
+		public readonly ?string $scoreCard
 	) {
 	}
 

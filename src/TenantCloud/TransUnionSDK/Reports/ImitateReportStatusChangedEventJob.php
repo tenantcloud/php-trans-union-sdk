@@ -15,7 +15,7 @@ final class ImitateReportStatusChangedEventJob implements ShouldQueue
 	use Dispatchable;
 	use Queueable;
 
-	public function __construct(private int $requestRenterId)
+	public function __construct(private readonly int $requestRenterId)
 	{
 	}
 

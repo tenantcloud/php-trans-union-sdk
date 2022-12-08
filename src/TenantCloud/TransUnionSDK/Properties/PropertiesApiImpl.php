@@ -13,7 +13,7 @@ final class PropertiesApiImpl implements PropertiesApi
 	private const CREATE_PROPERTY_API_PATH = 'v1/Landlords/{landlord_id}/Properties';
 	private const UPDATE_PROPERTY_API_PATH = 'v1/Landlords/{landlord_id}/Properties';
 
-	public function __construct(private Client $httpClient)
+	public function __construct(private readonly Client $httpClient)
 	{
 	}
 

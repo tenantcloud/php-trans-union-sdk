@@ -12,14 +12,14 @@ final class FileSummary implements ArraySerializable
 	use MagicArraySerializable;
 
 	public function __construct(
-		public ?bool $consumerStatementIndicator,
-		public ?CreditDataStatus $creditDataStatus,
-		public ?int $fileHitIndicator,
-		public ?int $fileMatchIndicator,
-		public ?Carbon $inFileSinceDate,
-		public ?string $market,
-		public ?int $sSNMatchIndicator,
-		public ?string $subMarket
+		public readonly ?bool $consumerStatementIndicator,
+		public readonly ?CreditDataStatus $creditDataStatus,
+		public readonly ?int $fileHitIndicator,
+		public readonly ?int $fileMatchIndicator,
+		public readonly ?Carbon $inFileSinceDate,
+		public readonly ?string $market,
+		public readonly ?int $sSNMatchIndicator,
+		public readonly ?string $subMarket
 	) {
 	}
 }

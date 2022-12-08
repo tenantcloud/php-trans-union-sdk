@@ -11,13 +11,13 @@ final class Employment implements ArraySerializable
 	use MagicArraySerializable;
 
 	public function __construct(
-		public ?string $city,
-		public ?Carbon $dateEmployed,
-		public ?Carbon $dateVerified,
-		public ?string $employerName,
-		public ?string $postalCode,
-		public ?string $state,
-		public ?string $streetAddress
+		public readonly ?string $city,
+		public readonly ?Carbon $dateEmployed,
+		public readonly ?Carbon $dateVerified,
+		public readonly ?string $employerName,
+		public readonly ?string $postalCode,
+		public readonly ?string $state,
+		public readonly ?string $streetAddress
 	) {
 	}
 }

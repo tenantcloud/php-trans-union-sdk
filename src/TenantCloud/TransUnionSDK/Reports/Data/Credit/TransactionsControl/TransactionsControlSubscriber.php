@@ -10,11 +10,11 @@ final class TransactionsControlSubscriber implements ArraySerializable
 	use MagicArraySerializable;
 
 	public function __construct(
-		public ?string $industryCode,
-		public ?string $inquirySubscriberPrefixCode,
-		public ?string $memberCode,
-		public ?string $name,
-		public ?string $password
+		public readonly ?string $industryCode,
+		public readonly ?string $inquirySubscriberPrefixCode,
+		public readonly ?string $memberCode,
+		public readonly ?string $name,
+		public readonly ?string $password
 	) {
 	}
 }

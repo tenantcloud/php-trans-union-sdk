@@ -2,6 +2,7 @@
 
 namespace TenantCloud\TransUnionSDK\Shared\ArraySerializationHack;
 
+use BackedEnum;
 use Carbon\Carbon;
 use function collect;
 use Illuminate\Support\Collection;
@@ -9,7 +10,6 @@ use ReflectionClass;
 use ReflectionNamedType;
 use ReflectionParameter;
 use ReflectionProperty;
-use TenantCloud\Standard\Enum\ValueEnum;
 use Webmozart\Assert\Assert;
 
 /**
@@ -62,8 +62,8 @@ trait MagicArraySerializable
 								return $type::fromArray($value);
 							}
 
-							if (is_a($type, ValueEnum::class, true)) {
-								return $type::fromValue($value);
+							if (is_a($type, BackedEnum::class, true)) {
+								return $type::from($value);
 							}
 
 							return $value;
@@ -158,8 +158,8 @@ trait MagicArraySerializable
 								return $value->toArray();
 							}
 
-							if (is_a($type, ValueEnum::class, true)) {
-								return $value->value();
+							if (is_a($type, BackedEnum::class, true)) {
+								return $value->value;
 							}
 
 							return $value;

@@ -21,7 +21,7 @@ final class FakeLandlordsApi implements LandlordsApi
 	/**
 	 * @inheritDoc
 	 */
-	public function update($id, CreateLandlordDTO $data): void
+	public function update(mixed $id, CreateLandlordDTO $data): void
 	{
 	}
 }

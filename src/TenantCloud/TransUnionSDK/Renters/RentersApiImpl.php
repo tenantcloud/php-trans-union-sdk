@@ -14,12 +14,8 @@ final class RentersApiImpl implements RentersApi
 	private const CREATE_RENTER_API_PATH = 'v1/Renters';
 	private const UPDATE_RENTER_API_PATH = 'v1/Renters';
 
-	/** @var Client */
-	private $httpClient;
-
-	public function __construct(Client $httpClient)
+	public function __construct(private Client $httpClient)
 	{
-		$this->httpClient = $httpClient;
 	}
 
 	/**
@@ -48,7 +44,7 @@ final class RentersApiImpl implements RentersApi
 	/**
 	 * @inheritDoc
 	 */
-	public function update($id, CreateRenterDTO $data): void
+	public function update(mixed $id, CreateRenterDTO $data): void
 	{
 		$data->getPerson()->setPersonId($id);
 

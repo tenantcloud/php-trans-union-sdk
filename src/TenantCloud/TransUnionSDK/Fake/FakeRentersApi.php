@@ -34,7 +34,7 @@ final class FakeRentersApi implements RentersApi
 	/**
 	 * @inheritDoc
 	 */
-	public function update($id, CreateRenterDTO $data): void
+	public function update(mixed $id, CreateRenterDTO $data): void
 	{
 		$newData = RequestReportPersonDTO::from($data->getPerson()->toArray())
 			->setPersonId($id);

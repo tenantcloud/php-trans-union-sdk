@@ -9,15 +9,11 @@ use TenantCloud\TransUnionSDK\Tokens\Token;
  */
 final class CombinedTokenCache implements TokenCache
 {
-	/** @var TokenCache[] */
-	private $caches;
-
 	/**
 	 * @param TokenCache[] $caches
 	 */
-	public function __construct(array $caches)
+	public function __construct(private array $caches)
 	{
-		$this->caches = $caches;
 	}
 
 	/**

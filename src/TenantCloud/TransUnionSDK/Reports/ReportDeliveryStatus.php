@@ -2,23 +2,13 @@
 
 namespace TenantCloud\TransUnionSDK\Reports;
 
-use TenantCloud\Standard\Enum\ValueEnum;
+use TenantCloud\Standard\Enum\BackedEnumExtensions;
 
-/**
- * @extends ValueEnum<string>
- */
-final class ReportDeliveryStatus extends ValueEnum
+enum ReportDeliveryStatus: string
 {
-	public static self $COMPLETED;
+	/** @use BackedEnumExtensions<string> */
+	use BackedEnumExtensions;
 
-	public static self $UPDATED;
-
-	/**
-	 * @inheritDoc
-	 */
-	protected static function initializeInstances(): void
-	{
-		self::$COMPLETED = new self('ReportCompleted');
-		self::$UPDATED = new self('ReportUpdated');
-	}
+	case COMPLETED = 'ReportCompleted';
+	case UPDATED = 'ReportUpdated';
 }

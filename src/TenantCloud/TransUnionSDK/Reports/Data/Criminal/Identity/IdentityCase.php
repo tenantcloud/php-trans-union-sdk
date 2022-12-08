@@ -11,72 +11,26 @@ final class IdentityCase implements ArraySerializable
 {
 	use MagicArraySerializable;
 
-	public ?string $title;
-
-	public ?Carbon $statusEndDate;
-
-	public ?string $statusDescription;
-
-	public ?Carbon $statusDate;
-
-	public ?Carbon $statusBeginDate;
-
-	/** @var Offense[] */
-	public ?array $offenses;
-
-	public ?string $jurisdiction;
-
-	public ?Carbon $filingDate;
-
-	public ?string $filingAgency;
-
-	public ?Carbon $dispositionDate;
-
-	public ?string $disposition;
-
-	public ?string $county;
-
-	public ?Carbon $completionDate;
-
-	public ?string $caseNumber;
-
-	public ?string $type;
-
 	/**
 	 * @param Offense[] $offenses
 	 */
 	public function __construct(
-		?string $caseNumber,
-		?Carbon $completionDate,
-		?string $county,
-		?string $disposition,
-		?Carbon $dispositionDate,
-		?string $filingAgency,
-		?Carbon $filingDate,
-		?string $jurisdiction,
-		?array $offenses,
-		?Carbon $statusBeginDate,
-		?Carbon $statusDate,
-		?string $statusDescription,
-		?Carbon $statusEndDate,
-		?string $title,
-		?string $type
+		public ?string $caseNumber,
+		public ?Carbon $completionDate,
+		public ?string $county,
+		public ?string $disposition,
+		public ?Carbon $dispositionDate,
+		public ?string $filingAgency,
+		public ?Carbon $filingDate,
+		public ?string $jurisdiction,
+		public ?array $offenses,
+		public ?Carbon $statusBeginDate,
+		public ?Carbon $statusDate,
+		public ?string $statusDescription,
+		public ?Carbon $statusEndDate,
+		public ?string $title,
+		public ?string $type
 	) {
-		$this->caseNumber = $caseNumber;
-		$this->completionDate = $completionDate;
-		$this->county = $county;
-		$this->disposition = $disposition;
-		$this->dispositionDate = $dispositionDate;
-		$this->filingAgency = $filingAgency;
-		$this->filingDate = $filingDate;
-		$this->jurisdiction = $jurisdiction;
-		$this->offenses = $offenses;
-		$this->statusBeginDate = $statusBeginDate;
-		$this->statusDate = $statusDate;
-		$this->statusDescription = $statusDescription;
-		$this->statusEndDate = $statusEndDate;
-		$this->title = $title;
-		$this->type = $type;
 	}
 
 	protected static function serializationConfig(): ArraySerializationConfig

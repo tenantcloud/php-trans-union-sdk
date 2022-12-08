@@ -17,30 +17,16 @@ final class Eviction implements ArraySerializable
 {
 	use MagicArraySerializable;
 
-	public ?RequestConsumer $requestedConsumer;
-
-	/** @var Record[] */
-	public ?array $records;
-
-	/** @var mixed[] */
-	public ?array $disclaimers;
-
-	public ?Carbon $createdOn;
-
 	/**
 	 * @param mixed[]  $disclaimers
 	 * @param Record[] $records
 	 */
 	public function __construct(
-		?Carbon $createdOn,
-		?array $disclaimers,
-		?array $records,
-		?RequestConsumer $requestedConsumer
+		public ?Carbon $createdOn,
+		public ?array $disclaimers,
+		public ?array $records,
+		public ?RequestConsumer $requestedConsumer
 	) {
-		$this->createdOn = $createdOn;
-		$this->disclaimers = $disclaimers;
-		$this->records = $records;
-		$this->requestedConsumer = $requestedConsumer;
 	}
 
 	protected static function serializationConfig(): ArraySerializationConfig

@@ -28,32 +28,23 @@ final class CreateRenterDTO extends CamelDataTransferObject
 	/**
 	 * @param CreateRenterPersonDTO|array<string, mixed> $data
 	 */
-	public function setPerson($data): self
+	public function setPerson(array|CreateRenterPersonDTO $data): self
 	{
 		return $this->set('person', CreateRenterPersonDTO::from($data));
 	}
 
-	/**
-	 * @param string|IncomeFrequency $frequency
-	 */
-	public function setIncomeFrequency($frequency): self
+	public function setIncomeFrequency(IncomeFrequency|string $frequency): self
 	{
-		return $this->set('incomeFrequency', IncomeFrequency::fromValue($frequency));
+		return $this->set('incomeFrequency', $frequency instanceof IncomeFrequency ? $frequency : IncomeFrequency::from($frequency));
 	}
 
-	/**
-	 * @param string|IncomeFrequency $frequency
-	 */
-	public function setOtherIncomeFrequency($frequency): self
+	public function setOtherIncomeFrequency(IncomeFrequency|string $frequency): self
 	{
-		return $this->set('otherIncomeFrequency', IncomeFrequency::fromValue($frequency));
+		return $this->set('otherIncomeFrequency', $frequency instanceof IncomeFrequency ? $frequency : IncomeFrequency::from($frequency));
 	}
 
-	/**
-	 * @param string|EmploymentStatus $status
-	 */
-	public function setEmploymentStatus($status): self
+	public function setEmploymentStatus(EmploymentStatus|string $status): self
 	{
-		return $this->set('employmentStatus', EmploymentStatus::fromValue($status));
+		return $this->set('employmentStatus', $status instanceof EmploymentStatus ? $status : EmploymentStatus::from($status));
 	}
 }

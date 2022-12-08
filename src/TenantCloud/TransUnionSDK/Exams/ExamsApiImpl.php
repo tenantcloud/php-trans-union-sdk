@@ -19,18 +19,8 @@ final class ExamsApiImpl implements ExamsApi
 	private const REQUEST_EXAM_API_PATH = 'v1/ScreeningRequestRenters/{request_renter_id}/Exams';
 	private const SUBMIT_ANSWERS_API_PATH = 'v1/ScreeningRequestRenters/{request_renter_id}/Exams/{exam_id}/Answers';
 
-	/** @var Client */
-	private $httpClient;
-
-	private bool $imitateTooManyAttempts;
-
-	private bool $testMode;
-
-	public function __construct(Client $httpClient, bool $imitateTooManyAttempts, bool $testMode = false)
+	public function __construct(private Client $httpClient, private bool $imitateTooManyAttempts, private bool $testMode = false)
 	{
-		$this->httpClient = $httpClient;
-		$this->imitateTooManyAttempts = $imitateTooManyAttempts;
-		$this->testMode = $testMode;
 	}
 
 	/**

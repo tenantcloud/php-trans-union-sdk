@@ -14,12 +14,8 @@ final class RequestsApiImpl implements RequestsApi
 {
 	private const CREATE_REQUEST_API_PATH = 'v1/ScreeningRequests';
 
-	/** @var Client */
-	private $httpClient;
-
-	public function __construct(Client $httpClient)
+	public function __construct(private Client $httpClient)
 	{
-		$this->httpClient = $httpClient;
 	}
 
 	/**

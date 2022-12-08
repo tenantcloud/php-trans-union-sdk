@@ -7,12 +7,6 @@ class ArraySerializationConfig
 	/** @var callable(string): string */
 	public $serializedName;
 
-	/** @var array<string, string> */
-	public array $arrays;
-
-	/** @var array<string, array{callable | null, callable | null}|array{callable}> */
-	public array $custom;
-
 	/**
 	 * @param callable(string): string $serializedName
 	 * @param array<string, string>    $arrays
@@ -20,12 +14,10 @@ class ArraySerializationConfig
 	 */
 	public function __construct(
 		callable $serializedName,
-		array $arrays = [],
-		array $custom = []
+		public array $arrays = [],
+		public array $custom = []
 	) {
 		$this->serializedName = $serializedName;
-		$this->arrays = $arrays;
-		$this->custom = $custom;
 	}
 
 	/**

@@ -14,8 +14,6 @@ interface LandlordsApi
 
 	/**
 	 * Update a landlord.
-	 *
-	 * @param mixed $id
 	 */
-	public function update($id, CreateLandlordDTO $data): void;
+	public function update(mixed $id, CreateLandlordDTO $data): void;
 }

@@ -9,24 +9,11 @@ use Carbon\Carbon;
  */
 final class Token
 {
-	/**
-	 * Client ID this token is for.
-	 *
-	 * @var string
-	 */
-	public $clientId;
+	private string $value;
 
-	/** @var string */
-	private $value;
-
-	/** @var Carbon Date token expires and isn't valid for requests anymore. */
-	private $expiresAt;
-
-	public function __construct(string $clientId, string $token, Carbon $expiresAt)
+	public function __construct(public string $clientId, string $token, private Carbon $expiresAt)
 	{
-		$this->clientId = $clientId;
 		$this->value = $token;
-		$this->expiresAt = $expiresAt;
 	}
 
 	/**

@@ -9,15 +9,9 @@ final class Disclaimer implements ArraySerializable
 {
 	use MagicArraySerializable;
 
-	public ?string $value;
-
-	public ?string $key;
-
 	public function __construct(
-		?string $key,
-		?string $value
+		public ?string $key,
+		public ?string $value
 	) {
-		$this->key = $key;
-		$this->value = $value;
 	}
 }

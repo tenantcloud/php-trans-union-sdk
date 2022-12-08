@@ -10,23 +10,11 @@ final class Court implements ArraySerializable
 {
 	use MagicArraySerializable;
 
-	public ?string $page;
-
-	public ?string $name;
-
-	public ?string $book;
-
-	public ?CourtAddress $address;
-
 	public function __construct(
-		?CourtAddress $address,
-		?string $book,
-		?string $name,
-		?string $page
+		public ?CourtAddress $address,
+		public ?string $book,
+		public ?string $name,
+		public ?string $page
 	) {
-		$this->address = $address;
-		$this->book = $book;
-		$this->name = $name;
-		$this->page = $page;
 	}
 }

@@ -7,11 +7,8 @@ use TenantCloud\TransUnionSDK\Tokens\Token;
 
 class ApiTokenResolver implements TokenResolver
 {
-	private TransUnionClient $client;
-
-	public function __construct(TransUnionClient $client)
+	public function __construct(private TransUnionClient $client)
 	{
-		$this->client = $client;
 	}
 
 	/**

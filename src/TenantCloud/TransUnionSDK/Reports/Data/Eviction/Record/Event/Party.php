@@ -11,60 +11,20 @@ final class Party implements ArraySerializable
 {
 	use MagicArraySerializable;
 
-	public ?string $type;
-
-	public ?string $suffix;
-
-	public ?string $sSN;
-
-	public ?string $phoneNumber;
-
-	public ?string $middleName;
-
-	public ?string $maskedSSN;
-
-	public ?string $lastName;
-
-	public ?string $gender;
-
-	public ?string $fullName;
-
-	public ?string $firstName;
-
-	public ?Carbon $birthDate;
-
-	/** @var mixed|null */
-	public $address;
-
-	/**
-	 * @param mixed|null $address
-	 */
 	public function __construct(
-		$address,
-		?Carbon $birthDate,
-		?string $firstName,
-		?string $fullName,
-		?string $gender,
-		?string $lastName,
-		?string $maskedSSN,
-		?string $middleName,
-		?string $phoneNumber,
-		?string $sSN,
-		?string $suffix,
-		?string $type
+		public mixed $address,
+		public ?Carbon $birthDate,
+		public ?string $firstName,
+		public ?string $fullName,
+		public ?string $gender,
+		public ?string $lastName,
+		public ?string $maskedSSN,
+		public ?string $middleName,
+		public ?string $phoneNumber,
+		public ?string $sSN,
+		public ?string $suffix,
+		public ?string $type
 	) {
-		$this->address = $address;
-		$this->birthDate = $birthDate;
-		$this->firstName = $firstName;
-		$this->fullName = $fullName;
-		$this->gender = $gender;
-		$this->lastName = $lastName;
-		$this->maskedSSN = $maskedSSN;
-		$this->middleName = $middleName;
-		$this->phoneNumber = $phoneNumber;
-		$this->sSN = $sSN;
-		$this->suffix = $suffix;
-		$this->type = $type;
 	}
 
 	protected static function serializationConfig(): ArraySerializationConfig

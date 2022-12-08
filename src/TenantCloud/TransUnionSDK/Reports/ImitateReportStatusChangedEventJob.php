@@ -15,15 +15,12 @@ final class ImitateReportStatusChangedEventJob implements ShouldQueue
 	use Dispatchable;
 	use Queueable;
 
-	private int $requestRenterId;
-
-	public function __construct(int $requestRenterId)
+	public function __construct(private int $requestRenterId)
 	{
-		$this->requestRenterId = $requestRenterId;
 	}
 
 	public function handle(Dispatcher $dispatcher): void
 	{
-		$dispatcher->dispatch(new ReportDeliveryStatusChangedEvent($this->requestRenterId, ReportDeliveryStatus::$COMPLETED));
+		$dispatcher->dispatch(new ReportDeliveryStatusChangedEvent($this->requestRenterId, ReportDeliveryStatus::COMPLETED));
 	}
 }

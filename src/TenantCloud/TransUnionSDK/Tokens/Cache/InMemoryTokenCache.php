@@ -10,7 +10,7 @@ use TenantCloud\TransUnionSDK\Tokens\Token;
 final class InMemoryTokenCache implements TokenCache
 {
 	/** @var array<string, Token> */
-	private $tokens;
+	private array $tokens;
 
 	/**
 	 * @inheritDoc

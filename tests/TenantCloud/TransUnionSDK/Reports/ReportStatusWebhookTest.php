@@ -47,7 +47,7 @@ class ReportStatusWebhookTest extends TestCase
 		$this
 			->postJson($this->route->uri(), [
 				'ScreeningRequestRenterId' => 123,
-				'ReportsDeliveryStatus'    => $status->value(),
+				'ReportsDeliveryStatus'    => $status->value,
 			])
 			->assertNoContent();
 
@@ -62,6 +62,6 @@ class ReportStatusWebhookTest extends TestCase
 	 */
 	public function emitsAnEventProvider(): array
 	{
-		return array_map(fn (ReportDeliveryStatus $status) => [$status], ReportDeliveryStatus::items());
+		return array_map(fn (ReportDeliveryStatus $status) => [$status], ReportDeliveryStatus::cases());
 	}
 }

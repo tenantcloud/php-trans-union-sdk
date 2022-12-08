@@ -10,27 +10,12 @@ final class Aka implements ArraySerializable
 {
 	use MagicArraySerializable;
 
-	public ?string $firstName;
-
-	public ?string $lastName;
-
-	public ?string $middleName;
-
-	public ?string $suffix;
-
-	public ?Carbon $birthDate;
-
 	public function __construct(
-		?string $firstName,
-		?string $lastName,
-		?string $middleName,
-		?string $suffix,
-		?Carbon $birthDate
+		public ?string $firstName,
+		public ?string $lastName,
+		public ?string $middleName,
+		public ?string $suffix,
+		public ?Carbon $birthDate
 	) {
-		$this->birthDate = $birthDate;
-		$this->suffix = $suffix;
-		$this->middleName = $middleName;
-		$this->lastName = $lastName;
-		$this->firstName = $firstName;
 	}
 }

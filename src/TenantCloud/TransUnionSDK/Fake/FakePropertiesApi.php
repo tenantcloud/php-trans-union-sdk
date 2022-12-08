@@ -21,7 +21,7 @@ final class FakePropertiesApi implements PropertiesApi
 	/**
 	 * @inheritDoc
 	 */
-	public function update($id, CreatePropertyDTO $data): void
+	public function update(mixed $id, CreatePropertyDTO $data): void
 	{
 	}
 }

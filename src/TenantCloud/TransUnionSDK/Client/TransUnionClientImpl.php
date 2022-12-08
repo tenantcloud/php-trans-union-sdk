@@ -37,18 +37,7 @@ use Throwable;
  */
 final class TransUnionClientImpl implements TransUnionClient
 {
-	/** @var Client */
-	private $httpClient;
-
-	/** Whether to imitate TU's events that are normally delivered with webhooks */
-	private bool $imitateEvents;
-
-	/** Whether given TU's base URL is a test one or not. Not all features are available on their test env so this enables their imitation. */
-	private bool $testMode;
-
-	private QueueConnectionFactory $queueConnectionFactory;
-
-	private Dispatcher $busDispatcher;
+	private Client $httpClient;
 
 	/**
 	 * @param string                        $baseUrl       Base URL for the API
@@ -59,16 +48,11 @@ final class TransUnionClientImpl implements TransUnionClient
 		string $clientId,
 		string $apiKey,
 		callable $tokenResolver,
-		QueueConnectionFactory $queueConnectionFactory,
-		Dispatcher $busDispatcher,
-		bool $imitateEvents = false,
-		bool $testMode = false
+		private QueueConnectionFactory $queueConnectionFactory,
+		private Dispatcher $busDispatcher,
+		private bool $imitateEvents = false,
+		private bool $testMode = false
 	) {
-		$this->queueConnectionFactory = $queueConnectionFactory;
-		$this->busDispatcher = $busDispatcher;
-		$this->imitateEvents = $imitateEvents;
-		$this->testMode = $testMode;
-
 		$stack = HandlerStack::create();
 
 		$stack->unshift($this->rethrowMiddleware());

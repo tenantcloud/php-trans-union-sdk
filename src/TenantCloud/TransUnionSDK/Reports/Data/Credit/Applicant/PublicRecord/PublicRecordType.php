@@ -2,20 +2,13 @@
 
 namespace TenantCloud\TransUnionSDK\Reports\Data\Credit\Applicant\PublicRecord;
 
-use TenantCloud\Standard\Enum\ValueEnum;
+use TenantCloud\Standard\Enum\BackedEnumExtensions;
 
-/**
- * @extends ValueEnum<string>
- */
-final class PublicRecordType extends ValueEnum
+enum PublicRecordType: string
 {
-	public static self $BANKRUPTCIES;
+	/** @use BackedEnumExtensions<string> */
+	use BackedEnumExtensions;
 
-	public static self $JUDGEMENTS;
-
-	protected static function initializeInstances(): void
-	{
-		self::$BANKRUPTCIES = new self('BANKRUPTCIES');
-		self::$JUDGEMENTS = new self('JUDGEMENTS');
-	}
+	case BANKRUPTCIES = 'BANKRUPTCIES';
+	case JUDGEMENTS = 'JUDGEMENTS';
 }

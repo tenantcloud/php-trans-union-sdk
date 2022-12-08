@@ -50,7 +50,7 @@ class ManualVerificationStatusWebhookTest extends TestCase
 
 		Event::assertDispatched(VerificationStatusChangedEvent::class, function (VerificationStatusChangedEvent $event) {
 			return $event->screeningRequestRenterId === 123 &&
-				$event->status === ManualVerificationStatus::$AUTHENTICATED;
+				$event->status === ManualVerificationStatus::AUTHENTICATED;
 		});
 	}
 }

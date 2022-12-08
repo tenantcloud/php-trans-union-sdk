@@ -24,19 +24,19 @@ class DownloadStubsCommand extends Command
 	{
 		foreach ($reportStubDownloader->downloadAll($this->people()) as [$person, $product]) {
 			/** @var PersonDTO $person */
-			$this->info("Downloaded {$product} report for {$person->firstName} {$person->lastName}");
+			$this->info("Downloaded {$product->value} report for {$person->firstName} {$person->lastName}");
 		}
 
 		$this->info('Done!');
 	}
 
 	/**
-	 * @return Generator<array{array<ReportProduct<mixed>>, PersonDTO, string} | array{array<ReportProduct<mixed>>, PersonDTO}>
+	 * @return Generator<array{array<ReportProduct>, PersonDTO, string} | array{array<ReportProduct>, PersonDTO}>
 	 */
 	private function people(): Generator
 	{
 		yield [
-			[ReportProduct::$CREDIT],
+			[ReportProduct::CREDIT],
 			new PersonDTO(
 				'Chapoton',
 				'John',
@@ -47,7 +47,7 @@ class DownloadStubsCommand extends Command
 		];
 
 		yield [
-			[ReportProduct::$CRIMINAL],
+			[ReportProduct::CRIMINAL],
 			new PersonDTO(
 				'Jacfirst',
 				'Beclast',
@@ -58,7 +58,7 @@ class DownloadStubsCommand extends Command
 		];
 
 		yield [
-			[ReportProduct::$EVICTION],
+			[ReportProduct::EVICTION],
 			new PersonDTO(
 				'Test',
 				'Tenant',
@@ -69,7 +69,7 @@ class DownloadStubsCommand extends Command
 		];
 
 		yield [
-			[ReportProduct::$CREDIT, ReportProduct::$CRIMINAL, ReportProduct::$EVICTION],
+			[ReportProduct::CREDIT, ReportProduct::CRIMINAL, ReportProduct::EVICTION],
 			new PersonDTO(
 				'William',
 				'Thorne',
@@ -79,7 +79,7 @@ class DownloadStubsCommand extends Command
 		];
 
 		yield [
-			[ReportProduct::$CREDIT, ReportProduct::$CRIMINAL, ReportProduct::$EVICTION],
+			[ReportProduct::CREDIT, ReportProduct::CRIMINAL, ReportProduct::EVICTION],
 			new PersonDTO(
 				'Bonnie',
 				'Adams',
@@ -89,7 +89,7 @@ class DownloadStubsCommand extends Command
 		];
 
 		yield [
-			[ReportProduct::$CREDIT],
+			[ReportProduct::CREDIT],
 			new PersonDTO(
 				'BIRMINGHAM',
 				'BOB',
@@ -99,7 +99,7 @@ class DownloadStubsCommand extends Command
 		];
 
 		yield [
-			[ReportProduct::$CREDIT],
+			[ReportProduct::CREDIT],
 			new PersonDTO(
 				'LINDA',
 				'FRADE',
@@ -109,7 +109,7 @@ class DownloadStubsCommand extends Command
 		];
 
 		yield [
-			[ReportProduct::$CREDIT],
+			[ReportProduct::CREDIT],
 			new PersonDTO(
 				'RUDOLPH',
 				'LEVARITY',
@@ -119,7 +119,7 @@ class DownloadStubsCommand extends Command
 		];
 
 		yield [
-			[ReportProduct::$CREDIT],
+			[ReportProduct::CREDIT],
 			new PersonDTO(
 				'MICHAEL',
 				'REUSH',
@@ -129,7 +129,7 @@ class DownloadStubsCommand extends Command
 		];
 
 		yield [
-			[ReportProduct::$CREDIT],
+			[ReportProduct::CREDIT],
 			new PersonDTO(
 				'MELISSA',
 				'LECKENBY',
@@ -139,7 +139,7 @@ class DownloadStubsCommand extends Command
 		];
 
 		yield [
-			[ReportProduct::$CREDIT],
+			[ReportProduct::CREDIT],
 			new PersonDTO(
 				'JOSEPH',
 				'RAMEY',
@@ -149,7 +149,7 @@ class DownloadStubsCommand extends Command
 		];
 
 		yield [
-			[ReportProduct::$CREDIT],
+			[ReportProduct::CREDIT],
 			new PersonDTO(
 				'WILLIAM',
 				'LYNCH',
@@ -159,7 +159,7 @@ class DownloadStubsCommand extends Command
 		];
 
 		yield [
-			[ReportProduct::$CREDIT],
+			[ReportProduct::CREDIT],
 			new PersonDTO(
 				'RAZILI',
 				'DATTA',
@@ -169,7 +169,7 @@ class DownloadStubsCommand extends Command
 		];
 
 		yield [
-			[ReportProduct::$CREDIT],
+			[ReportProduct::CREDIT],
 			new PersonDTO(
 				'DIANE',
 				'CARSON',
@@ -179,7 +179,7 @@ class DownloadStubsCommand extends Command
 		];
 
 		yield [
-			[ReportProduct::$CRIMINAL],
+			[ReportProduct::CRIMINAL],
 			new PersonDTO(
 				'Bugs',
 				'Bunny',
@@ -189,7 +189,7 @@ class DownloadStubsCommand extends Command
 		];
 
 		yield [
-			[ReportProduct::$CRIMINAL],
+			[ReportProduct::CRIMINAL],
 			new PersonDTO(
 				'Spongebob',
 				'Squarepants',
@@ -199,7 +199,7 @@ class DownloadStubsCommand extends Command
 		];
 
 		yield [
-			[ReportProduct::$CRIMINAL],
+			[ReportProduct::CRIMINAL],
 			new PersonDTO(
 				'Achilles',
 				'Heel',
@@ -209,7 +209,7 @@ class DownloadStubsCommand extends Command
 		];
 
 		yield [
-			[ReportProduct::$CRIMINAL],
+			[ReportProduct::CRIMINAL],
 			new PersonDTO(
 				'Ivan',
 				'TheTerrible',
@@ -219,7 +219,7 @@ class DownloadStubsCommand extends Command
 		];
 
 		yield [
-			[ReportProduct::$CRIMINAL],
+			[ReportProduct::CRIMINAL],
 			new PersonDTO(
 				'Sherlock',
 				'Holmes',
@@ -229,7 +229,7 @@ class DownloadStubsCommand extends Command
 		];
 
 		yield [
-			[ReportProduct::$CRIMINAL],
+			[ReportProduct::CRIMINAL],
 			new PersonDTO(
 				'Mountain',
 				'Lion',
@@ -239,7 +239,7 @@ class DownloadStubsCommand extends Command
 		];
 
 		yield [
-			[ReportProduct::$CRIMINAL],
+			[ReportProduct::CRIMINAL],
 			new PersonDTO(
 				'Polar',
 				'Bear',
@@ -249,7 +249,7 @@ class DownloadStubsCommand extends Command
 		];
 
 		yield [
-			[ReportProduct::$EVICTION],
+			[ReportProduct::EVICTION],
 			new PersonDTO(
 				'Mountain',
 				'Lion',
@@ -259,7 +259,7 @@ class DownloadStubsCommand extends Command
 		];
 
 		yield [
-			[ReportProduct::$EVICTION],
+			[ReportProduct::EVICTION],
 			new PersonDTO(
 				'Bald',
 				'Eagle',
@@ -269,7 +269,7 @@ class DownloadStubsCommand extends Command
 		];
 
 		yield [
-			[ReportProduct::$EVICTION],
+			[ReportProduct::EVICTION],
 			new PersonDTO(
 				'Emporer',
 				'Penguin',
@@ -279,7 +279,7 @@ class DownloadStubsCommand extends Command
 		];
 
 		yield [
-			[ReportProduct::$EVICTION],
+			[ReportProduct::EVICTION],
 			new PersonDTO(
 				'Ard',
 				'Vark',
@@ -289,7 +289,7 @@ class DownloadStubsCommand extends Command
 		];
 
 		yield [
-			[ReportProduct::$EVICTION],
+			[ReportProduct::EVICTION],
 			new PersonDTO(
 				'Siren',
 				'Yilmaz',

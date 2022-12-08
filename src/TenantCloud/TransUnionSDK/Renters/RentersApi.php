@@ -14,8 +14,6 @@ interface RentersApi
 
 	/**
 	 * Update a renter.
-	 *
-	 * @param mixed $id
 	 */
-	public function update($id, CreateRenterDTO $data): void;
+	public function update(mixed $id, CreateRenterDTO $data): void;
 }

@@ -20,7 +20,7 @@ final class ManualVerificationController
 	{
 		event(new VerificationStatusChangedEvent(
 			$request->input('ScreeningRequestRenterId'),
-			ManualVerificationStatus::fromValue($request->input('ManualAuthenticationStatus'))
+			ManualVerificationStatus::from($request->input('ManualAuthenticationStatus'))
 		));
 
 		return response()->noContent();

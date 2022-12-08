@@ -4,7 +4,6 @@ namespace TenantCloud\TransUnionSDK\Fake;
 
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Filesystem\Filesystem;
-use InvalidArgumentException;
 use TenantCloud\TransUnionSDK\Reports\Data\Credit;
 use TenantCloud\TransUnionSDK\Reports\Data\Criminal;
 use TenantCloud\TransUnionSDK\Reports\Data\Eviction;
@@ -32,7 +31,7 @@ final class FakeReportsApi implements ReportsApi
 	 */
 	public function request(RequestReportDTO $data): void
 	{
-		$this->dispatcher->dispatch(new ReportDeliveryStatusChangedEvent($data->getRequestRenterId(), ReportDeliveryStatus::$COMPLETED));
+		$this->dispatcher->dispatch(new ReportDeliveryStatusChangedEvent($data->getRequestRenterId(), ReportDeliveryStatus::COMPLETED));
 	}
 
 	/**
@@ -41,9 +40,9 @@ final class FakeReportsApi implements ReportsApi
 	public function availableTypes(int $requestRenterId): array
 	{
 		return $this->availableTypesFromRenterName($requestRenterId) ?? [
-			ReportProduct::$CREDIT,
-			ReportProduct::$CRIMINAL,
-			ReportProduct::$EVICTION,
+			ReportProduct::CREDIT,
+			ReportProduct::CRIMINAL,
+			ReportProduct::EVICTION,
 		];
 	}
 
@@ -54,25 +53,11 @@ final class FakeReportsApi implements ReportsApi
 	{
 		$foundReport = $this->findArray($requestRenterId, $productType);
 
-		switch ($productType) {
-			case ReportProduct::$CREDIT:
-				$report = Credit::fromArray($foundReport->report());
-
-				break;
-
-			case ReportProduct::$EVICTION:
-				$report = Eviction::fromArray($foundReport->report());
-
-				break;
-
-			case ReportProduct::$CRIMINAL:
-				$report = Criminal::fromArray($foundReport->report());
-
-				break;
-
-			default:
-				throw new InvalidArgumentException("Report product {$productType} is not supported.");
-		}
+		$report = match ($productType) {
+			ReportProduct::CREDIT   => Credit::fromArray($foundReport->report()),
+			ReportProduct::EVICTION => Eviction::fromArray($foundReport->report()),
+			ReportProduct::CRIMINAL => Criminal::fromArray($foundReport->report()),
+		};
 
 		return new FoundReport($foundReport->expires(), $report);
 	}
@@ -83,7 +68,7 @@ final class FakeReportsApi implements ReportsApi
 	public function findArray(int $requestRenterId, ReportProduct $productType): FoundReport
 	{
 		$reportData = json_decode(
-			$this->filesystem->get(__DIR__ . "/../../../../resources/reports/default/{$productType}.json"),
+			$this->filesystem->get(__DIR__ . "/../../../../resources/reports/default/{$productType->value}.json"),
 			true,
 			512,
 			JSON_THROW_ON_ERROR
@@ -96,7 +81,7 @@ final class FakeReportsApi implements ReportsApi
 	}
 
 	/**
-	 * @return array<ReportProduct<mixed>>|null
+	 * @return array<ReportProduct>|null
 	 */
 	private function availableTypesFromRenterName(int $requestRenterId): ?array
 	{
@@ -127,9 +112,9 @@ final class FakeReportsApi implements ReportsApi
 			array_map(
 				fn (array $pair) => str_contains($haystack, $pair[0]) ? $pair[1] : null,
 				[
-					['credit', ReportProduct::$CREDIT],
-					['criminal', ReportProduct::$CRIMINAL],
-					['eviction', ReportProduct::$EVICTION],
+					['credit', ReportProduct::CREDIT],
+					['criminal', ReportProduct::CRIMINAL],
+					['eviction', ReportProduct::EVICTION],
 				]
 			)
 		);

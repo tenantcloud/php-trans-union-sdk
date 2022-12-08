@@ -37,7 +37,7 @@ class RentersApiTest extends TestCase
 					->setLastName('Us')
 					->setEmailAddress('dsada@ds.dsd')
 					->setAcceptedTermsAndConditions(true)
-					->setPhoneType(PhoneType::$MOBILE)
+					->setPhoneType(PhoneType::MOBILE)
 					->setPhoneNumber('180002332883')
 					->setDateOfBirth(now()->subYears(19))
 					->setSocialSecurityNumber('123456789')
@@ -51,11 +51,11 @@ class RentersApiTest extends TestCase
 					)
 			)
 			->setIncome(1)
-			->setIncomeFrequency(IncomeFrequency::$PER_MONTH)
+			->setIncomeFrequency(IncomeFrequency::PER_MONTH)
 			->setOtherIncome(0)
-			->setOtherIncomeFrequency(IncomeFrequency::$PER_MONTH)
+			->setOtherIncomeFrequency(IncomeFrequency::PER_MONTH)
 			->setAssets(0)
-			->setEmploymentStatus(EmploymentStatus::$SELF_EMPLOYED);
+			->setEmploymentStatus(EmploymentStatus::SELF_EMPLOYED);
 
 		$id = $this->api->create(clone $data);
 		$this->api->update($id, clone $data);

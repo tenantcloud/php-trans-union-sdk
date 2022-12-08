@@ -37,7 +37,7 @@ final class CreatePropertyDTO extends CamelDataTransferObject
 	/**
 	 * @param AddressDTO|array<string, mixed> $data
 	 */
-	public function setAddress($data): self
+	public function setAddress(array|AddressDTO $data): self
 	{
 		return $this->set('address', AddressDTO::from($data));
 	}

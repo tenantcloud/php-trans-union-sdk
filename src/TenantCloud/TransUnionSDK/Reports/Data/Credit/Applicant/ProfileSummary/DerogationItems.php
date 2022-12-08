@@ -9,27 +9,12 @@ final class DerogationItems implements ArraySerializable
 {
 	use MagicArraySerializable;
 
-	public ?int $publicRecordCount;
-
-	public ?int $occuranceHistCount;
-
-	public ?int $negTradelineCount;
-
-	public ?int $histNegTradelineCount;
-
-	public ?int $collectionCount;
-
 	public function __construct(
-		?int $collectionCount,
-		?int $histNegTradelineCount,
-		?int $negTradelineCount,
-		?int $occuranceHistCount,
-		?int $publicRecordCount
+		public ?int $collectionCount,
+		public ?int $histNegTradelineCount,
+		public ?int $negTradelineCount,
+		public ?int $occuranceHistCount,
+		public ?int $publicRecordCount
 	) {
-		$this->collectionCount = $collectionCount;
-		$this->histNegTradelineCount = $histNegTradelineCount;
-		$this->negTradelineCount = $negTradelineCount;
-		$this->occuranceHistCount = $occuranceHistCount;
-		$this->publicRecordCount = $publicRecordCount;
 	}
 }

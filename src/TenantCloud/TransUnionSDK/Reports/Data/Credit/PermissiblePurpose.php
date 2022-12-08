@@ -2,17 +2,12 @@
 
 namespace TenantCloud\TransUnionSDK\Reports\Data\Credit;
 
-use TenantCloud\Standard\Enum\ValueEnum;
+use TenantCloud\Standard\Enum\BackedEnumExtensions;
 
-/**
- * @extends ValueEnum<string>
- */
-final class PermissiblePurpose extends ValueEnum
+enum PermissiblePurpose: string
 {
-	public static self $TENANT_SCREENING;
+	/** @use BackedEnumExtensions<string> */
+	use BackedEnumExtensions;
 
-	protected static function initializeInstances(): void
-	{
-		self::$TENANT_SCREENING = new self('TenantScreening');
-	}
+	case TENANT_SCREENING = 'TenantScreening';
 }

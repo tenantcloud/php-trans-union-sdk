@@ -14,12 +14,8 @@ final class LandlordsApiImpl implements LandlordsApi
 	private const CREATE_LANDLORD_API_PATH = 'v1/Landlords';
 	private const UPDATE_LANDLORD_API_PATH = 'v1/Landlords';
 
-	/** @var Client */
-	private $httpClient;
-
-	public function __construct(Client $httpClient)
+	public function __construct(private Client $httpClient)
 	{
-		$this->httpClient = $httpClient;
 	}
 
 	/**
@@ -48,7 +44,7 @@ final class LandlordsApiImpl implements LandlordsApi
 	/**
 	 * @inheritDoc
 	 */
-	public function update($id, CreateLandlordDTO $data): void
+	public function update(mixed $id, CreateLandlordDTO $data): void
 	{
 		$data->setLandlordId($id);
 

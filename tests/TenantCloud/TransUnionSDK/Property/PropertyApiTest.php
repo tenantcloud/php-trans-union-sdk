@@ -36,7 +36,7 @@ class PropertyApiTest extends TestCase
 					->setLastName('Us')
 					->setEmailAddress('dsada@ds.dsd')
 					->setAcceptedTermsAndConditions(true)
-					->setPhoneType(PhoneType::$MOBILE)
+					->setPhoneType(PhoneType::MOBILE)
 					->setPhoneNumber('180002332883')
 					->setBusinessAddress(
 						AddressDTO::create()

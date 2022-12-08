@@ -92,14 +92,11 @@ final class FakeExamsApi implements ExamsApi
 	/**
 	 * Unpass verification (if passed previously) for given request renter id.
 	 */
-	public function unpass(int ...$requestRenterId): void
+	public function unpass(int ...$requestRenterIds): void
 	{
 		$this->cache->put(
 			'exams.passed_ids',
-			array_filter(
-				$this->cache->get('exams.passed_ids') ?? [],
-				fn ($id) => $id !== $requestRenterId,
-			)
+			array_diff($this->cache->get('exams.passed_ids') ?? [], $requestRenterIds)
 		);
 	}
 

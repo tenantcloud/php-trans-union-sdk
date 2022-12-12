@@ -13,16 +13,12 @@ final class TokensApiImpl implements TokensApi
 {
 	private const CREATE_TOKEN_API_PATH = 'v1/Tokens';
 
-	/** @var Client */
-	private $httpClient;
-
-	public function __construct(Client $httpClient)
+	public function __construct(private readonly Client $httpClient)
 	{
-		$this->httpClient = $httpClient;
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * @inheritDoc
 	 */
 	public function create(string $clientId, string $apiKey): Token
 	{

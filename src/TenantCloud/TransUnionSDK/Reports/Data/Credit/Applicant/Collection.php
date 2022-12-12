@@ -10,99 +10,30 @@ final class Collection implements ArraySerializable
 {
 	use MagicArraySerializable;
 
-	public ?string $verificationIndicator;
-
-	public ?string $remarksCode;
-
-	public ?float $pastDue;
-
-	public ?string $narrativeCode2;
-
-	public ?string $narrativeCode1;
-
-	public ?string $loanType;
-
-	public ?string $industryCode;
-
-	public ?float $highCredit;
-
-	public ?Carbon $dateVerified;
-
-	public ?Carbon $dateReported;
-
-	public ?Carbon $datePaidOut;
-
-	public ?Carbon $dateOpened;
-
-	public ?string $dateClosedIndicator;
-
-	public ?Carbon $dateClosed;
-
-	public ?string $customerNumber;
-
-	public ?string $currentMOP;
-
-	public ?float $currentBalance;
-
-	public ?string $creditorsName;
-
-	public ?string $collectionComments;
-
-	public ?string $collectionAgencyName;
-
-	public ?string $accountType;
-
-	public ?string $accountNumber;
-
-	public ?string $accountDesignator;
-
 	public function __construct(
-		?string $accountDesignator,
-		?string $accountNumber,
-		?string $accountType,
-		?string $collectionAgencyName,
-		?string $collectionComments,
-		?string $creditorsName,
-		?float $currentBalance,
-		?string $currentMOP,
-		?string $customerNumber,
-		?Carbon $dateClosed,
-		?string $dateClosedIndicator,
-		?Carbon $dateOpened,
-		?Carbon $datePaidOut,
-		?Carbon $dateReported,
-		?Carbon $dateVerified,
-		?float $highCredit,
-		?string $industryCode,
-		?string $loanType,
-		?string $narrativeCode1,
-		?string $narrativeCode2,
-		?float $pastDue,
-		?string $remarksCode,
-		?string $verificationIndicator
+		public readonly ?string $accountDesignator,
+		public readonly ?string $accountNumber,
+		public readonly ?string $accountType,
+		public readonly ?string $collectionAgencyName,
+		public readonly ?string $collectionComments,
+		public readonly ?string $creditorsName,
+		public readonly ?float $currentBalance,
+		public readonly ?string $currentMOP,
+		public readonly ?string $customerNumber,
+		public readonly ?Carbon $dateClosed,
+		public readonly ?string $dateClosedIndicator,
+		public readonly ?Carbon $dateOpened,
+		public readonly ?Carbon $datePaidOut,
+		public readonly ?Carbon $dateReported,
+		public readonly ?Carbon $dateVerified,
+		public readonly ?float $highCredit,
+		public readonly ?string $industryCode,
+		public readonly ?string $loanType,
+		public readonly ?string $narrativeCode1,
+		public readonly ?string $narrativeCode2,
+		public readonly ?float $pastDue,
+		public readonly ?string $remarksCode,
+		public readonly ?string $verificationIndicator
 	) {
-		$this->accountDesignator = $accountDesignator;
-		$this->accountNumber = $accountNumber;
-		$this->accountType = $accountType;
-		$this->collectionAgencyName = $collectionAgencyName;
-		$this->collectionComments = $collectionComments;
-		$this->creditorsName = $creditorsName;
-		$this->currentBalance = $currentBalance;
-		$this->currentMOP = $currentMOP;
-		$this->customerNumber = $customerNumber;
-		$this->dateClosed = $dateClosed;
-		$this->dateClosedIndicator = $dateClosedIndicator;
-		$this->dateOpened = $dateOpened;
-		$this->datePaidOut = $datePaidOut;
-		$this->dateReported = $dateReported;
-		$this->dateVerified = $dateVerified;
-		$this->highCredit = $highCredit;
-		$this->industryCode = $industryCode;
-		$this->loanType = $loanType;
-		$this->narrativeCode1 = $narrativeCode1;
-		$this->narrativeCode2 = $narrativeCode2;
-		$this->pastDue = $pastDue;
-		$this->remarksCode = $remarksCode;
-		$this->verificationIndicator = $verificationIndicator;
 	}
 }

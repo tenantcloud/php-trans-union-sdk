@@ -20,7 +20,7 @@ use TenantCloud\TransUnionSDK\Shared\PhoneType;
  */
 final class CreateLandlordDTO extends CamelDataTransferObject
 {
-	/** {@inheritdoc} */
+	/** @inheritDoc */
 	protected array $fields = [
 		'landlordId',
 		'emailAddress',
@@ -36,7 +36,7 @@ final class CreateLandlordDTO extends CamelDataTransferObject
 	/**
 	 * @param AddressDTO|array<string, mixed> $data
 	 */
-	public function setBusinessAddress($data): self
+	public function setBusinessAddress(array|AddressDTO $data): self
 	{
 		return $this->set('businessAddress', AddressDTO::from($data));
 	}

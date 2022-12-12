@@ -14,7 +14,7 @@ class DevTransUnionSDKServiceProvider extends ServiceProvider
 	public function register()
 	{
 		$this->mergeConfigFrom(
-			__DIR__ . '/../../../resources/trans_union.php',
+			__DIR__ . '/../../../../resources/trans_union.php',
 			'trans_union'
 		);
 

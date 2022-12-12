@@ -7,25 +7,17 @@ class ArraySerializationConfig
 	/** @var callable(string): string */
 	public $serializedName;
 
-	/** @var array<string, string> */
-	public array $arrays;
-
-	/** @var array<string, array{callable | null, callable | null}|array{callable}> */
-	public array $custom;
-
 	/**
-	 * @param callable(string): string                                               $serializedName
-	 * @param array<string, string>                                                  $arrays
+	 * @param callable(string): string $serializedName
+	 * @param array<string, string>    $arrays
 	 * @param array<string, array{callable | null, callable | null}|array{callable}> $custom
 	 */
 	public function __construct(
 		callable $serializedName,
-		array $arrays = [],
-		array $custom = []
+		public readonly array $arrays = [],
+		public readonly array $custom = []
 	) {
 		$this->serializedName = $serializedName;
-		$this->arrays = $arrays;
-		$this->custom = $custom;
 	}
 
 	/**

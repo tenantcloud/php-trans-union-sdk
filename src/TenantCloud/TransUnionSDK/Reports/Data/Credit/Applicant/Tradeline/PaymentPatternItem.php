@@ -2,41 +2,29 @@
 
 namespace TenantCloud\TransUnionSDK\Reports\Data\Credit\Applicant\Tradeline;
 
-use TenantCloud\Standard\Enum\ValueEnum;
+use TenantCloud\Standard\Enum\BackedEnumExtensions;
 
-/**
- * @extends ValueEnum<string>
- */
-final class PaymentPatternItem extends ValueEnum
+enum PaymentPatternItem: string
 {
-	public static self $NOT_AVAILABLE;
+	/** @use BackedEnumExtensions<string> */
+	use BackedEnumExtensions;
 
-	public static self $COMPLETED;
-
-	public static self $THIRTY;
-
-	public static self $SIXTY;
-
-	public static self $NINETY;
-
-	public static self $ONE_HUNDRED_TWENTY;
-
-	public ?string $displayValue;
-
-	public function __construct(string $value, string $displayValue)
+	public function displayValue(): string
 	{
-		parent::__construct($value);
-
-		$this->displayValue = $displayValue;
+		return match ($this) {
+			self::NOT_AVAILABLE      => 'N/A',
+			self::COMPLETED          => 'I',
+			self::THIRTY             => '30',
+			self::SIXTY              => '60',
+			self::NINETY             => '90',
+			self::ONE_HUNDRED_TWENTY => '120',
+		};
 	}
 
-	protected static function initializeInstances(): void
-	{
-		self::$NOT_AVAILABLE = new self('X', 'N/A');
-		self::$COMPLETED = new self('1', 'I');
-		self::$THIRTY = new self('2', '30');
-		self::$SIXTY = new self('3', '60');
-		self::$NINETY = new self('4', '90');
-		self::$ONE_HUNDRED_TWENTY = new self('5', '120');
-	}
+	case NOT_AVAILABLE = 'X';
+	case COMPLETED = '1';
+	case THIRTY = '2';
+	case SIXTY = '3';
+	case NINETY = '4';
+	case ONE_HUNDRED_TWENTY = '5';
 }

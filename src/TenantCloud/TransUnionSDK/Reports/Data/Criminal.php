@@ -18,54 +18,22 @@ final class Criminal implements ArraySerializable
 {
 	use MagicArraySerializable;
 
-	public ?int $sexOffenderIdentityCount;
-
-	public ?RequestConsumer $requestedConsumer;
-
-	public ?string $permissiblePurpose;
-
-	public ?int $otherIdentityCount;
-
-	public ?int $oFACIdentityCount;
-
-	public ?int $mostWantedIdentityCount;
-
-	/** @var Identity[] */
-	public ?array $identities;
-
-	/** @var Disclaimer[] */
-	public ?array $disclaimers;
-
-	public ?int $criminalIdentityCount;
-
-	public ?Carbon $createdOn;
-
 	/**
 	 * @param Disclaimer[] $disclaimers
 	 * @param Identity[]   $identities
 	 */
 	public function __construct(
-		?Carbon $createdOn,
-		?int $criminalIdentityCount,
-		?array $disclaimers,
-		?array $identities,
-		?int $mostWantedIdentityCount,
-		?int $oFACIdentityCount,
-		?int $otherIdentityCount,
-		?string $permissiblePurpose,
-		?RequestConsumer $requestedConsumer,
-		?int $sexOffenderIdentityCount
+		public readonly ?Carbon $createdOn,
+		public readonly ?int $criminalIdentityCount,
+		public readonly ?array $disclaimers,
+		public readonly ?array $identities,
+		public readonly ?int $mostWantedIdentityCount,
+		public readonly ?int $oFACIdentityCount,
+		public readonly ?int $otherIdentityCount,
+		public readonly ?string $permissiblePurpose,
+		public readonly ?RequestConsumer $requestedConsumer,
+		public readonly ?int $sexOffenderIdentityCount
 	) {
-		$this->createdOn = $createdOn;
-		$this->criminalIdentityCount = $criminalIdentityCount;
-		$this->disclaimers = $disclaimers;
-		$this->identities = $identities;
-		$this->mostWantedIdentityCount = $mostWantedIdentityCount;
-		$this->oFACIdentityCount = $oFACIdentityCount;
-		$this->otherIdentityCount = $otherIdentityCount;
-		$this->permissiblePurpose = $permissiblePurpose;
-		$this->requestedConsumer = $requestedConsumer;
-		$this->sexOffenderIdentityCount = $sexOffenderIdentityCount;
 	}
 
 	protected static function serializationConfig(): ArraySerializationConfig

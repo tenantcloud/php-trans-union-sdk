@@ -12,31 +12,13 @@ final class TransactionsControl implements ArraySerializable
 {
 	use MagicArraySerializable;
 
-	public ?string $userRefNumber;
-
-	public ?TransactionsControlTracking $tracking;
-
-	public ?TransactionsControlSubscriber $subscriber;
-
-	public ?TransactionsControlOptions $options;
-
-	public ?string $customerLogin;
-
-	public ?string $clientVendorSoftware;
-
 	public function __construct(
-		?string $clientVendorSoftware,
-		?string $customerLogin,
-		?TransactionsControlOptions $options,
-		?TransactionsControlSubscriber $subscriber,
-		?TransactionsControlTracking $tracking,
-		?string $userRefNumber
+		public readonly ?string $clientVendorSoftware,
+		public readonly ?string $customerLogin,
+		public readonly ?TransactionsControlOptions $options,
+		public readonly ?TransactionsControlSubscriber $subscriber,
+		public readonly ?TransactionsControlTracking $tracking,
+		public readonly ?string $userRefNumber
 	) {
-		$this->clientVendorSoftware = $clientVendorSoftware;
-		$this->customerLogin = $customerLogin;
-		$this->options = $options;
-		$this->subscriber = $subscriber;
-		$this->tracking = $tracking;
-		$this->userRefNumber = $userRefNumber;
 	}
 }

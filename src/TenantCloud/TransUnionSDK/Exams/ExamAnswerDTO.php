@@ -12,7 +12,7 @@ use TenantCloud\DataTransferObjects\CamelDataTransferObject;
  */
 final class ExamAnswerDTO extends CamelDataTransferObject
 {
-	/** {@inheritdoc} */
+	/** @inheritDoc */
 	protected array $fields = [
 		'questionKeyName',
 		'selectedChoiceKeyName',

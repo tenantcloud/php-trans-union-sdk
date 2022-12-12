@@ -9,31 +9,13 @@ final class PastDueItem implements ArraySerializable
 {
 	use MagicArraySerializable;
 
-	public ?float $totalPastDue;
-
-	public ?float $revolvingPastDue;
-
-	public ?float $openPastDue;
-
-	public ?float $mortgagePastDue;
-
-	public ?float $installmentPastDue;
-
-	public ?float $closedWithBalPastDue;
-
 	public function __construct(
-		?float $closedWithBalPastDue,
-		?float $installmentPastDue,
-		?float $mortgagePastDue,
-		?float $openPastDue,
-		?float $revolvingPastDue,
-		?float $totalPastDue
+		public readonly ?float $closedWithBalPastDue,
+		public readonly ?float $installmentPastDue,
+		public readonly ?float $mortgagePastDue,
+		public readonly ?float $openPastDue,
+		public readonly ?float $revolvingPastDue,
+		public readonly ?float $totalPastDue
 	) {
-		$this->closedWithBalPastDue = $closedWithBalPastDue;
-		$this->installmentPastDue = $installmentPastDue;
-		$this->mortgagePastDue = $mortgagePastDue;
-		$this->openPastDue = $openPastDue;
-		$this->revolvingPastDue = $revolvingPastDue;
-		$this->totalPastDue = $totalPastDue;
 	}
 }

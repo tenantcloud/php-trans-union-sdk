@@ -15,16 +15,12 @@ final class RequestRentersApiImpl implements RequestRentersApi
 	private const CANCEL_RENTER_REQUEST_API_PATH = 'v1/ScreeningRequestRenters/{id}/Cancel';
 	private const IS_VERIFIED_RENTER_REQUEST_API_PATH = 'v1/ScreeningRequestRenters/{id}/Validate';
 
-	/** @var Client */
-	private $httpClient;
-
-	public function __construct(Client $httpClient)
+	public function __construct(private readonly Client $httpClient)
 	{
-		$this->httpClient = $httpClient;
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * @inheritDoc
 	 */
 	public function create(CreateRequestRenterDTO $data): int
 	{
@@ -41,7 +37,7 @@ final class RequestRentersApiImpl implements RequestRentersApi
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * @inheritDoc
 	 */
 	public function cancel(int $id): void
 	{
@@ -49,7 +45,7 @@ final class RequestRentersApiImpl implements RequestRentersApi
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * @inheritDoc
 	 */
 	public function isVerified(int $id, RequestReportPersonDTO $data): bool
 	{

@@ -28,7 +28,7 @@ use TenantCloud\TransUnionSDK\Shared\PhoneType;
  */
 final class RequestReportPersonDTO extends CamelDataTransferObject
 {
-	/** {@inheritdoc} */
+	/** @inheritDoc */
 	protected array $fields = [
 		'personId',
 		'emailAddress',
@@ -43,26 +43,20 @@ final class RequestReportPersonDTO extends CamelDataTransferObject
 		'acceptedTermsAndConditions',
 	];
 
-	/**
-	 * @param string|PhoneType $frequency
-	 */
-	public function setPhoneType($frequency): self
+	public function setPhoneType(PhoneType|string $type): self
 	{
-		return $this->set('phoneType', PhoneType::fromValue($frequency));
+		return $this->set('phoneType', $type instanceof PhoneType ? $type : PhoneType::from($type));
 	}
 
 	/**
 	 * @param AddressDTO|array<string, mixed> $data
 	 */
-	public function setHomeAddress($data): self
+	public function setHomeAddress(array|AddressDTO $data): self
 	{
 		return $this->set('homeAddress', AddressDTO::from($data));
 	}
 
-	/**
-	 * @param string|DateTime $date
-	 */
-	public function setDateOfBirth($date): self
+	public function setDateOfBirth(DateTime|string $date): self
 	{
 		return $this->set('dateOfBirth', Carbon::make($date)->setTime(0, 0));
 	}

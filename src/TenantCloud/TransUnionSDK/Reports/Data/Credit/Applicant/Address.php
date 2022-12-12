@@ -11,47 +11,17 @@ final class Address implements ArraySerializable
 {
 	use MagicArraySerializable;
 
-	public ?string $unparsed;
-
-	public ?string $streetAddress;
-
-	public ?AddressStatus $status;
-
-	public ?string $state;
-
-	public ?string $sourceIndicator;
-
-	public ?string $recordCode;
-
-	public ?string $postalCode;
-
-	public ?Carbon $dateReported;
-
-	public ?string $city;
-
-	public ?string $addressQualifier;
-
 	public function __construct(
-		?string $addressQualifier,
-		?string $city,
-		?Carbon $dateReported,
-		?string $postalCode,
-		?string $recordCode,
-		?string $sourceIndicator,
-		?string $state,
-		?AddressStatus $status,
-		?string $streetAddress,
-		?string $unparsed
+		public readonly ?string $addressQualifier,
+		public readonly ?string $city,
+		public readonly ?Carbon $dateReported,
+		public readonly ?string $postalCode,
+		public readonly ?string $recordCode,
+		public readonly ?string $sourceIndicator,
+		public readonly ?string $state,
+		public readonly ?AddressStatus $status,
+		public readonly ?string $streetAddress,
+		public readonly ?string $unparsed
 	) {
-		$this->addressQualifier = $addressQualifier;
-		$this->city = $city;
-		$this->dateReported = $dateReported;
-		$this->postalCode = $postalCode;
-		$this->recordCode = $recordCode;
-		$this->sourceIndicator = $sourceIndicator;
-		$this->state = $state;
-		$this->status = $status;
-		$this->streetAddress = $streetAddress;
-		$this->unparsed = $unparsed;
 	}
 }

@@ -2,6 +2,7 @@
 
 namespace TenantCloud\TransUnionSDK\Fake;
 
+use Illuminate\Contracts\Cache\Repository;
 use TenantCloud\TransUnionSDK\Exams\ExamRequest;
 use TenantCloud\TransUnionSDK\Exams\ExamRequestQuestion;
 use TenantCloud\TransUnionSDK\Exams\ExamRequestQuestionChoice;
@@ -17,21 +18,15 @@ use TenantCloud\TransUnionSDK\Verification\TestModeVerificationAnswersFactory;
  */
 final class FakeExamsApi implements ExamsApi
 {
-	/** @var int[] */
-	private array $passedIds = [];
-
-	private FakeTransUnionClient $client;
-
-	private TestModeVerificationAnswersFactory $verificationAnswersFactory;
-
-	public function __construct(FakeTransUnionClient $client)
-	{
-		$this->client = $client;
-		$this->verificationAnswersFactory = new TestModeVerificationAnswersFactory();
+	public function __construct(
+		private readonly FakeTransUnionClient $client,
+		private readonly TestModeVerificationAnswersFactory $verificationAnswersFactory,
+		private readonly Repository $cache,
+	) {
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * @inheritDoc
 	 */
 	public function request(RequestExamDTO $data): ExamRequest
 	{
@@ -61,7 +56,7 @@ final class FakeExamsApi implements ExamsApi
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * @inheritDoc
 	 */
 	public function submitAnswers(SubmitExamAnswersDTO $data): void
 	{
@@ -73,7 +68,13 @@ final class FakeExamsApi implements ExamsApi
 			throw new ManualVerificationRequiredException();
 		}
 
-		$this->passedIds[] = $data->getRequestRenterId();
+		$this->cache->put(
+			'exams.passed_ids',
+			[
+				...$this->cache->get('exams.passed_ids', []),
+				$data->getRequestRenterId(),
+			]
+		);
 	}
 
 	/**
@@ -81,15 +82,22 @@ final class FakeExamsApi implements ExamsApi
 	 */
 	public function hasPassed(int $requestRenterId): bool
 	{
-		return in_array($requestRenterId, $this->passedIds, true);
+		return in_array(
+			$requestRenterId,
+			$this->cache->get('exams.passed_ids') ?? [],
+			true
+		);
 	}
 
 	/**
 	 * Unpass verification (if passed previously) for given request renter id.
 	 */
-	public function unpass(int $requestRenterId): void
+	public function unpass(int ...$requestRenterIds): void
 	{
-		$this->passedIds = array_filter($this->passedIds, fn ($id) => $id !== $requestRenterId);
+		$this->cache->put(
+			'exams.passed_ids',
+			array_diff($this->cache->get('exams.passed_ids') ?? [], $requestRenterIds)
+		);
 	}
 
 	/**
@@ -102,8 +110,6 @@ final class FakeExamsApi implements ExamsApi
 			->renters()
 			->byRenter($renterId);
 
-		foreach ($requestRenterIds as $id) {
-			$this->unpass($id);
-		}
+		$this->unpass(...$requestRenterIds);
 	}
 }

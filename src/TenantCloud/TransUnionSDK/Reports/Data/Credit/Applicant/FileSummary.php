@@ -11,39 +11,15 @@ final class FileSummary implements ArraySerializable
 {
 	use MagicArraySerializable;
 
-	public ?string $subMarket;
-
-	public ?int $sSNMatchIndicator;
-
-	public ?string $market;
-
-	public ?Carbon $inFileSinceDate;
-
-	public ?int $fileMatchIndicator;
-
-	public ?int $fileHitIndicator;
-
-	public ?CreditDataStatus $creditDataStatus;
-
-	public ?bool $consumerStatementIndicator;
-
 	public function __construct(
-		?bool $consumerStatementIndicator,
-		?CreditDataStatus $creditDataStatus,
-		?int $fileHitIndicator,
-		?int $fileMatchIndicator,
-		?Carbon $inFileSinceDate,
-		?string $market,
-		?int $sSNMatchIndicator,
-		?string $subMarket
+		public readonly ?bool $consumerStatementIndicator,
+		public readonly ?CreditDataStatus $creditDataStatus,
+		public readonly ?int $fileHitIndicator,
+		public readonly ?int $fileMatchIndicator,
+		public readonly ?Carbon $inFileSinceDate,
+		public readonly ?string $market,
+		public readonly ?int $sSNMatchIndicator,
+		public readonly ?string $subMarket
 	) {
-		$this->consumerStatementIndicator = $consumerStatementIndicator;
-		$this->creditDataStatus = $creditDataStatus;
-		$this->fileHitIndicator = $fileHitIndicator;
-		$this->fileMatchIndicator = $fileMatchIndicator;
-		$this->inFileSinceDate = $inFileSinceDate;
-		$this->market = $market;
-		$this->sSNMatchIndicator = $sSNMatchIndicator;
-		$this->subMarket = $subMarket;
 	}
 }

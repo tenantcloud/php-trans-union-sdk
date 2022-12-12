@@ -9,23 +9,11 @@ final class BureauCodeData implements ArraySerializable
 {
 	use MagicArraySerializable;
 
-	public ?string $key;
-
-	public ?string $description;
-
-	public ?string $codeType;
-
-	public ?string $codeDescription;
-
 	public function __construct(
-		?string $codeDescription,
-		?string $codeType,
-		?string $description,
-		?string $key
+		public readonly ?string $codeDescription,
+		public readonly ?string $codeType,
+		public readonly ?string $description,
+		public readonly ?string $key
 	) {
-		$this->codeDescription = $codeDescription;
-		$this->codeType = $codeType;
-		$this->description = $description;
-		$this->key = $key;
 	}
 }

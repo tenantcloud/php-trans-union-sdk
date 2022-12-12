@@ -11,35 +11,14 @@ final class Status implements ArraySerializable
 {
 	use MagicArraySerializable;
 
-	public ?bool $thinFile;
-
-	public ?Carbon $reportDate;
-
-	public ?int $recordFound;
-
-	public ?bool $frozenFile;
-
-	public ?BureauStatus $bureauStatus;
-
-	public ?string $bureauErrorMessage;
-
-	public ?string $addressDiscrepancyIndicator;
-
 	public function __construct(
-		?string $addressDiscrepancyIndicator,
-		?string $bureauErrorMessage,
-		?BureauStatus $bureauStatus,
-		?bool $frozenFile,
-		?int $recordFound,
-		?Carbon $reportDate,
-		?bool $thinFile
+		public readonly ?string $addressDiscrepancyIndicator,
+		public readonly ?string $bureauErrorMessage,
+		public readonly ?BureauStatus $bureauStatus,
+		public readonly ?bool $frozenFile,
+		public readonly ?int $recordFound,
+		public readonly ?Carbon $reportDate,
+		public readonly ?bool $thinFile
 	) {
-		$this->addressDiscrepancyIndicator = $addressDiscrepancyIndicator;
-		$this->bureauErrorMessage = $bureauErrorMessage;
-		$this->bureauStatus = $bureauStatus;
-		$this->frozenFile = $frozenFile;
-		$this->recordFound = $recordFound;
-		$this->reportDate = $reportDate;
-		$this->thinFile = $thinFile;
 	}
 }

@@ -4,7 +4,6 @@ namespace TenantCloud\TransUnionSDK\Fake;
 
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Filesystem\Filesystem;
-use InvalidArgumentException;
 use TenantCloud\TransUnionSDK\Reports\Data\Credit;
 use TenantCloud\TransUnionSDK\Reports\Data\Criminal;
 use TenantCloud\TransUnionSDK\Reports\Data\Eviction;
@@ -20,76 +19,56 @@ use TenantCloud\TransUnionSDK\Reports\RequestReportDTO;
  */
 final class FakeReportsApi implements ReportsApi
 {
-	private FakeTransUnionClient $transUnionClient;
-
-	private Dispatcher $dispatcher;
-
-	private Filesystem $filesystem;
-
-	public function __construct(FakeTransUnionClient $transUnionClient, Dispatcher $dispatcher, Filesystem $filesystem)
-	{
-		$this->transUnionClient = $transUnionClient;
-		$this->dispatcher = $dispatcher;
-		$this->filesystem = $filesystem;
+	public function __construct(
+		private readonly FakeTransUnionClient $transUnionClient,
+		private readonly Dispatcher $dispatcher,
+		private readonly Filesystem $filesystem
+	) {
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * @inheritDoc
 	 */
 	public function request(RequestReportDTO $data): void
 	{
-		$this->dispatcher->dispatch(new ReportDeliveryStatusChangedEvent($data->getRequestRenterId(), ReportDeliveryStatus::$COMPLETED));
+		$this->dispatcher->dispatch(new ReportDeliveryStatusChangedEvent($data->getRequestRenterId(), ReportDeliveryStatus::COMPLETED));
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * @inheritDoc
 	 */
 	public function availableTypes(int $requestRenterId): array
 	{
 		return $this->availableTypesFromRenterName($requestRenterId) ?? [
-			ReportProduct::$CREDIT,
-			ReportProduct::$CRIMINAL,
-			ReportProduct::$EVICTION,
+			ReportProduct::CREDIT,
+			ReportProduct::CRIMINAL,
+			ReportProduct::EVICTION,
 		];
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * @inheritDoc
 	 */
 	public function find(int $requestRenterId, ReportProduct $productType): FoundReport
 	{
 		$foundReport = $this->findArray($requestRenterId, $productType);
 
-		switch ($productType) {
-			case ReportProduct::$CREDIT:
-				$report = Credit::fromArray($foundReport->report());
-
-				break;
-
-			case ReportProduct::$EVICTION:
-				$report = Eviction::fromArray($foundReport->report());
-
-				break;
-
-			case ReportProduct::$CRIMINAL:
-				$report = Criminal::fromArray($foundReport->report());
-
-				break;
-
-			default:
-				throw new InvalidArgumentException("Report product {$productType} is not supported.");
-		}
+		$report = match ($productType) {
+			ReportProduct::CREDIT   => Credit::fromArray($foundReport->report()),
+			ReportProduct::EVICTION => Eviction::fromArray($foundReport->report()),
+			ReportProduct::CRIMINAL => Criminal::fromArray($foundReport->report()),
+		};
 
 		return new FoundReport($foundReport->expires(), $report);
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * @inheritDoc
 	 */
 	public function findArray(int $requestRenterId, ReportProduct $productType): FoundReport
 	{
 		$reportData = json_decode(
-			$this->filesystem->get(__DIR__ . "/../../../../resources/reports/default/{$productType}.json"),
+			$this->filesystem->get(__DIR__ . "/../../../../resources/reports/default/{$productType->value}.json"),
 			true,
 			512,
 			JSON_THROW_ON_ERROR
@@ -102,7 +81,7 @@ final class FakeReportsApi implements ReportsApi
 	}
 
 	/**
-	 * @return array<ReportProduct<mixed>>|null
+	 * @return array<ReportProduct>|null
 	 */
 	private function availableTypesFromRenterName(int $requestRenterId): ?array
 	{
@@ -133,9 +112,9 @@ final class FakeReportsApi implements ReportsApi
 			array_map(
 				fn (array $pair) => str_contains($haystack, $pair[0]) ? $pair[1] : null,
 				[
-					['credit', ReportProduct::$CREDIT],
-					['criminal', ReportProduct::$CRIMINAL],
-					['eviction', ReportProduct::$EVICTION],
+					['credit', ReportProduct::CREDIT],
+					['criminal', ReportProduct::CRIMINAL],
+					['eviction', ReportProduct::EVICTION],
 				]
 			)
 		);

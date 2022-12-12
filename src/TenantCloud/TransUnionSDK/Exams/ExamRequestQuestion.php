@@ -7,21 +7,11 @@ namespace TenantCloud\TransUnionSDK\Exams;
  */
 final class ExamRequestQuestion
 {
-	private string $key;
-
-	private string $text;
-
-	/** @var ExamRequestQuestionChoice[] */
-	private array $choices;
-
 	/**
 	 * @param ExamRequestQuestionChoice[] $choices
 	 */
-	public function __construct(string $key, string $text, array $choices)
+	public function __construct(private readonly string $key, private readonly string $text, private readonly array $choices)
 	{
-		$this->key = $key;
-		$this->text = $text;
-		$this->choices = $choices;
 	}
 
 	public function key(): string

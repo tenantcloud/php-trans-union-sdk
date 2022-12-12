@@ -10,10 +10,10 @@ use TenantCloud\TransUnionSDK\Tokens\Token;
 final class InMemoryTokenCache implements TokenCache
 {
 	/** @var array<string, Token> */
-	private $tokens;
+	private array $tokens;
 
 	/**
-	 * {@inheritdoc}
+	 * @inheritDoc
 	 */
 	public function get(string $clientId): ?Token
 	{
@@ -29,7 +29,7 @@ final class InMemoryTokenCache implements TokenCache
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * @inheritDoc
 	 */
 	public function set(string $clientId, Token $token): void
 	{
@@ -37,7 +37,7 @@ final class InMemoryTokenCache implements TokenCache
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * @inheritDoc
 	 */
 	public function unset(string $clientId): void
 	{

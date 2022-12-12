@@ -2,42 +2,48 @@
 
 namespace TenantCloud\TransUnionSDK\Fake;
 
+use Illuminate\Contracts\Cache\Repository;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Filesystem\Filesystem;
 use TenantCloud\TransUnionSDK\Client\TransUnionClient;
+use TenantCloud\TransUnionSDK\Verification\TestModeVerificationAnswersFactory;
 
 /**
  * Fake TU client that works in-memory and doesn't perform any requests to TU.
  */
 final class FakeTransUnionClient implements TransUnionClient
 {
-	private FakeExamsApi $examsApi;
+	private readonly FakeExamsApi $examsApi;
 
-	private FakeLandlordsApi $landlordsApi;
+	private readonly FakeLandlordsApi $landlordsApi;
 
-	private FakeRentersApi $rentersApi;
+	private readonly FakeRentersApi $rentersApi;
 
-	private FakePropertiesApi $propertiesApi;
+	private readonly FakePropertiesApi $propertiesApi;
 
-	private FakeRequestsApi $requestsApi;
+	private readonly FakeRequestsApi $requestsApi;
 
-	private FakeReportsApi $reportsApi;
+	private readonly FakeReportsApi $reportsApi;
 
-	private FakeTokensApi $tokensApi;
+	private readonly FakeTokensApi $tokensApi;
 
-	public function __construct(Dispatcher $eventDispatcher, Filesystem $filesystem)
-	{
-		$this->examsApi = new FakeExamsApi($this);
+	public function __construct(
+		Dispatcher $eventDispatcher,
+		Filesystem $filesystem,
+		TestModeVerificationAnswersFactory $testModeVerificationAnswersFactory,
+		Repository $cache,
+	) {
+		$this->examsApi = new FakeExamsApi($this, $testModeVerificationAnswersFactory, $cache);
 		$this->landlordsApi = new FakeLandlordsApi();
-		$this->rentersApi = new FakeRentersApi($this);
+		$this->rentersApi = new FakeRentersApi($this, $cache);
 		$this->propertiesApi = new FakePropertiesApi();
-		$this->requestsApi = new FakeRequestsApi($this);
+		$this->requestsApi = new FakeRequestsApi(new FakeRequestRentersApi($this, $cache));
 		$this->reportsApi = new FakeReportsApi($this, $eventDispatcher, $filesystem);
 		$this->tokensApi = new FakeTokensApi();
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * @inheritDoc
 	 */
 	public function isTestMode(): bool
 	{
@@ -45,7 +51,7 @@ final class FakeTransUnionClient implements TransUnionClient
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * @inheritDoc
 	 */
 	public function exams(): FakeExamsApi
 	{
@@ -53,7 +59,7 @@ final class FakeTransUnionClient implements TransUnionClient
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * @inheritDoc
 	 */
 	public function landlords(): FakeLandlordsApi
 	{
@@ -61,7 +67,7 @@ final class FakeTransUnionClient implements TransUnionClient
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * @inheritDoc
 	 */
 	public function renters(): FakeRentersApi
 	{
@@ -69,7 +75,7 @@ final class FakeTransUnionClient implements TransUnionClient
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * @inheritDoc
 	 */
 	public function properties(): FakePropertiesApi
 	{
@@ -77,7 +83,7 @@ final class FakeTransUnionClient implements TransUnionClient
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * @inheritDoc
 	 */
 	public function requests(): FakeRequestsApi
 	{
@@ -85,7 +91,7 @@ final class FakeTransUnionClient implements TransUnionClient
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * @inheritDoc
 	 */
 	public function reports(): FakeReportsApi
 	{
@@ -93,7 +99,7 @@ final class FakeTransUnionClient implements TransUnionClient
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * @inheritDoc
 	 */
 	public function tokens(): FakeTokensApi
 	{

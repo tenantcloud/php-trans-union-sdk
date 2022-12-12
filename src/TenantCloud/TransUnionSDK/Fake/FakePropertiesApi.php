@@ -11,7 +11,7 @@ use TenantCloud\TransUnionSDK\Properties\PropertiesApi;
 final class FakePropertiesApi implements PropertiesApi
 {
 	/**
-	 * {@inheritdoc}
+	 * @inheritDoc
 	 */
 	public function create(CreatePropertyDTO $data): int
 	{
@@ -19,9 +19,9 @@ final class FakePropertiesApi implements PropertiesApi
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * @inheritDoc
 	 */
-	public function update($id, CreatePropertyDTO $data): void
+	public function update(mixed $id, CreatePropertyDTO $data): void
 	{
 	}
 }

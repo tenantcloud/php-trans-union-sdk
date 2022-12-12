@@ -11,18 +11,11 @@ use Carbon\Carbon;
  */
 final class FoundReport
 {
-	private Carbon $expires;
-
-	/** @var R */
-	private $report;
-
 	/**
 	 * @param R $report
 	 */
-	public function __construct(Carbon $expires, $report)
+	public function __construct(private readonly Carbon $expires, private $report)
 	{
-		$this->expires = $expires;
-		$this->report = $report;
 	}
 
 	public function expires(): Carbon

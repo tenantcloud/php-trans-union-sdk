@@ -11,156 +11,45 @@ final class Offense implements ArraySerializable
 {
 	use MagicArraySerializable;
 
-	public ?string $type;
-
-	public ?string $statute;
-
-	public ?Carbon $statusDate;
-
-	public ?string $status;
-
-	public ?string $sequence;
-
-	public ?string $sentenceTerm;
-
-	public ?Carbon $sentenceDate;
-
-	public ?string $probationTerm;
-
-	public ?Carbon $probationDate;
-
-	public ?Carbon $releaseDate;
-
-	public ?Carbon $pleaDate;
-
-	public ?string $plea;
-
-	public ?string $paroleTerm;
-
-	public ?Carbon $paroleDate;
-
-	public ?string $offenseTypeDescription;
-
-	public ?Carbon $offenseDate;
-
-	public ?string $offenseCounty;
-
-	public ?int $numberOfCounts;
-
-	public ?string $ncicCode;
-
-	public ?string $minSentenceTerm;
-
-	public ?string $maxSentenceTerm;
-
-	public ?string $level;
-
-	public ?string $fines;
-
-	public ?Carbon $dispositionStatusDate;
-
-	public ?string $dispositionStatus;
-
-	public ?string $dispositionDescription;
-
-	public ?Carbon $dispositionDate;
-
-	public ?string $dispositionCounty;
-
-	public ?Carbon $dispositionConvictionDate;
-
-	public ?string $description;
-
-	public ?string $degree;
-
-	public ?string $courtCosts;
-
-	public ?string $class;
-
-	public ?string $chargeModifier;
-
-	public ?Carbon $chargeDate;
-
-	public ?Carbon $arrestDate;
-
-	public ?Carbon $admittedDate;
-
 	public function __construct(
-		?Carbon $admittedDate,
-		?Carbon $arrestDate,
-		?Carbon $chargeDate,
-		?string $chargeModifier,
-		?string $class,
-		?string $courtCosts,
-		?string $degree,
-		?string $description,
-		?Carbon $dispositionConvictionDate,
-		?string $dispositionCounty,
-		?Carbon $dispositionDate,
-		?string $dispositionDescription,
-		?string $dispositionStatus,
-		?Carbon $dispositionStatusDate,
-		?string $fines,
-		?string $level,
-		?string $maxSentenceTerm,
-		?string $minSentenceTerm,
-		?string $ncicCode,
-		?int $numberOfCounts,
-		?string $offenseCounty,
-		?Carbon $offenseDate,
-		?string $offenseTypeDescription,
-		?Carbon $paroleDate,
-		?string $paroleTerm,
-		?string $plea,
-		?Carbon $pleaDate,
-		?Carbon $probationDate,
-		?Carbon $releaseDate,
-		?string $probationTerm,
-		?Carbon $sentenceDate,
-		?string $sentenceTerm,
-		?string $sequence,
-		?string $status,
-		?Carbon $statusDate,
-		?string $statute,
-		?string $type
+		public readonly ?Carbon $admittedDate,
+		public readonly ?Carbon $arrestDate,
+		public readonly ?Carbon $chargeDate,
+		public readonly ?string $chargeModifier,
+		public readonly ?string $class,
+		public readonly ?string $courtCosts,
+		public readonly ?string $degree,
+		public readonly ?string $description,
+		public readonly ?Carbon $dispositionConvictionDate,
+		public readonly ?string $dispositionCounty,
+		public readonly ?Carbon $dispositionDate,
+		public readonly ?string $dispositionDescription,
+		public readonly ?string $dispositionStatus,
+		public readonly ?Carbon $dispositionStatusDate,
+		public readonly ?string $fines,
+		public readonly ?string $level,
+		public readonly ?string $maxSentenceTerm,
+		public readonly ?string $minSentenceTerm,
+		public readonly ?string $ncicCode,
+		public readonly ?int $numberOfCounts,
+		public readonly ?string $offenseCounty,
+		public readonly ?Carbon $offenseDate,
+		public readonly ?string $offenseTypeDescription,
+		public readonly ?Carbon $paroleDate,
+		public readonly ?string $paroleTerm,
+		public readonly ?string $plea,
+		public readonly ?Carbon $pleaDate,
+		public readonly ?Carbon $probationDate,
+		public readonly ?Carbon $releaseDate,
+		public readonly ?string $probationTerm,
+		public readonly ?Carbon $sentenceDate,
+		public readonly ?string $sentenceTerm,
+		public readonly ?string $sequence,
+		public readonly ?string $status,
+		public readonly ?Carbon $statusDate,
+		public readonly ?string $statute,
+		public readonly ?string $type
 	) {
-		$this->admittedDate = $admittedDate;
-		$this->arrestDate = $arrestDate;
-		$this->chargeDate = $chargeDate;
-		$this->chargeModifier = $chargeModifier;
-		$this->class = $class;
-		$this->courtCosts = $courtCosts;
-		$this->degree = $degree;
-		$this->description = $description;
-		$this->dispositionConvictionDate = $dispositionConvictionDate;
-		$this->dispositionCounty = $dispositionCounty;
-		$this->dispositionDate = $dispositionDate;
-		$this->dispositionDescription = $dispositionDescription;
-		$this->dispositionStatus = $dispositionStatus;
-		$this->dispositionStatusDate = $dispositionStatusDate;
-		$this->fines = $fines;
-		$this->level = $level;
-		$this->maxSentenceTerm = $maxSentenceTerm;
-		$this->minSentenceTerm = $minSentenceTerm;
-		$this->ncicCode = $ncicCode;
-		$this->numberOfCounts = $numberOfCounts;
-		$this->offenseCounty = $offenseCounty;
-		$this->offenseDate = $offenseDate;
-		$this->offenseTypeDescription = $offenseTypeDescription;
-		$this->paroleDate = $paroleDate;
-		$this->paroleTerm = $paroleTerm;
-		$this->plea = $plea;
-		$this->pleaDate = $pleaDate;
-		$this->probationDate = $probationDate;
-		$this->releaseDate = $releaseDate;
-		$this->probationTerm = $probationTerm;
-		$this->sentenceDate = $sentenceDate;
-		$this->sentenceTerm = $sentenceTerm;
-		$this->sequence = $sequence;
-		$this->status = $status;
-		$this->statusDate = $statusDate;
-		$this->statute = $statute;
-		$this->type = $type;
 	}
 
 	protected static function serializationConfig(): ArraySerializationConfig

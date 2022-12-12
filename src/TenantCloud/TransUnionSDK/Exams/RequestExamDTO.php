@@ -12,7 +12,7 @@ use TenantCloud\DataTransferObjects\CamelDataTransferObject;
  */
 final class RequestExamDTO extends CamelDataTransferObject
 {
-	/** {@inheritdoc} */
+	/** @inheritDoc */
 	protected array $fields = [
 		'requestRenterId',
 		'externalReferenceNumber',

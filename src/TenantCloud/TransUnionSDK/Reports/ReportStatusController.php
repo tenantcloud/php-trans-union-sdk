@@ -20,7 +20,7 @@ final class ReportStatusController
 	{
 		event(new ReportDeliveryStatusChangedEvent(
 			$request->input('ScreeningRequestRenterId'),
-			ReportDeliveryStatus::fromValue($request->input('ReportsDeliveryStatus'))
+			ReportDeliveryStatus::from($request->input('ReportsDeliveryStatus'))
 		));
 
 		return response()->noContent();

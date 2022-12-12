@@ -7,7 +7,6 @@ use GuzzleHttp\Client;
 use Illuminate\Contracts\Bus\Dispatcher;
 use Illuminate\Contracts\Queue\Factory as QueueConnectionFactory;
 use Illuminate\Queue\SyncQueue;
-use InvalidArgumentException;
 use function TenantCloud\GuzzleHelper\psr_response_to_json;
 use TenantCloud\TransUnionSDK\Reports\Data\Credit;
 use TenantCloud\TransUnionSDK\Reports\Data\Criminal;
@@ -22,29 +21,16 @@ final class ReportsApiImpl implements ReportsApi
 	private const GET_AVAILABLE_TYPES_API_PATH = 'v1/Landlords/ScreeningRequestRenters/{request_renter_id}/Reports/Names';
 	private const FIND_REPORT_API_PATH = 'v1/Landlords/ScreeningRequestRenters/{request_renter_id}/Reports';
 
-	/** @var Client */
-	private $httpClient;
-
-	private bool $imitateEvents;
-
-	private QueueConnectionFactory $queueConnectionFactory;
-
-	private Dispatcher $busDispatcher;
-
 	public function __construct(
-		Client $httpClient,
-		bool $imitateEvents,
-		QueueConnectionFactory $queueConnectionFactory,
-		Dispatcher $busDispatcher
+		private readonly Client $httpClient,
+		private readonly bool $imitateEvents,
+		private readonly QueueConnectionFactory $queueConnectionFactory,
+		private readonly Dispatcher $busDispatcher
 	) {
-		$this->httpClient = $httpClient;
-		$this->imitateEvents = $imitateEvents;
-		$this->queueConnectionFactory = $queueConnectionFactory;
-		$this->busDispatcher = $busDispatcher;
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * @inheritDoc
 	 */
 	public function request(RequestReportDTO $data): void
 	{
@@ -70,7 +56,7 @@ final class ReportsApiImpl implements ReportsApi
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * @inheritDoc
 	 */
 	public function availableTypes(int $requestRenterId): array
 	{
@@ -78,11 +64,11 @@ final class ReportsApiImpl implements ReportsApi
 
 		$response = psr_response_to_json($jsonResponse);
 
-		return array_map(static fn (string $name) => ReportProduct::fromValue($name), $response);
+		return array_map(static fn (string $name) => ReportProduct::from($name), $response);
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * @inheritDoc
 	 */
 	public function findArray(int $requestRenterId, ReportProduct $productType): FoundReport
 	{
@@ -90,7 +76,7 @@ final class ReportsApiImpl implements ReportsApi
 			str_replace('{request_renter_id}', (string) $requestRenterId, self::FIND_REPORT_API_PATH),
 			[
 				'query' => [
-					'requestedProduct' => lcfirst($productType->value()),
+					'requestedProduct' => lcfirst($productType->value),
 					'reportType'       => 'json',
 				],
 			]
@@ -105,31 +91,17 @@ final class ReportsApiImpl implements ReportsApi
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * @inheritDoc
 	 */
 	public function find(int $requestRenterId, ReportProduct $productType): FoundReport
 	{
 		$foundReport = $this->findArray($requestRenterId, $productType);
 
-		switch ($productType) {
-			case ReportProduct::$CREDIT:
-				$report = Credit::fromArray($foundReport->report());
-
-				break;
-
-			case ReportProduct::$EVICTION:
-				$report = Eviction::fromArray($foundReport->report());
-
-				break;
-
-			case ReportProduct::$CRIMINAL:
-				$report = Criminal::fromArray($foundReport->report());
-
-				break;
-
-			default:
-				throw new InvalidArgumentException("Report product {$productType} is not supported.");
-		}
+		$report = match ($productType) {
+			ReportProduct::CREDIT   => Credit::fromArray($foundReport->report()),
+			ReportProduct::EVICTION => Eviction::fromArray($foundReport->report()),
+			ReportProduct::CRIMINAL => Criminal::fromArray($foundReport->report()),
+		};
 
 		return new FoundReport($foundReport->expires(), $report);
 	}

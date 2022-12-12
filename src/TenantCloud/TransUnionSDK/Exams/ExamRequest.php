@@ -7,18 +7,11 @@ namespace TenantCloud\TransUnionSDK\Exams;
  */
 final class ExamRequest
 {
-	private int $id;
-
-	/** @var ExamRequestQuestion[] */
-	private array $questions;
-
 	/**
 	 * @param ExamRequestQuestion[] $questions
 	 */
-	public function __construct(int $id, array $questions)
+	public function __construct(private readonly int $id, private readonly array $questions)
 	{
-		$this->id = $id;
-		$this->questions = $questions;
 	}
 
 	public function id(): int

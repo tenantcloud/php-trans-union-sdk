@@ -2,6 +2,7 @@
 
 namespace TenantCloud\TransUnionSDK\Fake;
 
+use Illuminate\Contracts\Cache\Repository;
 use Illuminate\Support\Arr;
 use TenantCloud\TransUnionSDK\Reports\RequestReportPersonDTO;
 use TenantCloud\TransUnionSDK\Requests\Renters\CreateRequestRenterDTO;
@@ -12,44 +13,37 @@ use TenantCloud\TransUnionSDK\Requests\Renters\RequestRentersApi;
  */
 final class FakeRequestRentersApi implements RequestRentersApi
 {
-	/** @var array<int, array<int>> */
-	private array $requestRentersPerPerson = [];
-
-	/** @var array<int, CreateRequestRenterDTO> */
-	private array $requestPerId = [];
-
-	private FakeTransUnionClient $client;
-
-	public function __construct(FakeTransUnionClient $client)
-	{
-		$this->client = $client;
+	public function __construct(
+		private readonly FakeTransUnionClient $client,
+		private readonly Repository $cache,
+	) {
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * @inheritDoc
 	 */
 	public function create(CreateRequestRenterDTO $data): int
 	{
 		$id = random_int(1, PHP_INT_MAX);
 
-		$this->requestRentersPerPerson[$data->getRenterId()] = [
-			...($this->requestRentersPerPerson[$data->getRenterId()] ?? []),
+		$this->cache->put("requests.renters.{$id}", $data);
+		$this->cache->put("requests.renters_by_renter_id.{$data->getRenterId()}", [
+			...($this->cache->get("requests.renters_by_renter_id.{$data->getRenterId()}") ?? []),
 			$id,
-		];
-		$this->requestPerId[$id] = $data;
+		]);
 
 		return $id;
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * @inheritDoc
 	 */
 	public function cancel(int $id): void
 	{
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * @inheritDoc
 	 */
 	public function isVerified(int $id, RequestReportPersonDTO $data): bool
 	{
@@ -69,7 +63,7 @@ final class FakeRequestRentersApi implements RequestRentersApi
 	 */
 	public function byRenter(int $id): array
 	{
-		return $this->requestRentersPerPerson[$id] ?? [];
+		return $this->cache->get("requests.renters_by_renter_id.{$id}") ?? [];
 	}
 
 	/**
@@ -77,6 +71,6 @@ final class FakeRequestRentersApi implements RequestRentersApi
 	 */
 	public function byId(int $id): ?CreateRequestRenterDTO
 	{
-		return $this->requestPerId[$id] ?? null;
+		return $this->cache->get("requests.renters.{$id}");
 	}
 }

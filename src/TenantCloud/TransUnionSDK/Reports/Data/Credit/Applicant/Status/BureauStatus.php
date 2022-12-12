@@ -11,16 +11,12 @@ final class BureauStatus implements ArraySerializable
 {
 	use MagicArraySerializable;
 
-	/** @var array<BureauCodeData|null>|null */
-	public ?array $code;
-
 	/**
 	 * @param array<BureauCodeData|null>|null $code
 	 */
 	public function __construct(
-		?array $code
+		public readonly ?array $code
 	) {
-		$this->code = $code;
 	}
 
 	protected static function serializationConfig(): ArraySerializationConfig

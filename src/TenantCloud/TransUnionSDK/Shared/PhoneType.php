@@ -2,17 +2,12 @@
 
 namespace TenantCloud\TransUnionSDK\Shared;
 
-use TenantCloud\Standard\Enum\ValueEnum;
+use TenantCloud\Standard\Enum\BackedEnumExtensions;
 
-/**
- * @extends ValueEnum<string>
- */
-final class PhoneType extends ValueEnum
+enum PhoneType: string
 {
-	public static self $MOBILE;
+	/** @use BackedEnumExtensions<string> */
+	use BackedEnumExtensions;
 
-	protected static function initializeInstances(): void
-	{
-		self::$MOBILE = new self('Mobile');
-	}
+	case MOBILE = 'Mobile';
 }

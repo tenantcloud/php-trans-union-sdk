@@ -12,40 +12,16 @@ final class CreditDataStatus implements ArraySerializable
 {
 	use MagicArraySerializable;
 
-	public ?bool $disputedSpecified;
-
-	public ?bool $disputed;
-
-	public ?CreditDataStatusDoNotPromote $doNotPromote;
-
-	public ?CreditDataStatusFreeze $freeze;
-
-	public ?bool $minor;
-
-	public ?bool $minorSpecified;
-
-	public ?bool $suppressed;
-
-	public ?bool $suppressedSpecified;
-
 	public function __construct(
-		?bool $disputed,
-		?bool $disputedSpecified,
-		?CreditDataStatusDoNotPromote $doNotPromote,
-		?CreditDataStatusFreeze $freeze,
-		?bool $minor,
-		?bool $minorSpecified,
-		?bool $suppressed,
-		?bool $suppressedSpecified
+		public readonly ?bool $disputed,
+		public readonly ?bool $disputedSpecified,
+		public readonly ?CreditDataStatusDoNotPromote $doNotPromote,
+		public readonly ?CreditDataStatusFreeze $freeze,
+		public readonly ?bool $minor,
+		public readonly ?bool $minorSpecified,
+		public readonly ?bool $suppressed,
+		public readonly ?bool $suppressedSpecified
 	) {
-		$this->disputed = $disputed;
-		$this->disputedSpecified = $disputedSpecified;
-		$this->doNotPromote = $doNotPromote;
-		$this->freeze = $freeze;
-		$this->minor = $minor;
-		$this->minorSpecified = $minorSpecified;
-		$this->suppressed = $suppressed;
-		$this->suppressedSpecified = $suppressedSpecified;
 	}
 
 	protected static function serializationConfig(): ArraySerializationConfig

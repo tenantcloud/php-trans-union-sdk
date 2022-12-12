@@ -37,18 +37,7 @@ use Throwable;
  */
 final class TransUnionClientImpl implements TransUnionClient
 {
-	/** @var Client */
-	private $httpClient;
-
-	/** Whether to imitate TU's events that are normally delivered with webhooks */
-	private bool $imitateEvents;
-
-	/** Whether given TU's base URL is a test one or not. Not all features are available on their test env so this enables their imitation. */
-	private bool $testMode;
-
-	private QueueConnectionFactory $queueConnectionFactory;
-
-	private Dispatcher $busDispatcher;
+	private readonly Client $httpClient;
 
 	/**
 	 * @param string                        $baseUrl       Base URL for the API
@@ -59,16 +48,11 @@ final class TransUnionClientImpl implements TransUnionClient
 		string $clientId,
 		string $apiKey,
 		callable $tokenResolver,
-		QueueConnectionFactory $queueConnectionFactory,
-		Dispatcher $busDispatcher,
-		bool $imitateEvents = false,
-		bool $testMode = false
+		private readonly QueueConnectionFactory $queueConnectionFactory,
+		private readonly Dispatcher $busDispatcher,
+		private readonly bool $imitateEvents = false,
+		private readonly bool $testMode = false
 	) {
-		$this->queueConnectionFactory = $queueConnectionFactory;
-		$this->busDispatcher = $busDispatcher;
-		$this->imitateEvents = $imitateEvents;
-		$this->testMode = $testMode;
-
 		$stack = HandlerStack::create();
 
 		$stack->unshift($this->rethrowMiddleware());
@@ -94,7 +78,7 @@ final class TransUnionClientImpl implements TransUnionClient
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * @inheritDoc
 	 */
 	public function isTestMode(): bool
 	{
@@ -102,7 +86,7 @@ final class TransUnionClientImpl implements TransUnionClient
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * @inheritDoc
 	 */
 	public function exams(): ExamsApi
 	{
@@ -110,7 +94,7 @@ final class TransUnionClientImpl implements TransUnionClient
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * @inheritDoc
 	 */
 	public function landlords(): LandlordsApi
 	{
@@ -118,7 +102,7 @@ final class TransUnionClientImpl implements TransUnionClient
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * @inheritDoc
 	 */
 	public function renters(): RentersApi
 	{
@@ -126,7 +110,7 @@ final class TransUnionClientImpl implements TransUnionClient
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * @inheritDoc
 	 */
 	public function tokens(): TokensApi
 	{
@@ -134,7 +118,7 @@ final class TransUnionClientImpl implements TransUnionClient
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * @inheritDoc
 	 */
 	public function properties(): PropertiesApi
 	{
@@ -142,7 +126,7 @@ final class TransUnionClientImpl implements TransUnionClient
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * @inheritDoc
 	 */
 	public function requests(): RequestsApi
 	{
@@ -150,7 +134,7 @@ final class TransUnionClientImpl implements TransUnionClient
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * @inheritDoc
 	 */
 	public function reports(): ReportsApi
 	{

@@ -2,23 +2,14 @@
 
 namespace TenantCloud\TransUnionSDK\Reports\Data\Credit\Applicant\Address;
 
-use TenantCloud\Standard\Enum\ValueEnum;
+use TenantCloud\Standard\Enum\BackedEnumExtensions;
 
-/**
- * @extends ValueEnum<string>
- */
-final class AddressStatus extends ValueEnum
+enum AddressStatus: string
 {
-	public static self $CURRENT;
+	/** @use BackedEnumExtensions<string> */
+	use BackedEnumExtensions;
 
-	public static self $PREVIOUS;
-
-	public static self $SECOND_PREVIOUS;
-
-	protected static function initializeInstances(): void
-	{
-		self::$CURRENT = new self('current');
-		self::$PREVIOUS = new self('previous');
-		self::$SECOND_PREVIOUS = new self('secondPrevious');
-	}
+	case CURRENT = 'current';
+	case PREVIOUS = 'previous';
+	case SECOND_PREVIOUS = 'secondPrevious';
 }

@@ -11,36 +11,17 @@ final class Score implements ArraySerializable
 {
 	use MagicArraySerializable;
 
-	public ?string $scoreCard;
-
-	public ?string $results;
-
-	public ?string $noScoreReason;
-
-	public ?bool $fileInquiriesImpactedScore;
-
-	/** @var ScoreFactor[] */
-	public ?array $factors;
-
-	public ?bool $derogatoryAlert;
-
 	/**
 	 * @param ScoreFactor[] $factors
 	 */
 	public function __construct(
-		?bool $derogatoryAlert,
-		?array $factors,
-		?bool $fileInquiriesImpactedScore,
-		?string $noScoreReason,
-		?string $results,
-		?string $scoreCard
+		public readonly ?bool $derogatoryAlert,
+		public readonly ?array $factors,
+		public readonly ?bool $fileInquiriesImpactedScore,
+		public readonly ?string $noScoreReason,
+		public readonly ?string $results,
+		public readonly ?string $scoreCard
 	) {
-		$this->derogatoryAlert = $derogatoryAlert;
-		$this->factors = $factors;
-		$this->fileInquiriesImpactedScore = $fileInquiriesImpactedScore;
-		$this->noScoreReason = $noScoreReason;
-		$this->results = $results;
-		$this->scoreCard = $scoreCard;
 	}
 
 	protected static function serializationConfig(): ArraySerializationConfig

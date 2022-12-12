@@ -11,7 +11,7 @@ class TestCase extends BaseTestCase
 	use WithFaker;
 
 	/**
-	 * {@inheritDoc}
+	 * @inheritDoc
 	 */
 	protected function getPackageProviders($app): array
 	{

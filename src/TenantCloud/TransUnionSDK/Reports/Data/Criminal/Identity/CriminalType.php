@@ -2,26 +2,15 @@
 
 namespace TenantCloud\TransUnionSDK\Reports\Data\Criminal\Identity;
 
-use TenantCloud\Standard\Enum\ValueEnum;
+use TenantCloud\Standard\Enum\BackedEnumExtensions;
 
-/**
- * @extends ValueEnum<string>
- */
-final class CriminalType extends ValueEnum
+enum CriminalType: string
 {
-	public static self $CRIMINAL;
+	/** @use BackedEnumExtensions<string> */
+	use BackedEnumExtensions;
 
-	public static self $OFAC;
-
-	public static self $MOST_WANTED;
-
-	public static self $SEX_OFFENDER;
-
-	protected static function initializeInstances(): void
-	{
-		self::$CRIMINAL = new self('Criminal');
-		self::$OFAC = new self('OFAC');
-		self::$MOST_WANTED = new self('MostWanted');
-		self::$SEX_OFFENDER = new self('SexOffender');
-	}
+	case CRIMINAL = 'Criminal';
+	case OFAC = 'OFAC';
+	case MOST_WANTED = 'MostWanted';
+	case SEX_OFFENDER = 'SexOffender';
 }

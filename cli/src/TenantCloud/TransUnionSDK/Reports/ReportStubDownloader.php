@@ -34,34 +34,20 @@ use TenantCloud\TransUnionSDK\Verification\TestModeVerificationAnswersFactory;
  */
 class ReportStubDownloader
 {
-	private TransUnionClient $client;
-
-	private Filesystem $filesystem;
-
-	private int $creditBundleId;
-
-	private int $criminalBundleId;
-
-	private int $evictionBundleId;
 
 	public function __construct(
-		TransUnionClient $client,
-		Filesystem $filesystem,
-		int $creditBundleId,
-		int $criminalBundleId,
-		int $evictionBundleId
+		private readonly TransUnionClient $client,
+		private readonly Filesystem       $filesystem,
+		private readonly int              $creditBundleId,
+		private readonly int              $criminalBundleId,
+		private readonly int              $evictionBundleId
 	) {
-		$this->client = $client;
-		$this->filesystem = $filesystem;
-		$this->creditBundleId = $creditBundleId;
-		$this->criminalBundleId = $criminalBundleId;
-		$this->evictionBundleId = $evictionBundleId;
 	}
 
 	/**
-	 * @param iterable<array{array<ReportProduct<mixed>>, PersonDTO, string} | array{array<ReportProduct<mixed>>, PersonDTO}> $people
+	 * @param iterable<array{array<ReportProduct>, PersonDTO, string} | array{array<ReportProduct>, PersonDTO}> $people
 	 *
-	 * @return Generator<int, array{PersonDTO, ReportProduct<mixed>}>
+	 * @return Generator<int, array{PersonDTO, ReportProduct}>
 	 */
 	public function downloadAll(iterable $people): Generator
 	{
@@ -69,7 +55,7 @@ class ReportStubDownloader
 		$propertyId = $this->createProperty($landlordId);
 
 		foreach ($people as $data) {
-			/** @var iterable<ReportProduct<mixed>> $products */
+			/** @var iterable<ReportProduct> $products */
 			/** @var PersonDTO $person */
 			[$products, $person] = $data;
 
@@ -88,7 +74,7 @@ class ReportStubDownloader
 								->setLastName($person->lastName)
 								->setDateOfBirth($person->dateOfBirth)
 								->setPhoneNumber('18143008317')
-								->setPhoneType(PhoneType::$MOBILE)
+								->setPhoneType(PhoneType::MOBILE)
 								->setSocialSecurityNumber($person->socialSecurityNumber)
 								->setHomeAddress(
 									AddressDTO::create()
@@ -100,9 +86,9 @@ class ReportStubDownloader
 								)
 								->setAcceptedTermsAndConditions(true)
 						)
-						->setIncomeFrequency(IncomeFrequency::$PER_MONTH)
-						->setOtherIncomeFrequency(IncomeFrequency::$PER_MONTH)
-						->setEmploymentStatus(EmploymentStatus::$EMPLOYED)
+						->setIncomeFrequency(IncomeFrequency::PER_MONTH)
+						->setOtherIncomeFrequency(IncomeFrequency::PER_MONTH)
+						->setEmploymentStatus(EmploymentStatus::EMPLOYED)
 				);
 
 				yield [$person, $product];
@@ -110,9 +96,6 @@ class ReportStubDownloader
 		}
 	}
 
-	/**
-	 * @param ReportProduct<mixed> $reportProduct
-	 */
 	private function download(
 		int $landlordId,
 		int $propertyId,
@@ -120,19 +103,11 @@ class ReportStubDownloader
 		ReportProduct $reportProduct,
 		CreateRenterDTO $renterData
 	): void {
-		switch ($reportProduct) {
-			case ReportProduct::$CREDIT:
-				$bundleId = $this->creditBundleId;
-				break;
-			case ReportProduct::$CRIMINAL:
-				$bundleId = $this->criminalBundleId;
-				break;
-			case ReportProduct::$EVICTION:
-				$bundleId = $this->evictionBundleId;
-				break;
-			default:
-				throw new InvalidArgumentException();
-		}
+		$bundleId = match ($reportProduct) {
+			ReportProduct::CREDIT => $this->creditBundleId,
+			ReportProduct::CRIMINAL => $this->criminalBundleId,
+			ReportProduct::EVICTION => $this->evictionBundleId,
+		};
 
 		// Create renter
 		$renterId = $this->client
@@ -157,7 +132,7 @@ class ReportStubDownloader
 					->setRenterId($renterId)
 					->setRequestId($requestId)
 					->setBundleId($bundleId)
-					->setRenterRole(RenterRole::$APPLICANT)
+					->setRenterRole(RenterRole::APPLICANT)
 			);
 
 		// Pass exam verification
@@ -200,7 +175,7 @@ class ReportStubDownloader
 		// Save
 		$dir = __DIR__ . '/../../../../../../resources/reports/' . $identifier;
 		$this->filesystem->ensureDirectoryExists($dir);
-		$this->filesystem->put("{$dir}/{$reportProduct}.json", json_encode($report->report(), JSON_THROW_ON_ERROR | JSON_PRESERVE_ZERO_FRACTION | JSON_PRETTY_PRINT));
+		$this->filesystem->put("{$dir}/{$reportProduct->value}.json", json_encode($report->report(), JSON_THROW_ON_ERROR | JSON_PRESERVE_ZERO_FRACTION | JSON_PRETTY_PRINT));
 	}
 
 	private function createLandlord(): int
@@ -213,7 +188,7 @@ class ReportStubDownloader
 					->setLastName('Landlord')
 					->setEmailAddress(Str::random(32) . '@test.com')
 					->setPhoneNumber('18143008317')
-					->setPhoneType(PhoneType::$MOBILE)
+					->setPhoneType(PhoneType::MOBILE)
 					->setBusinessName('')
 					->setBusinessAddress(
 						AddressDTO::create()

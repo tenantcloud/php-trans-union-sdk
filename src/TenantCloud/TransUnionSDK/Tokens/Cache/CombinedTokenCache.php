@@ -9,19 +9,15 @@ use TenantCloud\TransUnionSDK\Tokens\Token;
  */
 final class CombinedTokenCache implements TokenCache
 {
-	/** @var TokenCache[] */
-	private $caches;
-
 	/**
 	 * @param TokenCache[] $caches
 	 */
-	public function __construct(array $caches)
+	public function __construct(private readonly array $caches)
 	{
-		$this->caches = $caches;
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * @inheritDoc
 	 */
 	public function get(string $clientId): ?Token
 	{
@@ -37,7 +33,7 @@ final class CombinedTokenCache implements TokenCache
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * @inheritDoc
 	 */
 	public function set(string $clientId, Token $token): void
 	{
@@ -47,7 +43,7 @@ final class CombinedTokenCache implements TokenCache
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * @inheritDoc
 	 */
 	public function unset(string $clientId): void
 	{

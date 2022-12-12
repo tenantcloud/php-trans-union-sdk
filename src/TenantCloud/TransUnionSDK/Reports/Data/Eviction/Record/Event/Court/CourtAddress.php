@@ -11,112 +11,34 @@ final class CourtAddress implements ArraySerializable
 {
 	use MagicArraySerializable;
 
-	public ?string $zipExtensionCode;
-
-	public ?string $zipCode;
-
-	public ?Carbon $verificationDate;
-
-	public ?string $urbanizationName;
-
-	public ?string $unitType;
-
-	public ?string $type;
-
-	public ?string $streetSuffix;
-
-	public ?string $streetName;
-
-	public ?string $state;
-
-	public ?bool $standardizedFlag;
-
-	public ?Carbon $reportDate;
-
-	public ?string $range;
-
-	public ?string $preDirectionalCode;
-
-	public ?string $postDirectionalCode;
-
-	public ?string $locationType;
-
-	public ?string $fipsCode;
-
-	public ?string $county;
-
-	public ?string $country;
-
-	public ?string $city;
-
-	public ?int $buildingNumber;
-
-	public ?string $addressTypeCode;
-
-	public ?string $addressType;
-
-	public ?int $addressNumber;
-
-	public ?string $addressClassificationCode;
-
-	public ?string $address2;
-
-	public ?string $address1;
-
 	public function __construct(
-		?string $address1,
-		?string $address2,
-		?string $addressClassificationCode,
-		?int $addressNumber,
-		?string $addressType,
-		?string $addressTypeCode,
-		?int $buildingNumber,
-		?string $city,
-		?string $country,
-		?string $county,
-		?string $fipsCode,
-		?string $locationType,
-		?string $postDirectionalCode,
-		?string $preDirectionalCode,
-		?string $range,
-		?Carbon $reportDate,
-		?bool $standardizedFlag,
-		?string $state,
-		?string $streetName,
-		?string $streetSuffix,
-		?string $type,
-		?string $unitType,
-		?string $urbanizationName,
-		?Carbon $verificationDate,
-		?string $zipCode,
-		?string $zipExtensionCode
+		public readonly ?string $address1,
+		public readonly ?string $address2,
+		public readonly ?string $addressClassificationCode,
+		public readonly ?int $addressNumber,
+		public readonly ?string $addressType,
+		public readonly ?string $addressTypeCode,
+		public readonly ?int $buildingNumber,
+		public readonly ?string $city,
+		public readonly ?string $country,
+		public readonly ?string $county,
+		public readonly ?string $fipsCode,
+		public readonly ?string $locationType,
+		public readonly ?string $postDirectionalCode,
+		public readonly ?string $preDirectionalCode,
+		public readonly ?string $range,
+		public readonly ?Carbon $reportDate,
+		public readonly ?bool $standardizedFlag,
+		public readonly ?string $state,
+		public readonly ?string $streetName,
+		public readonly ?string $streetSuffix,
+		public readonly ?string $type,
+		public readonly ?string $unitType,
+		public readonly ?string $urbanizationName,
+		public readonly ?Carbon $verificationDate,
+		public readonly ?string $zipCode,
+		public readonly ?string $zipExtensionCode
 	) {
-		$this->address1 = $address1;
-		$this->address2 = $address2;
-		$this->addressClassificationCode = $addressClassificationCode;
-		$this->addressNumber = $addressNumber;
-		$this->addressType = $addressType;
-		$this->addressTypeCode = $addressTypeCode;
-		$this->buildingNumber = $buildingNumber;
-		$this->city = $city;
-		$this->country = $country;
-		$this->county = $county;
-		$this->fipsCode = $fipsCode;
-		$this->locationType = $locationType;
-		$this->postDirectionalCode = $postDirectionalCode;
-		$this->preDirectionalCode = $preDirectionalCode;
-		$this->range = $range;
-		$this->reportDate = $reportDate;
-		$this->standardizedFlag = $standardizedFlag;
-		$this->state = $state;
-		$this->streetName = $streetName;
-		$this->streetSuffix = $streetSuffix;
-		$this->type = $type;
-		$this->unitType = $unitType;
-		$this->urbanizationName = $urbanizationName;
-		$this->verificationDate = $verificationDate;
-		$this->zipCode = $zipCode;
-		$this->zipExtensionCode = $zipExtensionCode;
 	}
 
 	protected static function serializationConfig(): ArraySerializationConfig

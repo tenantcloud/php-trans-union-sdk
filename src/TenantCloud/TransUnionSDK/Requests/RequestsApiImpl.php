@@ -14,16 +14,12 @@ final class RequestsApiImpl implements RequestsApi
 {
 	private const CREATE_REQUEST_API_PATH = 'v1/ScreeningRequests';
 
-	/** @var Client */
-	private $httpClient;
-
-	public function __construct(Client $httpClient)
+	public function __construct(private readonly Client $httpClient)
 	{
-		$this->httpClient = $httpClient;
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * @inheritDoc
 	 */
 	public function renters(): RequestRentersApi
 	{
@@ -31,7 +27,7 @@ final class RequestsApiImpl implements RequestsApi
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * @inheritDoc
 	 */
 	public function create(CreateRequestDTO $data): int
 	{

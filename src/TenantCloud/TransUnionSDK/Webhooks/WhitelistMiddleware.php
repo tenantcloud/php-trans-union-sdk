@@ -15,18 +15,11 @@ use Tests\TenantCloud\TransUnionSDK\Webhooks\WhitelistMiddlewareTest;
  */
 final class WhitelistMiddleware
 {
-	/** @var string[] */
-	private array $ips;
-
-	private bool $enabled;
-
 	/**
 	 * @param array<string> $ips
 	 */
-	public function __construct(array $ips, bool $enabled = true)
+	public function __construct(private readonly array $ips, private readonly bool $enabled = true)
 	{
-		$this->ips = $ips;
-		$this->enabled = $enabled;
 	}
 
 	public function handle(Request $request, Closure $next): Response

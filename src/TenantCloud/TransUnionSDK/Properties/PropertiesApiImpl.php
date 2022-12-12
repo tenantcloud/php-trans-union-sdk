@@ -13,16 +13,12 @@ final class PropertiesApiImpl implements PropertiesApi
 	private const CREATE_PROPERTY_API_PATH = 'v1/Landlords/{landlord_id}/Properties';
 	private const UPDATE_PROPERTY_API_PATH = 'v1/Landlords/{landlord_id}/Properties';
 
-	/** @var Client */
-	private $httpClient;
-
-	public function __construct(Client $httpClient)
+	public function __construct(private readonly Client $httpClient)
 	{
-		$this->httpClient = $httpClient;
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * @inheritDoc
 	 */
 	public function create(CreatePropertyDTO $data): int
 	{
@@ -39,9 +35,9 @@ final class PropertiesApiImpl implements PropertiesApi
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * @inheritDoc
 	 */
-	public function update($id, CreatePropertyDTO $data): void
+	public function update(mixed $id, CreatePropertyDTO $data): void
 	{
 		$data->setPropertyId($id);
 

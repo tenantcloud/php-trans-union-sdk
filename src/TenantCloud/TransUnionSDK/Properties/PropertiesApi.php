@@ -14,8 +14,6 @@ interface PropertiesApi
 
 	/**
 	 * Update a property.
-	 *
-	 * @param mixed $id
 	 */
-	public function update($id, CreatePropertyDTO $data): void;
+	public function update(mixed $id, CreatePropertyDTO $data): void;
 }

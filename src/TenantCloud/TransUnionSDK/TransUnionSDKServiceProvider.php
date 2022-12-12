@@ -24,7 +24,7 @@ use TenantCloud\TransUnionSDK\Webhooks\WhitelistMiddleware;
 final class TransUnionSDKServiceProvider extends ServiceProvider
 {
 	/**
-	 * {@inheritdoc}
+	 * @inheritDoc
 	 */
 	public function register(): void
 	{
@@ -46,7 +46,7 @@ final class TransUnionSDKServiceProvider extends ServiceProvider
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * @inheritDoc
 	 */
 	public function boot(Router $router, Repository $config): void
 	{

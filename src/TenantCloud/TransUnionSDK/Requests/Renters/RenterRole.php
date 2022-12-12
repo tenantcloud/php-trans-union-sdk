@@ -2,23 +2,13 @@
 
 namespace TenantCloud\TransUnionSDK\Requests\Renters;
 
-use TenantCloud\Standard\Enum\ValueEnum;
+use TenantCloud\Standard\Enum\BackedEnumExtensions;
 
-/**
- * @extends ValueEnum<string>
- */
-final class RenterRole extends ValueEnum
+enum RenterRole: string
 {
-	public static self $APPLICANT;
+	/** @use BackedEnumExtensions<string> */
+	use BackedEnumExtensions;
 
-	public static self $CO_SIGNER;
-
-	/**
-	 * {@inheritdoc}
-	 */
-	protected static function initializeInstances(): void
-	{
-		self::$APPLICANT = new self('Applicant');
-		self::$CO_SIGNER = new self('CoSigner');
-	}
+	case APPLICANT = 'Applicant';
+	case CO_SIGNER = 'CoSigner';
 }

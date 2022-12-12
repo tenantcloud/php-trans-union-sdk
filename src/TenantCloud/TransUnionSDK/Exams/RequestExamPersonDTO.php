@@ -21,7 +21,7 @@ use TenantCloud\TransUnionSDK\Shared\PhoneType;
  */
 final class RequestExamPersonDTO extends CamelDataTransferObject
 {
-	/** {@inheritdoc} */
+	/** @inheritDoc */
 	protected array $fields = [
 		'personId',
 		'emailAddress',
@@ -39,15 +39,12 @@ final class RequestExamPersonDTO extends CamelDataTransferObject
 	/**
 	 * @param AddressDTO|array<string, mixed> $data
 	 */
-	public function setHomeAddress($data): self
+	public function setHomeAddress(array|AddressDTO $data): self
 	{
 		return $this->set('homeAddress', AddressDTO::from($data));
 	}
 
-	/**
-	 * @param string|DateTime $date
-	 */
-	public function setDateOfBirth($date): self
+	public function setDateOfBirth(DateTime|string $date): self
 	{
 		return $this->set('dateOfBirth', Carbon::make($date)->setTime(0, 0));
 	}

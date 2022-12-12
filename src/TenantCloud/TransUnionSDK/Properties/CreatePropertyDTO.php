@@ -20,7 +20,7 @@ use TenantCloud\TransUnionSDK\Shared\AddressDTO;
  */
 final class CreatePropertyDTO extends CamelDataTransferObject
 {
-	/** {@inheritdoc} */
+	/** @inheritDoc */
 	protected array $fields = [
 		'landlordId',
 		'propertyId',
@@ -37,13 +37,13 @@ final class CreatePropertyDTO extends CamelDataTransferObject
 	/**
 	 * @param AddressDTO|array<string, mixed> $data
 	 */
-	public function setAddress($data): self
+	public function setAddress(array|AddressDTO $data): self
 	{
 		return $this->set('address', AddressDTO::from($data));
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * @inheritDoc
 	 *
 	 * @return array<string, mixed>
 	 */

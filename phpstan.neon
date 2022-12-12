@@ -1,4 +1,6 @@
 includes:
+	- vendor/phpstan/phpstan-phpunit/extension.neon
+	- vendor/phpstan/phpstan-webmozart-assert/extension.neon
 	- vendor/phpstan/phpstan-mockery/extension.neon
 #	- tools/phpstan/vendor/phpstan/phpstan/conf/bleedingEdge.neon
 
@@ -8,7 +10,7 @@ parameters:
 
 	paths:
 		- src
-		- tools/cli
+		- cli
 		- tests
 
 	ignoreErrors:

@@ -9,11 +9,8 @@ final class FraudIndicator implements ArraySerializable
 {
 	use MagicArraySerializable;
 
-	public ?string $indicator;
-
 	public function __construct(
-		?string $indicator
+		public readonly ?string $indicator
 	) {
-		$this->indicator = $indicator;
 	}
 }

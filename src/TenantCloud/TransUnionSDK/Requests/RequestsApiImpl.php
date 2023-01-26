@@ -12,6 +12,7 @@ use TenantCloud\TransUnionSDK\Requests\Renters\RequestRentersApiImpl;
  */
 final class RequestsApiImpl implements RequestsApi
 {
+	private const GET_REQUEST_API_PATH = 'v1/ScreeningRequests/{id}';
 	private const CREATE_REQUEST_API_PATH = 'v1/ScreeningRequests';
 
 	public function __construct(private readonly Client $httpClient)
@@ -24,6 +25,18 @@ final class RequestsApiImpl implements RequestsApi
 	public function renters(): RequestRentersApi
 	{
 		return new RequestRentersApiImpl($this->httpClient);
+	}
+
+	/**
+	 * @inheritDoc
+	 */
+	public function get(int $id): CreateRequestDTO
+	{
+		$jsonResponse = $this->httpClient->get(str_replace('{id}', (string) $id, self::GET_REQUEST_API_PATH));
+
+		return CreateRequestDTO::from(
+			psr_response_to_json($jsonResponse)
+		);
 	}
 
 	/**

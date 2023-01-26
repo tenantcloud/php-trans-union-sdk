@@ -3,17 +3,19 @@
 namespace TenantCloud\TransUnionSDK\Requests;
 
 use TenantCloud\DataTransferObjects\CamelDataTransferObject;
+use TenantCloud\TransUnionSDK\Requests\Renters\CreateRequestRenterDTO;
 
 /**
- * @method self setLandlordId(int $id)
- * @method int  getLandlordId()
- * @method bool hasLandlordId()
- * @method self setPropertyId(int $id)
- * @method int  getPropertyId()
- * @method bool hasPropertyId()
- * @method self setInitialBundleId(int $id)
- * @method int  getInitialBundleId()
- * @method bool hasInitialBundleId()
+ * @method self                     setLandlordId(int $id)
+ * @method int                      getLandlordId()
+ * @method bool                     hasLandlordId()
+ * @method self                     setPropertyId(int $id)
+ * @method int                      getPropertyId()
+ * @method bool                     hasPropertyId()
+ * @method self                     setInitialBundleId(int $id)
+ * @method int                      getInitialBundleId()
+ * @method bool                     hasInitialBundleId()
+ * @method CreateRequestRenterDTO[] getScreeningRequestRenters()
  */
 final class CreateRequestDTO extends CamelDataTransferObject
 {
@@ -22,5 +24,19 @@ final class CreateRequestDTO extends CamelDataTransferObject
 		'landlordId',
 		'propertyId',
 		'initialBundleId',
+		'screeningRequestRenters',
 	];
+
+	public function __construct()
+	{
+		$this->setScreeningRequestRenters([]);
+	}
+
+	public function setScreeningRequestRenters(array $renters): self
+	{
+		return $this->set(
+			'screeningRequestRenters',
+			array_map(fn (array|CreateRequestRenterDTO $data) => CreateRequestRenterDTO::from($data), $renters),
+		);
+	}
 }

@@ -10,11 +10,24 @@ use function TenantCloud\GuzzleHelper\psr_response_to_json;
  */
 final class PropertiesApiImpl implements PropertiesApi
 {
+	private const GET_PROPERTY_API_PATH = 'v1/Landlords/{landlord_id}/Properties/{id}';
 	private const CREATE_PROPERTY_API_PATH = 'v1/Landlords/{landlord_id}/Properties';
 	private const UPDATE_PROPERTY_API_PATH = 'v1/Landlords/{landlord_id}/Properties';
 
 	public function __construct(private readonly Client $httpClient)
 	{
+	}
+
+	/**
+	 * @inheritDoc
+	 */
+	public function get(int $landlordId, int $id): CreatePropertyDTO
+	{
+		$jsonResponse = $this->httpClient->get(str_replace(['{landlord_id}', '{id}'], [(string) $landlordId, (string) $id], self::GET_PROPERTY_API_PATH));
+
+		return CreatePropertyDTO::from(
+			psr_response_to_json($jsonResponse)
+		);
 	}
 
 	/**

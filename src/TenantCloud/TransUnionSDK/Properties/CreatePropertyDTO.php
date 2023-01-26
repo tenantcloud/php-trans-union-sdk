@@ -7,16 +7,25 @@ use TenantCloud\DataTransferObjects\CamelDataTransferObject;
 use TenantCloud\TransUnionSDK\Shared\AddressDTO;
 
 /**
- * @method self setLandlordId(int $id)
- * @method self setPropertyId(int $id)
- * @method self setPropertyName(string $name)
- * @method self setRent(float $amount)
- * @method self setDeposit(float $amount)
- * @method self setIsActive(bool $active)
- * @method self setBankruptcyCheck(bool $value)
- * @method self setBankruptcyTimeFrame(int $unknownValue)
- * @method self setIncomeToRentRatio(int $rate)
- * @method int  getLandlordId()
+ * @method self       setLandlordId(int $id)
+ * @method int        getLandlordId()
+ * @method self       setPropertyId(int $id)
+ * @method int        getPropertyId()
+ * @method self       setPropertyName(string $name)
+ * @method string     getPropertyName()
+ * @method self       setRent(float $amount)
+ * @method float      getRent()
+ * @method self       setDeposit(float $amount)
+ * @method float      getDeposit()
+ * @method self       setIsActive(bool $active)
+ * @method bool       getIsActive()
+ * @method AddressDTO getAddress()
+ * @method self       setBankruptcyCheck(bool $value)
+ * @method bool       getBankruptcyCheck()
+ * @method self       setBankruptcyTimeFrame(int $unknownValue)
+ * @method int        getBankruptcyTimeFrame()
+ * @method self       setIncomeToRentRatio(int $rate)
+ * @method int        getIncomeToRentRatio()
  */
 final class CreatePropertyDTO extends CamelDataTransferObject
 {

@@ -30,18 +30,6 @@ final class RequestsApiImpl implements RequestsApi
 	/**
 	 * @inheritDoc
 	 */
-	public function get(int $id): CreateRequestDTO
-	{
-		$jsonResponse = $this->httpClient->get(str_replace('{id}', (string) $id, self::GET_REQUEST_API_PATH));
-
-		return CreateRequestDTO::from(
-			psr_response_to_json($jsonResponse)
-		);
-	}
-
-	/**
-	 * @inheritDoc
-	 */
 	public function create(CreateRequestDTO $data): int
 	{
 		$jsonResponse = $this->httpClient->post(self::CREATE_REQUEST_API_PATH, [

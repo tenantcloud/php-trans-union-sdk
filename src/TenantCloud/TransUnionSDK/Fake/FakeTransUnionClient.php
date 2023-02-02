@@ -34,9 +34,9 @@ final class FakeTransUnionClient implements TransUnionClient
 		Repository $cache,
 	) {
 		$this->examsApi = new FakeExamsApi($this, $testModeVerificationAnswersFactory, $cache);
-		$this->landlordsApi = new FakeLandlordsApi();
+		$this->landlordsApi = new FakeLandlordsApi($cache);
 		$this->rentersApi = new FakeRentersApi($this, $cache);
-		$this->propertiesApi = new FakePropertiesApi();
+		$this->propertiesApi = new FakePropertiesApi($cache);
 		$this->requestsApi = new FakeRequestsApi(new FakeRequestRentersApi($this, $cache));
 		$this->reportsApi = new FakeReportsApi($this, $eventDispatcher, $filesystem);
 		$this->tokensApi = new FakeTokensApi();

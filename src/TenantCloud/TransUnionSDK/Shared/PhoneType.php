@@ -10,4 +10,5 @@ enum PhoneType: string
 	use BackedEnumExtensions;
 
 	case MOBILE = 'Mobile';
+	case HOME = 'Home';
 }

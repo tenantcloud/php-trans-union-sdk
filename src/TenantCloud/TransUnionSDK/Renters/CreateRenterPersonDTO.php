@@ -54,9 +54,9 @@ final class CreateRenterPersonDTO extends CamelDataTransferObject
 		return $this->set('homeAddress', AddressDTO::from($data));
 	}
 
-	public function setDateOfBirth(DateTime|string $date): self
+	public function setDateOfBirth(DateTime|string|null $date): self
 	{
-		return $this->set('dateOfBirth', Carbon::make($date)->setTime(0, 0));
+		return $this->set('dateOfBirth', $date ? Carbon::make($date)->setTime(0, 0) : null);
 	}
 
 	public function setPhoneType(PhoneType|string $type): self

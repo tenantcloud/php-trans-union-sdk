@@ -11,4 +11,5 @@ enum PhoneType: string
 
 	case MOBILE = 'Mobile';
 	case HOME = 'Home';
+	case Office = 'Office';
 }

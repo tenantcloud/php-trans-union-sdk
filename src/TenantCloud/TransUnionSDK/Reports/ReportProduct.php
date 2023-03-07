@@ -12,4 +12,5 @@ enum ReportProduct: string
 	case CRIMINAL = 'Criminal';
 	case EVICTION = 'Eviction';
 	case CREDIT = 'Credit';
+	case INCOME_INSIGHTS = 'IncomeInsights';
 }

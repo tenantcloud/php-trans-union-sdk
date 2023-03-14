@@ -45,13 +45,6 @@ final class CourtAddress implements ArraySerializable
 	{
 		return new ArraySerializationConfig(
 			ArraySerializationConfig::pascalSerializedName(),
-			[],
-			[
-				'reportDate' => [
-					// 02/18/2020
-					fn (Carbon $date) => $date->isoFormat('MM/DD/YYYY'),
-				],
-			]
 		);
 	}
 }

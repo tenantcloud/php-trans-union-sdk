@@ -76,7 +76,7 @@ final class Tradeline implements ArraySerializable
 			[
 				'openClosed'     => ArraySerializationConfig::mixedCustomSerializer(),
 				'paymentPattern' => [
-					fn (array $value)  => implode('', $value),
+					fn (array $value)  => implode('', array_map(fn (PaymentPatternItem $item) => $item->value, $value)),
 					fn (string $value) => array_map(fn (string $item) => PaymentPatternItem::from($item), mb_str_split($value)),
 				],
 			]

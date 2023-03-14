@@ -150,8 +150,9 @@ trait MagicArraySerializable
 							}
 
 							if (is_a($type, Carbon::class, true)) {
-								// 2019-10-01T00:00:00
-								return $value->toDateTimeLocalString();
+								/** @var Carbon $value */
+								// 2019-10-01T00:00:00.000000Z
+								return $value->toISOString();
 							}
 
 							if (is_a($type, ArraySerializable::class, true)) {

@@ -23,11 +23,6 @@ final class TransactionsControlTracking implements ArraySerializable
 		return new ArraySerializationConfig(
 			ArraySerializationConfig::pascalSerializedName(),
 			[],
-			[
-				'transactionTimeStamp' => [
-					fn (Carbon $date) => $date->isoFormat('YYYY-MM-DD[T]HH:mm:ss.SSSZ'),
-				],
-			]
 		);
 	}
 }

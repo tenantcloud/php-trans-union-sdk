@@ -77,16 +77,6 @@ final class Event implements ArraySerializable
 			[
 				'parties' => Party::class,
 			],
-			[
-				'filingDate' => [
-					null,
-					fn ($value) => Carbon::parse($value, 'UTC')->setHours(12),
-				],
-				'releaseDate' => [
-					null,
-					fn ($value) => Carbon::parse($value, 'UTC')->setHours(12),
-				],
-			]
 		);
 	}
 }

@@ -55,7 +55,14 @@ trait MagicArraySerializable
 									return null;
 								}
 
-								return $type::parse($value, 'UTC');
+								$parsed = $type::parse($value, 'UTC');
+
+								// This is a dirty hack to check if time was passed. If it wasn't, it's treated as a date so 12:00:00 is set.
+								if (!preg_match('.*\d+:\d+:\d+', $value)) {
+									$parsed->setHours(12);
+								}
+
+								return $parsed;
 							}
 
 							if (is_a($type, ArraySerializable::class, true)) {

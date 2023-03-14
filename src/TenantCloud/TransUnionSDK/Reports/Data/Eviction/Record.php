@@ -49,6 +49,16 @@ final class Record implements ArraySerializable
 			[
 				'events' => Event::class,
 			],
+			[
+				'filingDate' => [
+					null,
+					fn ($value) => Carbon::parse($value, 'UTC')->setHours(12),
+				],
+				'releaseDate' => [
+					null,
+					fn ($value) => Carbon::parse($value, 'UTC')->setHours(12),
+				],
+			]
 		);
 	}
 }

@@ -57,6 +57,36 @@ final class Offense implements ArraySerializable
 		return new ArraySerializationConfig(
 			ArraySerializationConfig::pascalSerializedName(),
 			[],
+			[
+				'offenseDate' => [
+					null,
+					fn ($value) => Carbon::parse($value, 'UTC')->setHours(12),
+				],
+				'chargeDate' => [
+					null,
+					fn ($value) => Carbon::parse($value, 'UTC')->setHours(12),
+				],
+				'statusDate' => [
+					null,
+					fn ($value) => Carbon::parse($value, 'UTC')->setHours(12),
+				],
+				'pleaDate' => [
+					null,
+					fn ($value) => Carbon::parse($value, 'UTC')->setHours(12),
+				],
+				'dispositionDate' => [
+					null,
+					fn ($value) => Carbon::parse($value, 'UTC')->setHours(12),
+				],
+				'dispositionStatusDate' => [
+					null,
+					fn ($value) => Carbon::parse($value, 'UTC')->setHours(12),
+				],
+				'sentenceDate' => [
+					null,
+					fn ($value) => Carbon::parse($value, 'UTC')->setHours(12),
+				],
+			]
 		);
 	}
 }

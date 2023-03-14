@@ -40,6 +40,32 @@ final class IdentityCase implements ArraySerializable
 			[
 				'offenses' => Offense::class,
 			],
+			[
+				'completionDate' => [
+					null,
+					fn ($value) => Carbon::parse($value, 'UTC')->setHours(12),
+				],
+				'dispositionDate' => [
+					null,
+					fn ($value) => Carbon::parse($value, 'UTC')->setHours(12),
+				],
+				'filingDate' => [
+					null,
+					fn ($value) => Carbon::parse($value, 'UTC')->setHours(12),
+				],
+				'statusBeginDate' => [
+					null,
+					fn ($value) => Carbon::parse($value, 'UTC')->setHours(12),
+				],
+				'statusDate' => [
+					null,
+					fn ($value) => Carbon::parse($value, 'UTC')->setHours(12),
+				],
+				'statusEndDate' => [
+					null,
+					fn ($value) => Carbon::parse($value, 'UTC')->setHours(12),
+				],
+			]
 		);
 	}
 }

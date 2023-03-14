@@ -45,6 +45,13 @@ final class CourtAddress implements ArraySerializable
 	{
 		return new ArraySerializationConfig(
 			ArraySerializationConfig::pascalSerializedName(),
+			[],
+			[
+				'reportDate' => [
+					null,
+					fn ($value) => Carbon::parse($value, 'UTC')->setHours(12),
+				],
+			]
 		);
 	}
 }

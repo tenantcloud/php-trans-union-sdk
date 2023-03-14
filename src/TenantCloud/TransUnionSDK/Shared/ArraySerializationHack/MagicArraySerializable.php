@@ -55,7 +55,7 @@ trait MagicArraySerializable
 									return null;
 								}
 
-								return $type::parse($value);
+								return $type::parse($value, 'UTC');
 							}
 
 							if (is_a($type, ArraySerializable::class, true)) {

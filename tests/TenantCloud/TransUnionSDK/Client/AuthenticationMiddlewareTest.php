@@ -116,7 +116,7 @@ class AuthenticationMiddlewareTest extends TestCase
 	/**
 	 * Create new Guzzle client with the middleware.
 	 *
-	 * @param array<ResponseInterface|callable(RequestInterface): ResponseInterface|RequestExceptionInterface> $responses
+	 * @param array<ResponseInterface|callable(RequestInterface): (ResponseInterface|RequestExceptionInterface)> $responses
 	 */
 	private function newClientWithMiddleware(array $responses, callable $modifyHandler = null): Client
 	{

@@ -1,3 +1,27 @@
+# [3.0.0](https://github.com/tenantcloud/php-trans-union-sdk/compare/v2.0.0...v3.0.0) (2023-03-17)
+
+
+### Bug Fixes
+
+* PHPStan failing on master ([#10](https://github.com/tenantcloud/php-trans-union-sdk/issues/10)) ([72986ac](https://github.com/tenantcloud/php-trans-union-sdk/commit/72986ac0261543ffc623bd1bea2dc2f9588ad8af))
+* Release failing ([#11](https://github.com/tenantcloud/php-trans-union-sdk/issues/11)) ([530f688](https://github.com/tenantcloud/php-trans-union-sdk/commit/530f6883c2404b4f02af52aafda91fbaaeffd504))
+
+
+### Code Refactoring
+
+* Report dates in UTC ([#9](https://github.com/tenantcloud/php-trans-union-sdk/issues/9)) ([159e369](https://github.com/tenantcloud/php-trans-union-sdk/commit/159e3691b0274726d65b7afcd3bbede1a227d893))
+
+
+### BREAKING CHANGES
+
+* All dates are now serialized in ISO8601
+
+* fix: Make local dates have 12:00:00 hours to convert them in TZs
+
+* fix: Make local dates have 12:00:00 hours to convert them in TZs
+
+* fix: Make local dates have 12:00:00 hours to convert them in TZs
+
 # 1.0.0 (2022-12-12)
 
 

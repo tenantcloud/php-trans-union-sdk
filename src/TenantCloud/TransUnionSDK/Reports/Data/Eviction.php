@@ -37,12 +37,6 @@ final class Eviction implements ArraySerializable
 				'disclaimers' => 'mixed',
 				'records'     => Record::class,
 			],
-			[
-				'createdOn' => [
-					// 2021-12-09T08:55:10.9210625-06:00
-					fn (Carbon $date) => $date->isoFormat('YYYY-MM-DD[T]HH:mm:ss.SSSSSSSZ'),
-				],
-			]
 		);
 	}
 }

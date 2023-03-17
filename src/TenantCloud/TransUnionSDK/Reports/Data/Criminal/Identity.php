@@ -27,7 +27,7 @@ final class Identity implements ArraySerializable
 		public readonly ?string $age,
 		public readonly ?array $aliases,
 		public readonly ?int $arrestCount,
-		public readonly ?string $birthDate,
+		public readonly ?Carbon $birthDate,
 		public readonly ?string $birthPlace,
 		public readonly ?string $bodyBuild,
 		public readonly ?int $bookingCount,
@@ -81,12 +81,6 @@ final class Identity implements ArraySerializable
 				'idNumbers' => IdNumber::class,
 				'offenses'  => Offense::class,
 			],
-			[
-				'dateTimeModified' => [
-					// 02/18/2020 16:50:15
-					fn (Carbon $date) => $date->isoFormat('MM/DD/YYYY HH:mm:ss'),
-				],
-			]
 		);
 	}
 }

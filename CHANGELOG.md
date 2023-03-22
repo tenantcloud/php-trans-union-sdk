@@ -1,3 +1,10 @@
+# [3.1.0](https://github.com/tenantcloud/php-trans-union-sdk/compare/v3.0.0...v3.1.0) (2023-03-22)
+
+
+### Features
+
+* New endpoint methods ([#12](https://github.com/tenantcloud/php-trans-union-sdk/issues/12)) ([c6ceba0](https://github.com/tenantcloud/php-trans-union-sdk/commit/c6ceba0974df5586ce145326ed5ebc431a48afb9))
+
 # [3.0.0](https://github.com/tenantcloud/php-trans-union-sdk/compare/v2.0.0...v3.0.0) (2023-03-17)
 
 

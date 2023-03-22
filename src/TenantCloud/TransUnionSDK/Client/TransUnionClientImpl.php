@@ -8,6 +8,7 @@ use GuzzleHttp\HandlerStack;
 use Illuminate\Contracts\Bus\Dispatcher;
 use Illuminate\Contracts\Queue\Factory as QueueConnectionFactory;
 use Illuminate\Support\Arr;
+use Symfony\Component\HttpFoundation\Response;
 use TenantCloud\GuzzleHelper\DumpRequestBody\HeaderObfuscator;
 use TenantCloud\GuzzleHelper\DumpRequestBody\JsonObfuscator;
 use TenantCloud\GuzzleHelper\GuzzleMiddleware;
@@ -27,6 +28,7 @@ use TenantCloud\TransUnionSDK\Reports\UserNotVerifiedException;
 use TenantCloud\TransUnionSDK\Requests\Renters\CannotCancelRequestException;
 use TenantCloud\TransUnionSDK\Requests\RequestsApi;
 use TenantCloud\TransUnionSDK\Requests\RequestsApiImpl;
+use TenantCloud\TransUnionSDK\Shared\NotFoundException;
 use TenantCloud\TransUnionSDK\Tokens\TokenResolver\TokenResolver;
 use TenantCloud\TransUnionSDK\Tokens\TokensApi;
 use TenantCloud\TransUnionSDK\Tokens\TokensApiImpl;
@@ -149,6 +151,10 @@ final class TransUnionClientImpl implements TransUnionClient
 		return GuzzleMiddleware::rethrowException(static function (Throwable $e) {
 			if (!$e instanceof RequestException || !$e->hasResponse()) {
 				throw $e;
+			}
+
+			if ($e->getResponse()->getStatusCode() === Response::HTTP_NOT_FOUND) {
+				throw new NotFoundException();
 			}
 
 			$decodedBody = psr_response_to_json($e->getResponse());

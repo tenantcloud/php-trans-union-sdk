@@ -6,13 +6,15 @@ use TenantCloud\DataTransferObjects\CamelDataTransferObject;
 use Tests\TenantCloud\TransUnionSDK\Shared\AddressDTOTest;
 
 /**
- * @method self        setCountry(string $country)
  * @method string|null getAddressLine1()
  * @method string|null getAddressLine2()
  * @method string|null getAddressLine3()
  * @method string|null getAddressLine4()
  * @method string|null getLocality()
  * @method string|null getRegion()
+ * @method string|null getPostalCode()
+ * @method string|null getCountry()
+ * @method self        setCountry(string $country)
  *
  * @see AddressDTOTest
  */

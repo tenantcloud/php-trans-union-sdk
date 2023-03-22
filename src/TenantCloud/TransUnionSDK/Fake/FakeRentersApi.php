@@ -6,6 +6,7 @@ use Illuminate\Contracts\Cache\Repository;
 use TenantCloud\TransUnionSDK\Renters\CreateRenterDTO;
 use TenantCloud\TransUnionSDK\Renters\RentersApi;
 use TenantCloud\TransUnionSDK\Reports\RequestReportPersonDTO;
+use TenantCloud\TransUnionSDK\Shared\NotFoundException;
 
 /**
  * Part of {@see FakeTransUnionClient} TU client's implementation.
@@ -21,14 +22,28 @@ final class FakeRentersApi implements RentersApi
 	/**
 	 * @inheritDoc
 	 */
+	public function get(int $id): CreateRenterDTO
+	{
+		return $this->cache->get("renters.{$id}") ??
+			throw new NotFoundException();
+	}
+
+	/**
+	 * @inheritDoc
+	 */
 	public function create(CreateRenterDTO $data): int
 	{
-		$renter = RequestReportPersonDTO::from($data->getPerson()->toArray())
-			->setPersonId(random_int(1, PHP_INT_MAX));
+		$id = random_int(1, PHP_INT_MAX);
 
-		$this->cache->put("renters.{$renter->getPersonId()}", $renter);
+		$newData = (clone $data)
+			->setPerson((clone $data->getPerson())->setPersonId($id));
 
-		return $renter->getPersonId();
+		$this->cache->put(
+			"renters.{$id}",
+			$newData
+		);
+
+		return $id;
 	}
 
 	/**
@@ -36,21 +51,32 @@ final class FakeRentersApi implements RentersApi
 	 */
 	public function update(mixed $id, CreateRenterDTO $data): void
 	{
-		$newData = RequestReportPersonDTO::from($data->getPerson()->toArray())
-			->setPersonId($id);
+		if (!$this->cache->has("renters.{$id}")) {
+			throw new NotFoundException();
+		}
 
 		// If changed data - unpass exams
-		if ($newData != $this->cache->get("renters.{$id}")) {
+		if ((clone $data->getPerson())->setPersonId($id) != $this->get($id)->getPerson()->setPersonId($id)) {
 			$this->client
 				->exams()
 				->unpassByRenter($id);
 		}
+
+		$newData = (clone $data)
+			->setPerson((clone $data->getPerson())->setPersonId($id));
 
 		$this->cache->put("renters.{$id}", $newData);
 	}
 
 	public function byId(int $id): ?RequestReportPersonDTO
 	{
-		return $this->cache->get("renters.{$id}");
+		$data = $this->cache->get("renters.{$id}");
+
+		if (!$data) {
+			return null;
+		}
+
+		return RequestReportPersonDTO::from($data->getPerson()->toArray())
+			->setPersonId($id);
 	}
 }

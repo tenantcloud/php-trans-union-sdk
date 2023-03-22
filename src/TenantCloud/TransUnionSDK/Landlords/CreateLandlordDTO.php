@@ -7,16 +7,23 @@ use TenantCloud\TransUnionSDK\Shared\AddressDTO;
 use TenantCloud\TransUnionSDK\Shared\PhoneType;
 
 /**
- * @method string getEmailAddress()
- * @method bool   hasEmailAddress()
- * @method self   setLandlordId(int $id)
- * @method self   setEmailAddress(string $email)
- * @method self   setFirstName(string $name)
- * @method self   setLastName(string $name)
- * @method self   setPhoneNumber(string $number)
- * @method self   setPhoneType(PhoneType $type)
- * @method self   setBusinessName(string $name)
- * @method self   setAcceptedTermsAndConditions(bool $value)
+ * @method self      setLandlordId(int $id)
+ * @method int       getLandlordId()
+ * @method self      setEmailAddress(string $email)
+ * @method string    getEmailAddress()
+ * @method bool      hasEmailAddress()
+ * @method self      setFirstName(string $name)
+ * @method string    getFirstName()
+ * @method self      setLastName(string $name)
+ * @method string    getLastName()
+ * @method self      setPhoneNumber(string $number)
+ * @method string    getPhoneNumber()
+ * @method self      setPhoneType(PhoneType $type)
+ * @method PhoneType getPhoneType()
+ * @method self      setBusinessName(string $name)
+ * @method string    getBusinessName()
+ * @method self      setAcceptedTermsAndConditions(bool $value)
+ * @method bool      getAcceptedTermsAndConditions()
  */
 final class CreateLandlordDTO extends CamelDataTransferObject
 {

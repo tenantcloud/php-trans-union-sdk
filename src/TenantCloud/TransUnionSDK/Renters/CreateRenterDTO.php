@@ -9,8 +9,14 @@ use TenantCloud\TransUnionSDK\Shared\IncomeFrequency;
 /**
  * @method CreateRenterPersonDTO getPerson()
  * @method self                  setIncome(float $amount)
+ * @method float                 getIncome()
+ * @method IncomeFrequency       getIncomeFrequency()
  * @method self                  setOtherIncome(float $amount)
+ * @method float                 getOtherIncome()
  * @method self                  setAssets(float $amount)
+ * @method IncomeFrequency       getOtherIncomeFrequency()
+ * @method float                 getAssets()
+ * @method EmploymentStatus      getEmploymentStatus()
  */
 final class CreateRenterDTO extends CamelDataTransferObject
 {

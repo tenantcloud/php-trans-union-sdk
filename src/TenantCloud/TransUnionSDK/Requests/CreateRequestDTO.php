@@ -32,6 +32,9 @@ final class CreateRequestDTO extends CamelDataTransferObject
 		$this->setScreeningRequestRenters([]);
 	}
 
+	/**
+	 * @param array<CreateRequestRenterDTO|array<string, mixed>> $renters
+	 */
 	public function setScreeningRequestRenters(array $renters): self
 	{
 		return $this->set(

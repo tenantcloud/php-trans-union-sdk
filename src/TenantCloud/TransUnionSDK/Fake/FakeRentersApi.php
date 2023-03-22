@@ -56,7 +56,7 @@ final class FakeRentersApi implements RentersApi
 		}
 
 		// If changed data - unpass exams
-		if ($data->getPerson() != $this->get($id)?->getPerson()) {
+		if ($data->getPerson() != $this->get($id)->getPerson()) {
 			$this->client
 				->exams()
 				->unpassByRenter($id);

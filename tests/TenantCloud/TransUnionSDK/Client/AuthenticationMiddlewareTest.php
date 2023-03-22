@@ -9,6 +9,7 @@ use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Response;
 use Illuminate\Http\Response as IlluminateResponse;
 use Mockery;
+use Psr\Http\Client\RequestExceptionInterface;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use TenantCloud\TransUnionSDK\Client\AuthenticationMiddleware;
@@ -115,7 +116,7 @@ class AuthenticationMiddlewareTest extends TestCase
 	/**
 	 * Create new Guzzle client with the middleware.
 	 *
-	 * @param array<ResponseInterface> $responses
+	 * @param array<ResponseInterface|callable(RequestInterface): (ResponseInterface|RequestExceptionInterface)> $responses
 	 */
 	private function newClientWithMiddleware(array $responses, callable $modifyHandler = null): Client
 	{

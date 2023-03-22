@@ -82,9 +82,6 @@ final class Applicant implements ArraySerializable
 				'consumerStatement'        => ArraySerializationConfig::mixedCustomSerializer(),
 				'incomeEstimate'           => ArraySerializationConfig::mixedCustomSerializer(),
 				'ofac'                     => ArraySerializationConfig::mixedCustomSerializer(),
-				'reportRetrievedOn'        => [
-					fn (Carbon $date) => $date->isoFormat('YYYY-MM-DD[T]HH:mm:ss.SSSSSSSZ'),
-				],
 			]
 		);
 	}

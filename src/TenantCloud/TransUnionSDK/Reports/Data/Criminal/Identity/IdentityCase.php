@@ -40,32 +40,6 @@ final class IdentityCase implements ArraySerializable
 			[
 				'offenses' => Offense::class,
 			],
-			[
-				'completionDate' => [
-					// 20200218
-					fn (Carbon $date) => $date->isoFormat('YYYYMMDD'),
-				],
-				'dispositionDate' => [
-					// 20200218
-					fn (Carbon $date) => $date->isoFormat('YYYYMMDD'),
-				],
-				'filingDate' => [
-					// 20200218
-					fn (Carbon $date) => $date->isoFormat('YYYYMMDD'),
-				],
-				'statusBeginDate' => [
-					// 20200218
-					fn (Carbon $date) => $date->isoFormat('YYYYMMDD'),
-				],
-				'statusDate' => [
-					// 20200218
-					fn (Carbon $date) => $date->isoFormat('YYYYMMDD'),
-				],
-				'statusEndDate' => [
-					// 20200218
-					fn (Carbon $date) => $date->isoFormat('YYYYMMDD'),
-				],
-			]
 		);
 	}
 }

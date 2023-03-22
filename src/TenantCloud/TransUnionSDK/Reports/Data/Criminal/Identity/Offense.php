@@ -57,36 +57,6 @@ final class Offense implements ArraySerializable
 		return new ArraySerializationConfig(
 			ArraySerializationConfig::pascalSerializedName(),
 			[],
-			[
-				'offenseDate' => [
-					// 20200218
-					fn (Carbon $date) => $date->isoFormat('YYYYMMDD'),
-				],
-				'chargeDate' => [
-					// 20200218
-					fn (Carbon $date) => $date->isoFormat('YYYYMMDD'),
-				],
-				'statusDate' => [
-					// 20200218
-					fn (Carbon $date) => $date->isoFormat('YYYYMMDD'),
-				],
-				'pleaDate' => [
-					// 20200218
-					fn (Carbon $date) => $date->isoFormat('YYYYMMDD'),
-				],
-				'dispositionDate' => [
-					// 20200218
-					fn (Carbon $date) => $date->isoFormat('YYYYMMDD'),
-				],
-				'dispositionStatusDate' => [
-					// 20200218
-					fn (Carbon $date) => $date->isoFormat('YYYYMMDD'),
-				],
-				'sentenceDate' => [
-					// 20200218
-					fn (Carbon $date) => $date->isoFormat('YYYYMMDD'),
-				],
-			]
 		);
 	}
 }

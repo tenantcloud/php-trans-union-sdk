@@ -1,3 +1,10 @@
+## [3.1.1](https://github.com/tenantcloud/php-trans-union-sdk/compare/v3.1.0...v3.1.1) (2023-03-27)
+
+
+### Bug Fixes
+
+* Unable to parse some hidden dates ([#13](https://github.com/tenantcloud/php-trans-union-sdk/issues/13)) ([6d25147](https://github.com/tenantcloud/php-trans-union-sdk/commit/6d251479c1c3143980d2391945087a92ebf77239))
+
 # [3.1.0](https://github.com/tenantcloud/php-trans-union-sdk/compare/v3.0.0...v3.1.0) (2023-03-22)
 
 

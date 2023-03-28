@@ -52,7 +52,7 @@ trait MagicArraySerializable
 
 							if (is_a($type, Carbon::class, true)) {
 								// Treat dates like 'N/A' or 'XX/XX/XXXX' or 'XX/XX/0000' or even 'XX/15/1970' as unspecified, i.e. null
-								if ($value === '' || $value === 'N/A' || preg_match('/[\dx]{2}\/[\dx]{2}\/[\dx]{4}/i', $value)) {
+								if ($value === '' || $value === 'N/A' || str_contains($value, 'XX')) {
 									return null;
 								}
 

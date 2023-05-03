@@ -8,6 +8,11 @@ namespace TenantCloud\TransUnionSDK\Renters;
 interface RentersApi
 {
 	/**
+	 * Get a renter.
+	 */
+	public function get(int $id): CreateRenterDTO;
+
+	/**
 	 * Create a renter.
 	 */
 	public function create(CreateRenterDTO $data): int;

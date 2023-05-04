@@ -11,7 +11,8 @@ class PersonDTO
 		public string $firstName,
 		public string $lastName,
 		public Carbon $dateOfBirth,
-		public string $socialSecurityNumber
+		public string $socialSecurityNumber,
+		public int $income = 0,
 	) {
 	}
 }

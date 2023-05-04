@@ -13,7 +13,7 @@ class DownloadStubsCommand extends Command
 	/**
 	 * @inheritdoc
 	 */
-	protected $signature = 'trans-union:reports:download-stubs';
+	protected $signature = 'trans-union:reports:download-stubs {--force : Download and overwrite existing reports}';
 
 	/**
 	 * @inheritdoc
@@ -22,7 +22,7 @@ class DownloadStubsCommand extends Command
 
 	public function handle(ReportStubDownloader $reportStubDownloader): void
 	{
-		foreach ($reportStubDownloader->downloadAll($this->people()) as [$person, $product]) {
+		foreach ($reportStubDownloader->downloadAll($this->people(), (bool) $this->option('force')) as [$person, $product]) {
 			/** @var PersonDTO $person */
 			$this->info("Downloaded {$product->value} report for {$person->firstName} {$person->lastName}");
 		}
@@ -69,12 +69,25 @@ class DownloadStubsCommand extends Command
 		];
 
 		yield [
-			[ReportProduct::CREDIT, ReportProduct::CRIMINAL, ReportProduct::EVICTION],
+			[ReportProduct::INCOME_INSIGHTS],
+			new PersonDTO(
+				'Mohammad',
+				'Chowdhury',
+				Carbon::createFromDate(1980, 1, 1),
+				'666841546',
+				income: 30000,
+			),
+			'default',
+		];
+
+		yield [
+			[ReportProduct::CREDIT, ReportProduct::CRIMINAL, ReportProduct::EVICTION, ReportProduct::INCOME_INSIGHTS],
 			new PersonDTO(
 				'William',
 				'Thorne',
 				Carbon::createFromDate(1920, 1, 1),
-				'666622631'
+				'666622631',
+				income: 9999999,
 			)
 		];
 
@@ -295,6 +308,17 @@ class DownloadStubsCommand extends Command
 				'Yilmaz',
 				Carbon::createFromDate(1980, 1, 1),
 				'666773486'
+			)
+		];
+
+		yield [
+			[ReportProduct::INCOME_INSIGHTS],
+			new PersonDTO(
+				'Thin',
+				'File',
+				Carbon::createFromDate(1999, 1, 1),
+				'123123123',
+				income: 9999999,
 			)
 		];
 	}

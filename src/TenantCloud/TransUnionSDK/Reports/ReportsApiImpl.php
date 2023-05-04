@@ -7,10 +7,12 @@ use GuzzleHttp\Client;
 use Illuminate\Contracts\Bus\Dispatcher;
 use Illuminate\Contracts\Queue\Factory as QueueConnectionFactory;
 use Illuminate\Queue\SyncQueue;
+use InvalidArgumentException;
 use function TenantCloud\GuzzleHelper\psr_response_to_json;
 use TenantCloud\TransUnionSDK\Reports\Data\Credit;
 use TenantCloud\TransUnionSDK\Reports\Data\Criminal;
 use TenantCloud\TransUnionSDK\Reports\Data\Eviction;
+use Webmozart\Assert\Assert;
 
 /**
  * Web API implementation of {@see ReportsApi}.
@@ -72,22 +74,9 @@ final class ReportsApiImpl implements ReportsApi
 	 */
 	public function findArray(int $requestRenterId, ReportProduct $productType): FoundReport
 	{
-		$jsonResponse = $this->httpClient->get(
-			str_replace('{request_renter_id}', (string) $requestRenterId, self::FIND_REPORT_API_PATH),
-			[
-				'query' => [
-					'requestedProduct' => lcfirst($productType->value),
-					'reportType'       => 'json',
-				],
-			]
-		);
+		Assert::oneOf(ReportFormat::JSON, $productType->supportedFormats());
 
-		$response = psr_response_to_json($jsonResponse);
-
-		return new FoundReport(
-			now()->addDays($response['reportsExpireNumberOfDays']),
-			$response['reportResponseModelDetails'][0]['reportData']
-		);
+		return $this->findRaw($requestRenterId, $productType, ReportFormat::JSON);
 	}
 
 	/**
@@ -101,8 +90,39 @@ final class ReportsApiImpl implements ReportsApi
 			ReportProduct::CREDIT   => Credit::fromArray($foundReport->report()),
 			ReportProduct::EVICTION => Eviction::fromArray($foundReport->report()),
 			ReportProduct::CRIMINAL => Criminal::fromArray($foundReport->report()),
+			default                 => throw new InvalidArgumentException(),
 		};
 
 		return new FoundReport($foundReport->expires(), $report);
+	}
+
+	/**
+	 * @inheritDoc
+	 */
+	public function findHtml(int $requestRenterId, ReportProduct $productType): FoundReport
+	{
+		Assert::oneOf(ReportFormat::HTML, $productType->supportedFormats());
+
+		return $this->findRaw($requestRenterId, $productType, ReportFormat::HTML);
+	}
+
+	public function findRaw(int $requestRenterId, ReportProduct $productType, ReportFormat $format): FoundReport
+	{
+		$jsonResponse = $this->httpClient->get(
+			str_replace('{request_renter_id}', (string) $requestRenterId, self::FIND_REPORT_API_PATH),
+			[
+				'query' => [
+					'requestedProduct' => lcfirst($productType->value),
+					'reportType'       => $format->value,
+				],
+			]
+		);
+
+		$response = psr_response_to_json($jsonResponse);
+
+		return new FoundReport(
+			now()->addDays($response['reportsExpireNumberOfDays']),
+			$response['reportResponseModelDetails'][0]['reportData']
+		);
 	}
 }

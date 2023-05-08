@@ -73,7 +73,7 @@ final class FakeReportsApi implements ReportsApi
 	{
 		Assert::oneOf(ReportFormat::JSON, $productType->supportedFormats());
 
-		$foundReport = $this->findRaw($requestRenterId, $productType, ReportFormat::HTML);
+		$foundReport = $this->findRaw($requestRenterId, $productType, ReportFormat::JSON);
 		$reportData = json_decode($foundReport->report(), true, 512, JSON_THROW_ON_ERROR);
 
 		return new FoundReport($foundReport->expires(), $reportData);

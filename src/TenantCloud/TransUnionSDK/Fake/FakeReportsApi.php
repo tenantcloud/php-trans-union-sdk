@@ -46,6 +46,7 @@ final class FakeReportsApi implements ReportsApi
 			ReportProduct::CREDIT,
 			ReportProduct::CRIMINAL,
 			ReportProduct::EVICTION,
+			ReportProduct::INCOME_INSIGHTS,
 		];
 	}
 

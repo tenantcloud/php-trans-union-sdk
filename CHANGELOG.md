@@ -1,3 +1,10 @@
+# [3.2.0](https://github.com/tenantcloud/php-trans-union-sdk/compare/v3.1.2...v3.2.0) (2023-05-30)
+
+
+### Features
+
+* Income Insights ([#15](https://github.com/tenantcloud/php-trans-union-sdk/issues/15)) ([60b57ea](https://github.com/tenantcloud/php-trans-union-sdk/commit/60b57ead40908d407c064621b959cda46d87d6c8))
+
 ## [3.1.2](https://github.com/tenantcloud/php-trans-union-sdk/compare/v3.1.1...v3.1.2) (2023-03-28)
 
 

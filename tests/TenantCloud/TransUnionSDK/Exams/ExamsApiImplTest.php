@@ -3,6 +3,7 @@
 namespace Tests\TenantCloud\TransUnionSDK\Exams;
 
 use GuzzleHttp\Client;
+use GuzzleHttp\Psr7\Utils;
 use LogicException;
 use Mockery;
 use Psr\Http\Message\ResponseInterface;
@@ -40,7 +41,7 @@ class ExamsApiImplTest extends TestCase
 		$response = Mockery::mock(ResponseInterface::class);
 		$response->expects()
 			->getBody()
-			->andReturn(json_encode($arrayResponse));
+			->andReturn(Utils::streamFor(json_encode($arrayResponse)));
 
 		$data = RequestExamDTO::create()
 			->setRequestRenterId(123);
@@ -96,9 +97,9 @@ class ExamsApiImplTest extends TestCase
 		$response = Mockery::mock(ResponseInterface::class);
 		$response->expects()
 			->getBody()
-			->andReturn(json_encode([
+			->andReturn(Utils::streamFor(json_encode([
 				'result' => '123',
-			]));
+			])));
 
 		$data = SubmitExamAnswersDTO::create()
 			->setAnswers($answers)
@@ -182,9 +183,9 @@ class ExamsApiImplTest extends TestCase
 		$response = Mockery::mock(ResponseInterface::class);
 		$response->expects()
 			->getBody()
-			->andReturn(json_encode([
+			->andReturn(Utils::streamFor(json_encode([
 				'result' => '123',
-			]));
+			])));
 
 		$data = SubmitExamAnswersDTO::create()
 			->setAnswers($answers)
@@ -235,9 +236,9 @@ class ExamsApiImplTest extends TestCase
 		$response = Mockery::mock(ResponseInterface::class);
 		$response->expects()
 			->getBody()
-			->andReturn(json_encode([
+			->andReturn(Utils::streamFor(json_encode([
 				'result' => 'Questioned',
-			]));
+			])));
 
 		$data = SubmitExamAnswersDTO::create()
 			->setAnswers([])
@@ -259,7 +260,7 @@ class ExamsApiImplTest extends TestCase
 		$response = Mockery::mock(ResponseInterface::class);
 		$response->expects()
 			->getBody()
-			->andReturn(json_encode([
+			->andReturn(Utils::streamFor(json_encode([
 				'result'                  => 'OK',
 				'examId'                  => 123,
 				'authenticationQuestions' => [
@@ -274,7 +275,7 @@ class ExamsApiImplTest extends TestCase
 						],
 					],
 				],
-			]));
+			])));
 
 		$data = RequestExamDTO::create()
 			->setRequestRenterId(789);

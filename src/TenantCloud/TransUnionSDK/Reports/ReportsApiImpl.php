@@ -106,6 +106,9 @@ final class ReportsApiImpl implements ReportsApi
 		return $this->findRaw($requestRenterId, $productType, ReportFormat::HTML);
 	}
 
+	/**
+	 * @return FoundReport<mixed>
+	 */
 	public function findRaw(int $requestRenterId, ReportProduct $productType, ReportFormat $format): FoundReport
 	{
 		$jsonResponse = $this->httpClient->get(

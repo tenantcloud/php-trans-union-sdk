@@ -34,4 +34,11 @@ interface ReportsApi
 	 * @return FoundReport<array<string, mixed>>
 	 */
 	public function findArray(int $requestRenterId, ReportProduct $productType): FoundReport;
+
+	/**
+	 * Find a ready report in HTML format.
+	 *
+	 * @return FoundReport<string>
+	 */
+	public function findHtml(int $requestRenterId, ReportProduct $productType): FoundReport;
 }

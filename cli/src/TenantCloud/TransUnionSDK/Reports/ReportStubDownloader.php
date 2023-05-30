@@ -17,6 +17,7 @@ use TenantCloud\TransUnionSDK\Landlords\CreateLandlordDTO;
 use TenantCloud\TransUnionSDK\Properties\CreatePropertyDTO;
 use TenantCloud\TransUnionSDK\Renters\CreateRenterDTO;
 use TenantCloud\TransUnionSDK\Renters\CreateRenterPersonDTO;
+use TenantCloud\TransUnionSDK\Reports\ReportFormat;
 use TenantCloud\TransUnionSDK\Reports\ReportProduct;
 use TenantCloud\TransUnionSDK\Reports\RequestReportDTO;
 use TenantCloud\TransUnionSDK\Reports\RequestReportPersonDTO;
@@ -34,13 +35,15 @@ use TenantCloud\TransUnionSDK\Verification\TestModeVerificationAnswersFactory;
  */
 class ReportStubDownloader
 {
+	private const DIR = __DIR__ . "/../../../../../resources/reports";
 
 	public function __construct(
 		private readonly TransUnionClient $client,
 		private readonly Filesystem       $filesystem,
 		private readonly int              $creditBundleId,
 		private readonly int              $criminalBundleId,
-		private readonly int              $evictionBundleId
+		private readonly int              $evictionBundleId,
+		private readonly int              $incomeInsightsBundleId,
 	) {
 	}
 
@@ -49,7 +52,7 @@ class ReportStubDownloader
 	 *
 	 * @return Generator<int, array{PersonDTO, ReportProduct}>
 	 */
-	public function downloadAll(iterable $people): Generator
+	public function downloadAll(iterable $people, bool $overwrite): Generator
 	{
 		$landlordId = $this->createLandlord();
 		$propertyId = $this->createProperty($landlordId);
@@ -62,6 +65,12 @@ class ReportStubDownloader
 			$identifier = $data[2] ?? $person->socialSecurityNumber;
 
 			foreach ($products as $product) {
+				if (!$overwrite && $this->reportsExist($identifier, $product)) {
+					yield [$person, $product];
+
+					continue;
+				}
+
 				$this->download(
 					$landlordId,
 					$propertyId,
@@ -86,14 +95,31 @@ class ReportStubDownloader
 								)
 								->setAcceptedTermsAndConditions(true)
 						)
-						->setIncomeFrequency(IncomeFrequency::PER_MONTH)
-						->setOtherIncomeFrequency(IncomeFrequency::PER_MONTH)
+						->setIncome($person->income)
+						->setIncomeFrequency(IncomeFrequency::PER_YEAR)
+						->setOtherIncomeFrequency(IncomeFrequency::PER_YEAR)
 						->setEmploymentStatus(EmploymentStatus::EMPLOYED)
 				);
 
 				yield [$person, $product];
 			}
 		}
+	}
+
+	private function reportsExist(string $identifier, ReportProduct $reportProduct): bool
+	{
+		foreach ($reportProduct->supportedFormats() as $format) {
+			if (!$this->filesystem->exists($this->path($identifier, $reportProduct, $format))) {
+				return false;
+			}
+		}
+
+		return true;
+	}
+
+	private function path(string $identifier, ReportProduct $reportProduct, ReportFormat $format): string
+	{
+		return self::DIR . "/$identifier/{$reportProduct->value}.{$format->value}";
 	}
 
 	private function download(
@@ -107,6 +133,7 @@ class ReportStubDownloader
 			ReportProduct::CREDIT => $this->creditBundleId,
 			ReportProduct::CRIMINAL => $this->criminalBundleId,
 			ReportProduct::EVICTION => $this->evictionBundleId,
+			ReportProduct::INCOME_INSIGHTS => $this->incomeInsightsBundleId,
 		};
 
 		// Create renter
@@ -167,15 +194,19 @@ class ReportStubDownloader
 					)
 			);
 
-		// Get report data
-		$report = $this->client
-			->reports()
-			->find($requestRenterId, $reportProduct);
+		$this->filesystem->ensureDirectoryExists(self::DIR . '/' . $identifier);
 
-		// Save
-		$dir = __DIR__ . '/../../../../../../resources/reports/' . $identifier;
-		$this->filesystem->ensureDirectoryExists($dir);
-		$this->filesystem->put("{$dir}/{$reportProduct->value}.json", json_encode($report->report(), JSON_THROW_ON_ERROR | JSON_PRESERVE_ZERO_FRACTION | JSON_PRETTY_PRINT));
+		foreach ($reportProduct->supportedFormats() as $format) {
+			$reportData = match ($format) {
+				ReportFormat::JSON => json_encode(
+					$this->client->reports()->findArray($requestRenterId, $reportProduct)->report(),
+					JSON_THROW_ON_ERROR | JSON_PRESERVE_ZERO_FRACTION | JSON_PRETTY_PRINT
+				),
+				ReportFormat::HTML => $this->client->reports()->findHtml($requestRenterId, $reportProduct)->report(),
+			};
+
+			$this->filesystem->put($this->path($identifier, $reportProduct, $format), $reportData);
+		}
 	}
 
 	private function createLandlord(): int
@@ -210,7 +241,7 @@ class ReportStubDownloader
 				CreatePropertyDTO::create()
 					->setLandlordId($landlordId)
 					->setPropertyName('Test')
-					->setRent(1.0)
+					->setRent(1000.0)
 					->setAddress(
 						AddressDTO::create()
 							->setAddressLine1('31 Palmer Lane')

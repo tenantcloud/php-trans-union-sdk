@@ -4,15 +4,18 @@ namespace TenantCloud\TransUnionSDK\Fake;
 
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Filesystem\Filesystem;
+use InvalidArgumentException;
 use TenantCloud\TransUnionSDK\Reports\Data\Credit;
 use TenantCloud\TransUnionSDK\Reports\Data\Criminal;
 use TenantCloud\TransUnionSDK\Reports\Data\Eviction;
 use TenantCloud\TransUnionSDK\Reports\FoundReport;
 use TenantCloud\TransUnionSDK\Reports\ReportDeliveryStatus;
 use TenantCloud\TransUnionSDK\Reports\ReportDeliveryStatusChangedEvent;
+use TenantCloud\TransUnionSDK\Reports\ReportFormat;
 use TenantCloud\TransUnionSDK\Reports\ReportProduct;
 use TenantCloud\TransUnionSDK\Reports\ReportsApi;
 use TenantCloud\TransUnionSDK\Reports\RequestReportDTO;
+use Webmozart\Assert\Assert;
 
 /**
  * Part of {@see FakeTransUnionClient} TU client's implementation.
@@ -43,6 +46,7 @@ final class FakeReportsApi implements ReportsApi
 			ReportProduct::CREDIT,
 			ReportProduct::CRIMINAL,
 			ReportProduct::EVICTION,
+			ReportProduct::INCOME_INSIGHTS,
 		];
 	}
 
@@ -57,6 +61,7 @@ final class FakeReportsApi implements ReportsApi
 			ReportProduct::CREDIT   => Credit::fromArray($foundReport->report()),
 			ReportProduct::EVICTION => Eviction::fromArray($foundReport->report()),
 			ReportProduct::CRIMINAL => Criminal::fromArray($foundReport->report()),
+			default                 => throw new InvalidArgumentException(),
 		};
 
 		return new FoundReport($foundReport->expires(), $report);
@@ -67,12 +72,30 @@ final class FakeReportsApi implements ReportsApi
 	 */
 	public function findArray(int $requestRenterId, ReportProduct $productType): FoundReport
 	{
-		$reportData = json_decode(
-			$this->filesystem->get(__DIR__ . "/../../../../resources/reports/default/{$productType->value}.json"),
-			true,
-			512,
-			JSON_THROW_ON_ERROR
-		);
+		Assert::oneOf(ReportFormat::JSON, $productType->supportedFormats());
+
+		$foundReport = $this->findRaw($requestRenterId, $productType, ReportFormat::JSON);
+		$reportData = json_decode($foundReport->report(), true, 512, JSON_THROW_ON_ERROR);
+
+		return new FoundReport($foundReport->expires(), $reportData);
+	}
+
+	/**
+	 * @inheritDoc
+	 */
+	public function findHtml(int $requestRenterId, ReportProduct $productType): FoundReport
+	{
+		Assert::oneOf(ReportFormat::HTML, $productType->supportedFormats());
+
+		return $this->findRaw($requestRenterId, $productType, ReportFormat::HTML);
+	}
+
+	/**
+	 * @return FoundReport<mixed>
+	 */
+	private function findRaw(int $requestRenterId, ReportProduct $productType, ReportFormat $format): FoundReport
+	{
+		$reportData = $this->filesystem->get(__DIR__ . "/../../../../resources/reports/default/{$productType->value}.{$format->value}");
 
 		return new FoundReport(
 			now()->addDays(30),
@@ -102,9 +125,9 @@ final class FakeReportsApi implements ReportsApi
 			return null;
 		}
 
-		$haystack = $renter->getLastName();
+		$haystack = mb_strtolower($renter->getLastName());
 
-		if (!str_starts_with($haystack, 'Only')) {
+		if (!str_starts_with($haystack, 'only')) {
 			return null;
 		}
 
@@ -115,6 +138,7 @@ final class FakeReportsApi implements ReportsApi
 					['credit', ReportProduct::CREDIT],
 					['criminal', ReportProduct::CRIMINAL],
 					['eviction', ReportProduct::EVICTION],
+					['incomeinsights', ReportProduct::INCOME_INSIGHTS],
 				]
 			)
 		);

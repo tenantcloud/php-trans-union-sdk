@@ -28,6 +28,7 @@ class DevTransUnionSDKServiceProvider extends ServiceProvider
 				$config->get('trans_union.bundles.credit.id'),
 				$config->get('trans_union.bundles.criminal.id'),
 				$config->get('trans_union.bundles.eviction.id'),
+				$config->get('trans_union.bundles.income_insights.id'),
 			)
 		);
 	}

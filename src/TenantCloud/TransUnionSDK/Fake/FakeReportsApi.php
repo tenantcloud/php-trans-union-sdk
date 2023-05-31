@@ -4,6 +4,7 @@ namespace TenantCloud\TransUnionSDK\Fake;
 
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Filesystem\Filesystem;
+use Illuminate\Support\Str;
 use InvalidArgumentException;
 use TenantCloud\TransUnionSDK\Reports\Data\Credit;
 use TenantCloud\TransUnionSDK\Reports\Data\Criminal;
@@ -136,7 +137,15 @@ final class FakeReportsApi implements ReportsApi
 
 		$data = $this->rawReportData($totalYearlyIncome >= 10000 ? 'green' : 'red', ReportProduct::INCOME_INSIGHTS, $format);
 
-		return preg_replace('\$[0-9,.]+ Per Year', NumberFormatters::$americanCurrency->formatCurrency($totalYearlyIncome, 'USD'), $data);
+		return preg_replace_callback(
+			'/(\$[0-9,.]+) Per Year/i',
+			fn (array $matches) => Str::replace(
+				search: $matches[1],
+				replace: NumberFormatters::$americanCurrency->formatCurrency($totalYearlyIncome, 'USD'),
+				subject: $matches[0]
+			),
+			$data
+		);
 	}
 
 	private function rawReportData(string $set, ReportProduct $productType, ReportFormat $format): string

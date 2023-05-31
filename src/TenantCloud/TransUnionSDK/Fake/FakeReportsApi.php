@@ -119,7 +119,7 @@ final class FakeReportsApi implements ReportsApi
 			->byId($requestRenterId);
 
 		if (!$requestRenter) {
-			return $this->rawReportData('bad', ReportProduct::INCOME_INSIGHTS, $format);
+			return $this->rawReportData('red', ReportProduct::INCOME_INSIGHTS, $format);
 		}
 
 		try {
@@ -127,14 +127,14 @@ final class FakeReportsApi implements ReportsApi
 				->renters()
 				->get($requestRenter->getRenterId());
 		} catch (NotFoundException) {
-			return $this->rawReportData('bad', ReportProduct::INCOME_INSIGHTS, $format);
+			return $this->rawReportData('red', ReportProduct::INCOME_INSIGHTS, $format);
 		}
 
 		$yearlyIncome = $renter->getIncomeFrequency() === IncomeFrequency::PER_MONTH ? $renter->getIncome() * 12 : $renter->getIncome();
 		$yearlyOtherIncome = $renter->getOtherIncomeFrequency() === IncomeFrequency::PER_MONTH ? $renter->getOtherIncome() * 12 : $renter->getOtherIncome();
 		$totalYearlyIncome = $yearlyIncome + $yearlyOtherIncome;
 
-		$data = $this->rawReportData($totalYearlyIncome >= 10000 ? 'good' : 'bad', ReportProduct::INCOME_INSIGHTS, $format);
+		$data = $this->rawReportData($totalYearlyIncome >= 10000 ? 'green' : 'red', ReportProduct::INCOME_INSIGHTS, $format);
 
 		return preg_replace('\$[0-9,.]+ Per Year', NumberFormatters::$americanCurrency->formatCurrency($totalYearlyIncome, 'USD'), $data);
 	}

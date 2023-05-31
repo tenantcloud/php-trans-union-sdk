@@ -15,6 +15,9 @@ use TenantCloud\TransUnionSDK\Reports\ReportFormat;
 use TenantCloud\TransUnionSDK\Reports\ReportProduct;
 use TenantCloud\TransUnionSDK\Reports\ReportsApi;
 use TenantCloud\TransUnionSDK\Reports\RequestReportDTO;
+use TenantCloud\TransUnionSDK\Shared\IncomeFrequency;
+use TenantCloud\TransUnionSDK\Shared\NotFoundException;
+use TenantCloud\TransUnionSDK\Shared\NumberFormatters;
 use Webmozart\Assert\Assert;
 
 /**
@@ -22,6 +25,8 @@ use Webmozart\Assert\Assert;
  */
 final class FakeReportsApi implements ReportsApi
 {
+	private const DEFAULT_REPORTS_SET = 'default';
+
 	public function __construct(
 		private readonly FakeTransUnionClient $transUnionClient,
 		private readonly Dispatcher $dispatcher,
@@ -95,12 +100,48 @@ final class FakeReportsApi implements ReportsApi
 	 */
 	private function findRaw(int $requestRenterId, ReportProduct $productType, ReportFormat $format): FoundReport
 	{
-		$reportData = $this->filesystem->get(__DIR__ . "/../../../../resources/reports/default/{$productType->value}.{$format->value}");
+		$reportData = match ($productType) {
+			ReportProduct::INCOME_INSIGHTS => $this->rawIncomeInsightsReportData($requestRenterId, $format),
+			default                        => $this->rawReportData(self::DEFAULT_REPORTS_SET, $productType, $format)
+		};
 
 		return new FoundReport(
 			now()->addDays(30),
 			$reportData
 		);
+	}
+
+	private function rawIncomeInsightsReportData(int $requestRenterId, ReportFormat $format): string
+	{
+		$requestRenter = $this->transUnionClient
+			->requests()
+			->renters()
+			->byId($requestRenterId);
+
+		if (!$requestRenter) {
+			return $this->rawReportData('bad', ReportProduct::INCOME_INSIGHTS, $format);
+		}
+
+		try {
+			$renter = $this->transUnionClient
+				->renters()
+				->get($requestRenter->getRenterId());
+		} catch (NotFoundException) {
+			return $this->rawReportData('bad', ReportProduct::INCOME_INSIGHTS, $format);
+		}
+
+		$yearlyIncome = $renter->getIncomeFrequency() === IncomeFrequency::PER_MONTH ? $renter->getIncome() * 12 : $renter->getIncome();
+		$yearlyOtherIncome = $renter->getOtherIncomeFrequency() === IncomeFrequency::PER_MONTH ? $renter->getOtherIncome() * 12 : $renter->getOtherIncome();
+		$totalYearlyIncome = $yearlyIncome + $yearlyOtherIncome;
+
+		$data = $this->rawReportData($totalYearlyIncome >= 10000 ? 'good' : 'bad', ReportProduct::INCOME_INSIGHTS, $format);
+
+		return preg_replace('\$[0-9,.]+ Per Year', NumberFormatters::$americanCurrency->formatCurrency($totalYearlyIncome, 'USD'), $data);
+	}
+
+	private function rawReportData(string $set, ReportProduct $productType, ReportFormat $format): string
+	{
+		return $this->filesystem->get(__DIR__ . "/../../../../resources/reports/{$productType->value}/{$set}.{$format->value}");
 	}
 
 	/**

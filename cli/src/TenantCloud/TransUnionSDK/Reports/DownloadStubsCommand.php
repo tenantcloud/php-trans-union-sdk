@@ -69,18 +69,6 @@ class DownloadStubsCommand extends Command
 		];
 
 		yield [
-			[ReportProduct::INCOME_INSIGHTS],
-			new PersonDTO(
-				'Mohammad',
-				'Chowdhury',
-				Carbon::createFromDate(1980, 1, 1),
-				'666841546',
-				income: 30000,
-			),
-			'default',
-		];
-
-		yield [
 			[ReportProduct::CREDIT, ReportProduct::CRIMINAL, ReportProduct::EVICTION, ReportProduct::INCOME_INSIGHTS],
 			new PersonDTO(
 				'William',
@@ -194,16 +182,6 @@ class DownloadStubsCommand extends Command
 		yield [
 			[ReportProduct::CRIMINAL],
 			new PersonDTO(
-				'Bugs',
-				'Bunny',
-				Carbon::createFromDate(1956, 1, 1),
-				'999999321'
-			)
-		];
-
-		yield [
-			[ReportProduct::CRIMINAL],
-			new PersonDTO(
 				'Spongebob',
 				'Squarepants',
 				Carbon::createFromDate(1987, 1, 1),
@@ -294,16 +272,6 @@ class DownloadStubsCommand extends Command
 		yield [
 			[ReportProduct::EVICTION],
 			new PersonDTO(
-				'Ard',
-				'Vark',
-				Carbon::createFromDate(1935, 1, 1),
-				'999990335'
-			)
-		];
-
-		yield [
-			[ReportProduct::EVICTION],
-			new PersonDTO(
 				'Siren',
 				'Yilmaz',
 				Carbon::createFromDate(1980, 1, 1),
@@ -314,12 +282,25 @@ class DownloadStubsCommand extends Command
 		yield [
 			[ReportProduct::INCOME_INSIGHTS],
 			new PersonDTO(
+				'Mohammad',
+				'Chowdhury',
+				Carbon::createFromDate(1990, 1, 1),
+				'666841546',
+				income: 30000,
+			),
+			'green',
+		];
+
+		yield [
+			[ReportProduct::INCOME_INSIGHTS],
+			new PersonDTO(
 				'Thin',
 				'File',
-				Carbon::createFromDate(1999, 1, 1),
-				'123123123',
-				income: 9999999,
-			)
+				Carbon::createFromDate(1980, 1, 1),
+				'666841547',
+				income: 555,
+			),
+			'red',
 		];
 	}
 }

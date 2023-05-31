@@ -36,6 +36,17 @@ class DownloadStubsCommand extends Command
 	private function people(): Generator
 	{
 		yield [
+			[ReportProduct::CREDIT, ReportProduct::CRIMINAL, ReportProduct::EVICTION],
+			new PersonDTO(
+				'Bonnie',
+				'Adams',
+				Carbon::createFromDate(1947, 3, 6),
+				'666603693'
+			),
+			'default',
+		];
+
+		yield [
 			[ReportProduct::CREDIT],
 			new PersonDTO(
 				'Chapoton',
@@ -43,7 +54,6 @@ class DownloadStubsCommand extends Command
 				Carbon::createFromDate(1970, 8, 15),
 				'666221955'
 			),
-			'default'
 		];
 
 		yield [
@@ -54,7 +64,6 @@ class DownloadStubsCommand extends Command
 				Carbon::createFromDate(1970, 8, 15),
 				'999010001'
 			),
-			'default'
 		];
 
 		yield [
@@ -65,7 +74,6 @@ class DownloadStubsCommand extends Command
 				Carbon::createFromDate(1940, 1, 1),
 				'999912345'
 			),
-			'default'
 		];
 
 		yield [
@@ -76,16 +84,6 @@ class DownloadStubsCommand extends Command
 				Carbon::createFromDate(1920, 1, 1),
 				'666622631',
 				income: 9999999,
-			)
-		];
-
-		yield [
-			[ReportProduct::CREDIT, ReportProduct::CRIMINAL, ReportProduct::EVICTION],
-			new PersonDTO(
-				'Bonnie',
-				'Adams',
-				Carbon::createFromDate(1947, 3, 6),
-				'666603693'
 			)
 		];
 

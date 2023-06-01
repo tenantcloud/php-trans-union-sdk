@@ -62,10 +62,10 @@ class ReportStubDownloader
 			/** @var PersonDTO $person */
 			[$products, $person] = $data;
 
-			$identifier = $data[2] ?? $person->socialSecurityNumber;
+			$set = $data[2] ?? $person->socialSecurityNumber;
 
 			foreach ($products as $product) {
-				if (!$overwrite && $this->reportsExist($identifier, $product)) {
+				if (!$overwrite && $this->reportsExist($set, $product)) {
 					yield [$person, $product];
 
 					continue;
@@ -74,7 +74,7 @@ class ReportStubDownloader
 				$this->download(
 					$landlordId,
 					$propertyId,
-					$identifier,
+					$set,
 					$product,
 					CreateRenterDTO::create()
 						->setPerson(
@@ -106,10 +106,10 @@ class ReportStubDownloader
 		}
 	}
 
-	private function reportsExist(string $identifier, ReportProduct $reportProduct): bool
+	private function reportsExist(string $set, ReportProduct $reportProduct): bool
 	{
 		foreach ($reportProduct->supportedFormats() as $format) {
-			if (!$this->filesystem->exists($this->path($identifier, $reportProduct, $format))) {
+			if (!$this->filesystem->exists($this->path($set, $reportProduct, $format))) {
 				return false;
 			}
 		}
@@ -117,16 +117,16 @@ class ReportStubDownloader
 		return true;
 	}
 
-	private function path(string $identifier, ReportProduct $reportProduct, ReportFormat $format): string
+	private function path(string $set, ReportProduct $reportProduct, ReportFormat $format): string
 	{
-		return self::DIR . "/$identifier/{$reportProduct->value}.{$format->value}";
+		return self::DIR . "/{$reportProduct->value}/$set.{$format->value}";
 	}
 
 	private function download(
-		int $landlordId,
-		int $propertyId,
-		string $identifier,
-		ReportProduct $reportProduct,
+		int             $landlordId,
+		int             $propertyId,
+		string          $set,
+		ReportProduct   $reportProduct,
 		CreateRenterDTO $renterData
 	): void {
 		$bundleId = match ($reportProduct) {
@@ -194,7 +194,7 @@ class ReportStubDownloader
 					)
 			);
 
-		$this->filesystem->ensureDirectoryExists(self::DIR . '/' . $identifier);
+		$this->filesystem->ensureDirectoryExists(self::DIR . '/' . $reportProduct->value);
 
 		foreach ($reportProduct->supportedFormats() as $format) {
 			$reportData = match ($format) {
@@ -205,7 +205,7 @@ class ReportStubDownloader
 				ReportFormat::HTML => $this->client->reports()->findHtml($requestRenterId, $reportProduct)->report(),
 			};
 
-			$this->filesystem->put($this->path($identifier, $reportProduct, $format), $reportData);
+			$this->filesystem->put($this->path($set, $reportProduct, $format), $reportData);
 		}
 	}
 

@@ -7,7 +7,7 @@
         "php": ">=8.1",
         "ext-json": "*",
         "ext-intl": "*",
-        "illuminate/support": "^9.0|^1.0",
+        "illuminate/support": "^9.0|^10.0",
         "tenantcloud/data-transfer-objects": "^1.0",
         "tenantcloud/php-standard": "^2.0",
         "guzzlehttp/guzzle": "^7.4",

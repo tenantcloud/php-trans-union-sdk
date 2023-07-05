@@ -21,4 +21,4 @@ parameters:
 		# Intentional.
 		-
 			message: '#Unreachable statement - code above always terminates\.#i'
-			path: 'tests/TenantCloud/TransUnionSDK/Reports/Data/*Test.php'
+			path: 'tests/Reports/Data/*Test.php'

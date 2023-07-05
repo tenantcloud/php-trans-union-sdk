@@ -1,3 +1,10 @@
+## [3.4.1](https://github.com/tenantcloud/php-trans-union-sdk/compare/v3.4.0...v3.4.1) (2023-07-05)
+
+
+### Bug Fixes
+
+* Allow Laravel 10.x ([#18](https://github.com/tenantcloud/php-trans-union-sdk/issues/18)) ([c794c65](https://github.com/tenantcloud/php-trans-union-sdk/commit/c794c65a07806bb0902a7e02b5a0ba630df33132))
+
 # [3.3.0](https://github.com/tenantcloud/php-trans-union-sdk/compare/v3.2.0...v3.3.0) (2023-06-01)
 
 

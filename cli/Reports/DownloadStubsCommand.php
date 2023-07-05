@@ -10,14 +10,8 @@ use TenantCloud\TransUnionSDK\Reports\ReportProduct;
 
 class DownloadStubsCommand extends Command
 {
-	/**
-	 * @inheritdoc
-	 */
 	protected $signature = 'trans-union:reports:download-stubs {--force : Download and overwrite existing reports}';
 
-	/**
-	 * @inheritdoc
-	 */
 	protected $description = 'Downloads all JSON report stubs.';
 
 	public function handle(ReportStubDownloader $reportStubDownloader): void
@@ -31,7 +25,7 @@ class DownloadStubsCommand extends Command
 	}
 
 	/**
-	 * @return Generator<array{array<ReportProduct>, PersonDTO, string} | array{array<ReportProduct>, PersonDTO}>
+	 * @return Generator<array{array<ReportProduct>, PersonDTO, string}|array{array<ReportProduct>, PersonDTO}>
 	 */
 	private function people(): Generator
 	{
@@ -84,7 +78,7 @@ class DownloadStubsCommand extends Command
 				Carbon::createFromDate(1920, 1, 1),
 				'666622631',
 				income: 9999999,
-			)
+			),
 		];
 
 		yield [
@@ -94,7 +88,7 @@ class DownloadStubsCommand extends Command
 				'BOB',
 				Carbon::createFromDate(1920, 1, 1),
 				'899522949'
-			)
+			),
 		];
 
 		yield [
@@ -104,7 +98,7 @@ class DownloadStubsCommand extends Command
 				'FRADE',
 				Carbon::createFromDate(1920, 1, 1),
 				'666583686'
-			)
+			),
 		];
 
 		yield [
@@ -114,7 +108,7 @@ class DownloadStubsCommand extends Command
 				'LEVARITY',
 				Carbon::createFromDate(1920, 1, 1),
 				'666351115'
-			)
+			),
 		];
 
 		yield [
@@ -124,7 +118,7 @@ class DownloadStubsCommand extends Command
 				'REUSH',
 				Carbon::createFromDate(1920, 1, 1),
 				'666635461'
-			)
+			),
 		];
 
 		yield [
@@ -134,7 +128,7 @@ class DownloadStubsCommand extends Command
 				'LECKENBY',
 				Carbon::createFromDate(1920, 1, 1),
 				'666449270'
-			)
+			),
 		];
 
 		yield [
@@ -144,7 +138,7 @@ class DownloadStubsCommand extends Command
 				'RAMEY',
 				Carbon::createFromDate(1920, 1, 1),
 				'666258078'
-			)
+			),
 		];
 
 		yield [
@@ -154,7 +148,7 @@ class DownloadStubsCommand extends Command
 				'LYNCH',
 				Carbon::createFromDate(1920, 1, 1),
 				'666279480'
-			)
+			),
 		];
 
 		yield [
@@ -164,7 +158,7 @@ class DownloadStubsCommand extends Command
 				'DATTA',
 				Carbon::createFromDate(1920, 1, 1),
 				'666348817'
-			)
+			),
 		];
 
 		yield [
@@ -174,7 +168,7 @@ class DownloadStubsCommand extends Command
 				'CARSON',
 				Carbon::createFromDate(1920, 1, 1),
 				'666164747'
-			)
+			),
 		];
 
 		yield [
@@ -184,7 +178,7 @@ class DownloadStubsCommand extends Command
 				'Squarepants',
 				Carbon::createFromDate(1987, 1, 1),
 				'999998321'
-			)
+			),
 		];
 
 		yield [
@@ -194,7 +188,7 @@ class DownloadStubsCommand extends Command
 				'Heel',
 				Carbon::createFromDate(1927, 1, 1),
 				'999990328'
-			)
+			),
 		];
 
 		yield [
@@ -204,7 +198,7 @@ class DownloadStubsCommand extends Command
 				'TheTerrible',
 				Carbon::createFromDate(1928, 1, 1),
 				'999990329'
-			)
+			),
 		];
 
 		yield [
@@ -214,7 +208,7 @@ class DownloadStubsCommand extends Command
 				'Holmes',
 				Carbon::createFromDate(1929, 1, 1),
 				'999942345'
-			)
+			),
 		];
 
 		yield [
@@ -224,7 +218,7 @@ class DownloadStubsCommand extends Command
 				'Lion',
 				Carbon::createFromDate(1927, 1, 1),
 				'999990332'
-			)
+			),
 		];
 
 		yield [
@@ -234,7 +228,7 @@ class DownloadStubsCommand extends Command
 				'Bear',
 				Carbon::createFromDate(1940, 1, 1),
 				'999990331'
-			)
+			),
 		];
 
 		yield [
@@ -244,7 +238,7 @@ class DownloadStubsCommand extends Command
 				'Lion',
 				Carbon::createFromDate(1932, 1, 1),
 				'999990332'
-			)
+			),
 		];
 
 		yield [
@@ -254,7 +248,7 @@ class DownloadStubsCommand extends Command
 				'Eagle',
 				Carbon::createFromDate(1933, 1, 1),
 				'999990333'
-			)
+			),
 		];
 
 		yield [
@@ -264,7 +258,7 @@ class DownloadStubsCommand extends Command
 				'Penguin',
 				Carbon::createFromDate(1934, 1, 1),
 				'999990334'
-			)
+			),
 		];
 
 		yield [
@@ -274,7 +268,7 @@ class DownloadStubsCommand extends Command
 				'Yilmaz',
 				Carbon::createFromDate(1980, 1, 1),
 				'666773486'
-			)
+			),
 		];
 
 		yield [

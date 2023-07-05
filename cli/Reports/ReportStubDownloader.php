@@ -2,13 +2,10 @@
 
 namespace Dev\TenantCloud\TransUnionSDK\Reports;
 
-use Carbon\Carbon;
 use Dev\TenantCloud\TransUnionSDK\Reports\ReportStubDownloader\PersonDTO;
 use Generator;
 use Illuminate\Filesystem\Filesystem;
-use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
-use InvalidArgumentException;
 use TenantCloud\TransUnionSDK\Client\TransUnionClient;
 use TenantCloud\TransUnionSDK\Exams\RequestExamDTO;
 use TenantCloud\TransUnionSDK\Exams\RequestExamPersonDTO;
@@ -35,20 +32,19 @@ use TenantCloud\TransUnionSDK\Verification\TestModeVerificationAnswersFactory;
  */
 class ReportStubDownloader
 {
-	private const DIR = __DIR__ . "/../../resources/reports";
+	private const DIR = __DIR__ . '/../../resources/reports';
 
 	public function __construct(
 		private readonly TransUnionClient $client,
-		private readonly Filesystem       $filesystem,
-		private readonly int              $creditBundleId,
-		private readonly int              $criminalBundleId,
-		private readonly int              $evictionBundleId,
-		private readonly int              $incomeInsightsBundleId,
-	) {
-	}
+		private readonly Filesystem $filesystem,
+		private readonly int $creditBundleId,
+		private readonly int $criminalBundleId,
+		private readonly int $evictionBundleId,
+		private readonly int $incomeInsightsBundleId,
+	) {}
 
 	/**
-	 * @param iterable<array{array<ReportProduct>, PersonDTO, string} | array{array<ReportProduct>, PersonDTO}> $people
+	 * @param iterable<array{array<ReportProduct>, PersonDTO, string}|array{array<ReportProduct>, PersonDTO}> $people
 	 *
 	 * @return Generator<int, array{PersonDTO, ReportProduct}>
 	 */
@@ -119,20 +115,20 @@ class ReportStubDownloader
 
 	private function path(string $set, ReportProduct $reportProduct, ReportFormat $format): string
 	{
-		return self::DIR . "/{$reportProduct->value}/$set.{$format->value}";
+		return self::DIR . "/{$reportProduct->value}/{$set}.{$format->value}";
 	}
 
 	private function download(
-		int             $landlordId,
-		int             $propertyId,
-		string          $set,
-		ReportProduct   $reportProduct,
+		int $landlordId,
+		int $propertyId,
+		string $set,
+		ReportProduct $reportProduct,
 		CreateRenterDTO $renterData
 	): void {
 		$bundleId = match ($reportProduct) {
-			ReportProduct::CREDIT => $this->creditBundleId,
-			ReportProduct::CRIMINAL => $this->criminalBundleId,
-			ReportProduct::EVICTION => $this->evictionBundleId,
+			ReportProduct::CREDIT          => $this->creditBundleId,
+			ReportProduct::CRIMINAL        => $this->criminalBundleId,
+			ReportProduct::EVICTION        => $this->evictionBundleId,
 			ReportProduct::INCOME_INSIGHTS => $this->incomeInsightsBundleId,
 		};
 

@@ -23,7 +23,7 @@ final class FakeRequestRentersApi implements RequestRentersApi
 
 	public function find(int $id): RequestRenterDTO
 	{
-		$this->cache->get("landlords.{$id}") ?? throw new NotFoundException();
+		$this->cache->get("requests.renters.{$id}") ?? throw new NotFoundException();
 
 		return RequestRenterDTO::create()
 			->setRenterStatus(RequestRenterStatus::REPORTS_DELIVERY_SUCCESS);

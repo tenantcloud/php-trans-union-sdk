@@ -9,6 +9,8 @@ use TenantCloud\TransUnionSDK\Reports\RequestReportPersonDTO;
  */
 interface RequestRentersApi
 {
+	public function find(int $id): RequestRenterDTO;
+
 	/**
 	 * Attach a request renter to a request.
 	 */

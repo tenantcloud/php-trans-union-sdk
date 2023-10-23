@@ -33,8 +33,8 @@ class CriminalTest extends TestCase
 	public static function deserializesAndSerializesBackFromFileProvider(): iterable
 	{
 		$finder = (new Finder())
-			->in(__DIR__ . '/../../../resources/reports')
-			->name('Criminal.json');
+			->in(__DIR__ . '/../../../resources/reports/Criminal')
+			->name('*.json');
 
 		foreach ($finder as $file) {
 			yield [$file->getRealPath()];

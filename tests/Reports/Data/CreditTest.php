@@ -33,8 +33,8 @@ class CreditTest extends TestCase
 	public static function deserializesAndSerializesBackFromFileProvider(): iterable
 	{
 		$finder = (new Finder())
-			->in(__DIR__ . '/../../../resources/reports')
-			->name('Credit.json');
+			->in(__DIR__ . '/../../../resources/reports/Credit')
+			->name('*.json');
 
 		foreach ($finder as $file) {
 			yield [$file->getRealPath()];

@@ -33,8 +33,8 @@ class EvictionTest extends TestCase
 	public static function deserializesAndSerializesBackFromFileProvider(): iterable
 	{
 		$finder = (new Finder())
-			->in(__DIR__ . '/../../../resources/reports')
-			->name('Eviction.json');
+			->in(__DIR__ . '/../../../resources/reports/Eviction')
+			->name('*.json');
 
 		foreach ($finder as $file) {
 			yield [$file->getRealPath()];

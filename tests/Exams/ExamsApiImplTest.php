@@ -130,13 +130,13 @@ class ExamsApiImplTest extends TestCase
 	/**
 	 * @return array<array{bool, array<ExamAnswerDTO>}>
 	 */
-	public function submitAnswersReplacesAnswersWithAllIncorrectIfAnyAnswerIsNoneOfTheAboveInTestModeProvider(): iterable
+	public static function submitAnswersReplacesAnswersWithAllIncorrectIfAnyAnswerIsNoneOfTheAboveInTestModeProvider(): iterable
 	{
-		$this->answersFactory = new TestModeVerificationAnswersFactory();
+		$answersFactory = new TestModeVerificationAnswersFactory();
 
 		return [
-			[false, $this->answersFactory->correct()],
-			[true, $this->answersFactory->incorrect()],
+			[false, $answersFactory->correct()],
+			[true, $answersFactory->incorrect()],
 			[true, [
 				ExamAnswerDTO::create()
 					->setQuestionKeyName('ACX_RCR_REL_CITY_DYNAMIC')
@@ -207,13 +207,13 @@ class ExamsApiImplTest extends TestCase
 	/**
 	 * @return array<array{array<ExamAnswerDTO>}>
 	 */
-	public function submitAnswersDoesNotReplaceAnswersWithAllIncorrectIfAnyAnswerIsNoneOfTheAboveInNonTestModeProvider(): iterable
+	public static function submitAnswersDoesNotReplaceAnswersWithAllIncorrectIfAnyAnswerIsNoneOfTheAboveInNonTestModeProvider(): iterable
 	{
-		$this->answersFactory = new TestModeVerificationAnswersFactory();
+		$answersFactory = new TestModeVerificationAnswersFactory();
 
 		return [
-			[$this->answersFactory->correct()],
-			[$this->answersFactory->incorrect()],
+			[$answersFactory->correct()],
+			[$answersFactory->incorrect()],
 			[[
 				ExamAnswerDTO::create()
 					->setQuestionKeyName('ACX_RCR_REL_CITY_DYNAMIC')

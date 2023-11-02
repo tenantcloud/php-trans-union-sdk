@@ -6,7 +6,10 @@ use Illuminate\Contracts\Cache\Repository;
 use Illuminate\Support\Arr;
 use TenantCloud\TransUnionSDK\Reports\RequestReportPersonDTO;
 use TenantCloud\TransUnionSDK\Requests\Renters\CreateRequestRenterDTO;
+use TenantCloud\TransUnionSDK\Requests\Renters\RequestRenterDTO;
 use TenantCloud\TransUnionSDK\Requests\Renters\RequestRentersApi;
+use TenantCloud\TransUnionSDK\Requests\Renters\RequestRenterStatus;
+use TenantCloud\TransUnionSDK\Shared\NotFoundException;
 
 /**
  * Part of {@see FakeTransUnionClient} TU client's implementation.
@@ -17,6 +20,14 @@ final class FakeRequestRentersApi implements RequestRentersApi
 		private readonly FakeTransUnionClient $client,
 		private readonly Repository $cache,
 	) {}
+
+	public function find(int $id): RequestRenterDTO
+	{
+		$this->cache->get("requests.renters.{$id}") ?? throw new NotFoundException();
+
+		return RequestRenterDTO::create()
+			->setRenterStatus(RequestRenterStatus::REPORTS_DELIVERY_SUCCESS);
+	}
 
 	public function create(CreateRequestRenterDTO $data): int
 	{

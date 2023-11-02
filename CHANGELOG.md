@@ -1,3 +1,10 @@
+# [3.5.0](https://github.com/tenantcloud/php-trans-union-sdk/compare/v3.4.1...v3.5.0) (2023-11-02)
+
+
+### Features
+
+* Find request renter method ([#19](https://github.com/tenantcloud/php-trans-union-sdk/issues/19)) ([bf8384c](https://github.com/tenantcloud/php-trans-union-sdk/commit/bf8384cb0c5a5ef286b6c1a5d855653dd7f4087f))
+
 ## [3.4.1](https://github.com/tenantcloud/php-trans-union-sdk/compare/v3.4.0...v3.4.1) (2023-07-05)
 
 

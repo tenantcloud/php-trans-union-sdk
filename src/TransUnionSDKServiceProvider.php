@@ -8,6 +8,7 @@ use Illuminate\Contracts\Container\Container;
 use Illuminate\Contracts\Queue\Factory as QueueConnectionFactory;
 use Illuminate\Routing\Router;
 use Illuminate\Support\ServiceProvider;
+use Psr\Log\LoggerInterface;
 use TenantCloud\TransUnionSDK\Client\TransUnionClient;
 use TenantCloud\TransUnionSDK\Client\TransUnionClientImpl;
 use TenantCloud\TransUnionSDK\Fake\FakeTransUnionClient;
@@ -76,7 +77,8 @@ final class TransUnionSDKServiceProvider extends ServiceProvider
 					$container->make(QueueConnectionFactory::class),
 					$container->make(Dispatcher::class),
 					$config->get('trans_union.webhooks.imitate'),
-					$config->get('trans_union.test_mode')
+					$config->get('trans_union.test_mode'),
+					$container->make(LoggerInterface::class),
 				);
 			});
 		} else {

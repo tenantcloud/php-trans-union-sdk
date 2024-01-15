@@ -5,9 +5,11 @@ namespace TenantCloud\TransUnionSDK\Client;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\HandlerStack;
+use GuzzleHttp\RequestOptions;
 use Illuminate\Contracts\Bus\Dispatcher;
 use Illuminate\Contracts\Queue\Factory as QueueConnectionFactory;
 use Illuminate\Support\Arr;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use TenantCloud\GuzzleHelper\DumpRequestBody\HeaderObfuscator;
 use TenantCloud\GuzzleHelper\DumpRequestBody\JsonObfuscator;
@@ -25,6 +27,7 @@ use TenantCloud\TransUnionSDK\Reports\ReportsApi;
 use TenantCloud\TransUnionSDK\Reports\ReportsApiImpl;
 use TenantCloud\TransUnionSDK\Reports\UserNotVerifiedException;
 use TenantCloud\TransUnionSDK\Requests\Renters\CannotCancelRequestException;
+use TenantCloud\TransUnionSDK\Requests\Renters\CannotRequestReportsException;
 use TenantCloud\TransUnionSDK\Requests\RequestsApi;
 use TenantCloud\TransUnionSDK\Requests\RequestsApiImpl;
 use TenantCloud\TransUnionSDK\Shared\NotFoundException;
@@ -54,29 +57,15 @@ final class TransUnionClientImpl implements TransUnionClient
 		private readonly QueueConnectionFactory $queueConnectionFactory,
 		private readonly Dispatcher $busDispatcher,
 		private readonly bool $imitateEvents = false,
-		private readonly bool $testMode = false
+		private readonly bool $testMode = false,
+		LoggerInterface $logger = null,
+		int $timeout = 30,
 	) {
-		$stack = HandlerStack::create();
-
-		$stack->unshift($this->rethrowMiddleware());
-		$stack->unshift(GuzzleMiddleware::fullErrorResponseBody());
-		$stack->unshift(GuzzleMiddleware::dumpRequestBody([
-			new JsonObfuscator([
-				'emailAddress',
-				'phoneNumber',
-				'socialSecurityNumber',
-				'person.emailAddress',
-				'person.phoneNumber',
-				'person.socialSecurityNumber',
-			]),
-			new HeaderObfuscator(['Authorization']),
-		]));
-		$stack->unshift(AuthenticationMiddleware::create($tokenResolver($this), $clientId, $apiKey));
-		$stack->unshift(AuthenticationMiddleware::retry());
-
 		$this->httpClient = new Client([
-			'base_uri' => $baseUrl,
-			'handler'  => $stack,
+			'base_uri'                      => $baseUrl,
+			'handler'                       => $this->buildHandlerStack($clientId, $apiKey, $tokenResolver, $logger),
+			RequestOptions::CONNECT_TIMEOUT => $timeout,
+			RequestOptions::TIMEOUT         => $timeout,
 		]);
 	}
 
@@ -120,6 +109,37 @@ final class TransUnionClientImpl implements TransUnionClient
 		return new ReportsApiImpl($this->httpClient, $this->imitateEvents, $this->queueConnectionFactory, $this->busDispatcher);
 	}
 
+	private function buildHandlerStack(
+		string $clientId,
+		string $apiKey,
+		callable $tokenResolver,
+		?LoggerInterface $logger
+	): HandlerStack {
+		$stack = HandlerStack::create();
+
+		$stack->unshift($this->rethrowMiddleware());
+		$stack->unshift(GuzzleMiddleware::fullErrorResponseBody());
+		$stack->unshift(GuzzleMiddleware::dumpRequestBody([
+			new JsonObfuscator([
+				'emailAddress',
+				'phoneNumber',
+				'socialSecurityNumber',
+				'person.emailAddress',
+				'person.phoneNumber',
+				'person.socialSecurityNumber',
+			]),
+			new HeaderObfuscator(['Authorization']),
+		]));
+		$stack->unshift(AuthenticationMiddleware::create($tokenResolver($this), $clientId, $apiKey));
+		$stack->unshift(AuthenticationMiddleware::retry());
+
+		if ($logger) {
+			$stack->push(GuzzleMiddleware::tracingLog($logger));
+		}
+
+		return $stack;
+	}
+
 	/**
 	 * Rethrow some of TU's errors.
 	 */
@@ -151,8 +171,12 @@ final class TransUnionClientImpl implements TransUnionClient
 				throw new ReportNotReadyException($message);
 			}
 
-			if ($errorName === 'ScreeningRequestsCannotCancel') {
+			if ($errorName === 'ScreeningRequestsCannotCancel' || $errorName === 'ScreeningRequestCannotCancel') {
 				throw new CannotCancelRequestException($message);
+			}
+
+			if ($errorName === 'InvalidStatusForReports') {
+				throw new CannotRequestReportsException($message);
 			}
 
 			throw $e;

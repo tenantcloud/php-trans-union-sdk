@@ -1,3 +1,10 @@
+# [3.6.0](https://github.com/tenantcloud/php-trans-union-sdk/compare/v3.5.0...v3.6.0) (2024-01-15)
+
+
+### Features
+
+* Add new exception and tracing log ([#20](https://github.com/tenantcloud/php-trans-union-sdk/issues/20)) ([cb78451](https://github.com/tenantcloud/php-trans-union-sdk/commit/cb784515bbfd176b54692998c70507f02c447d2b))
+
 # [3.5.0](https://github.com/tenantcloud/php-trans-union-sdk/compare/v3.4.1...v3.5.0) (2023-11-02)
 
 

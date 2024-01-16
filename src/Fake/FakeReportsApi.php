@@ -36,6 +36,11 @@ final class FakeReportsApi implements ReportsApi
 
 	public function request(RequestReportDTO $data): void
 	{
+		$this->transUnionClient
+			->requests()
+			->renters()
+			->markRequested($data->getRequestRenterId());
+
 		$this->dispatcher->dispatch(new ReportDeliveryStatusChangedEvent($data->getRequestRenterId(), ReportDeliveryStatus::COMPLETED));
 	}
 

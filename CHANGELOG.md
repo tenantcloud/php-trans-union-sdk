@@ -1,3 +1,10 @@
+## [3.7.1](https://github.com/tenantcloud/php-trans-union-sdk/compare/v3.7.0...v3.7.1) (2024-01-16)
+
+
+### Bug Fixes
+
+* Return actual request renter status for a fake ([#22](https://github.com/tenantcloud/php-trans-union-sdk/issues/22)) ([ef5af1e](https://github.com/tenantcloud/php-trans-union-sdk/commit/ef5af1e20dd2cb52588fa82513549a4bd3410a00))
+
 # [3.7.0](https://github.com/tenantcloud/php-trans-union-sdk/compare/v3.6.0...v3.7.0) (2024-01-16)
 
 

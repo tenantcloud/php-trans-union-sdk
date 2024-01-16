@@ -9,5 +9,6 @@ enum RequestRenterStatus: string
 	/** @use BackedEnumExtensions<string> */
 	use BackedEnumExtensions;
 
+	case REPORTS_DELIVERY_IN_PROGRESS = 'ReportsDeliveryInProgress';
 	case REPORTS_DELIVERY_SUCCESS = 'ReportsDeliverySuccess';
 }

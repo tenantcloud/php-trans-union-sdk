@@ -1,3 +1,10 @@
+# [3.7.0](https://github.com/tenantcloud/php-trans-union-sdk/compare/v3.6.0...v3.7.0) (2024-01-16)
+
+
+### Features
+
+* Add new enum value for request renter status ([#21](https://github.com/tenantcloud/php-trans-union-sdk/issues/21)) ([848b644](https://github.com/tenantcloud/php-trans-union-sdk/commit/848b644161d6a89b45f21cc4d8ec0de28c0d2ece))
+
 # [3.6.0](https://github.com/tenantcloud/php-trans-union-sdk/compare/v3.5.0...v3.6.0) (2024-01-15)
 
 

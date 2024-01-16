@@ -23,17 +23,17 @@ final class FakeRequestRentersApi implements RequestRentersApi
 
 	public function find(int $id): RequestRenterDTO
 	{
-		$this->cache->get("requests.renters.{$id}") ?? throw new NotFoundException();
+		[$data, $status] = $this->cache->get("requests.renters.{$id}") ?? throw new NotFoundException();
 
 		return RequestRenterDTO::create()
-			->setRenterStatus(RequestRenterStatus::REPORTS_DELIVERY_SUCCESS);
+			->setRenterStatus($status);
 	}
 
 	public function create(CreateRequestRenterDTO $data): int
 	{
 		$id = random_int(1, PHP_INT_MAX);
 
-		$this->cache->put("requests.renters.{$id}", $data);
+		$this->cache->put("requests.renters.{$id}", [$data, RequestRenterStatus::READY_FOR_REPORT_REQUEST]);
 		$this->cache->put("requests.renters_by_renter_id.{$data->getRenterId()}", [
 			...($this->cache->get("requests.renters_by_renter_id.{$data->getRenterId()}") ?? []),
 			$id,
@@ -44,6 +44,9 @@ final class FakeRequestRentersApi implements RequestRentersApi
 
 	public function cancel(int $id): void
 	{
+		[$data] = $this->cache->get("requests.renters.{$id}") ?? throw new NotFoundException();
+
+		$this->cache->put("requests.renters.{$id}", [$data, RequestRenterStatus::SCREENING_REQUEST_CANCELED]);
 	}
 
 	public function isVerified(int $id, RequestReportPersonDTO $data): bool
@@ -55,6 +58,13 @@ final class FakeRequestRentersApi implements RequestRentersApi
 				->exams()
 				->hasPassed($requestRenterId)
 		) !== null;
+	}
+
+	public function markRequested(int $requestRenterId): void
+	{
+		[$data] = $this->cache->get("requests.renters.{$requestRenterId}") ?? throw new NotFoundException();
+
+		$this->cache->put("requests.renters.{$requestRenterId}", [$data, RequestRenterStatus::REPORTS_DELIVERY_SUCCESS]);
 	}
 
 	/**
@@ -72,6 +82,12 @@ final class FakeRequestRentersApi implements RequestRentersApi
 	 */
 	public function byId(int $id): ?CreateRequestRenterDTO
 	{
-		return $this->cache->get("requests.renters.{$id}");
+		try {
+			[$data] = $this->cache->get("requests.renters.{$id}") ?? throw new NotFoundException();
+
+			return $data;
+		} catch (NotFoundException) {
+			return null;
+		}
 	}
 }

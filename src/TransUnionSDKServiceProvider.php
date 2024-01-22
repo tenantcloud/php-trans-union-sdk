@@ -73,6 +73,7 @@ final class TransUnionSDKServiceProvider extends ServiceProvider
 					$config->get('trans_union.base_url'),
 					$config->get('trans_union.client_id'),
 					$config->get('trans_union.api_key'),
+					$config->get('trans_union.secondary_api_key'),
 					fn (TransUnionClient $client) => new CachingTokenResolver(new ApiTokenResolver($client), $container->make(InMemoryTokenCache::class)),
 					$container->make(QueueConnectionFactory::class),
 					$container->make(Dispatcher::class),

@@ -10,6 +10,7 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Arr;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
+use TenantCloud\TransUnionSDK\Enums\ApiTokenTypeEnum;
 use TenantCloud\TransUnionSDK\Tokens\TokenResolver\TokenResolver;
 use Tests\TenantCloud\TransUnionSDK\Client\AuthenticationMiddlewareTest;
 use Throwable;
@@ -28,7 +29,8 @@ final class AuthenticationMiddleware
 		callable $handler,
 		private readonly TokenResolver $tokenResolver,
 		private readonly string $clientId,
-		private readonly string $apiKey
+		private readonly string $primaryApiKey,
+		private readonly string $secondaryApiKey,
 	) {
 		$this->handler = $handler;
 	}
@@ -36,9 +38,9 @@ final class AuthenticationMiddleware
 	/**
 	 * Create an instance of this middleware.
 	 */
-	public static function create(TokenResolver $tokenResolver, string $clientId, string $apiKey): callable
+	public static function create(TokenResolver $tokenResolver, string $clientId, string $primaryApiKey, string $secondaryApiKey): callable
 	{
-		return static fn (callable $handler) => new self($handler, $tokenResolver, $clientId, $apiKey);
+		return static fn (callable $handler) => new self($handler, $tokenResolver, $clientId, $primaryApiKey, $secondaryApiKey);
 	}
 
 	/**
@@ -69,13 +71,19 @@ final class AuthenticationMiddleware
 			return ($this->handler)($request, $options);
 		}
 
-		$token = $this->tokenResolver->resolve($this->clientId, $this->apiKey);
+		$authToken = $this->tokenResolver->resolve($this->clientId, $this->primaryApiKey, ApiTokenTypeEnum::PRIMARY);
+		$mfaAuthToken = $this->tokenResolver->resolve($this->clientId, $this->secondaryApiKey, ApiTokenTypeEnum::MFA);
 
-		return ($this->handler)($request->withHeader('Authorization', (string) $token), $options)
+		return ($this->handler)(
+			$request
+				->withHeader('Authorization', (string) $authToken)
+				->withHeader('MFAAuthorized', (string) $mfaAuthToken),
+			$options
+		)
 			->then(
 				fn (ResponseInterface $response): ResponseInterface => $response,
 				function ($exception) {
-					// We're catching 401 unauthorized errors here so we can invalidate the token we resolved previously.
+					// We're catching 401 unauthorized errors here so we can invalidate the tokens we resolved previously.
 					try {
 						// Skip all errors that aren't 401 unauthorized.
 						if (
@@ -83,8 +91,9 @@ final class AuthenticationMiddleware
 							$exception->hasResponse() &&
 							$exception->getResponse()->getStatusCode() === Response::HTTP_UNAUTHORIZED
 						) {
-							// Invalidate current token
-							$this->tokenResolver->invalidate($this->clientId);
+							// Invalidate current tokens
+							$this->tokenResolver->invalidate($this->clientId, ApiTokenTypeEnum::PRIMARY);
+							$this->tokenResolver->invalidate($this->clientId, ApiTokenTypeEnum::MFA);
 						}
 
 						throw $exception;

@@ -2,6 +2,7 @@
 
 namespace TenantCloud\TransUnionSDK\Tokens\TokenResolver;
 
+use TenantCloud\TransUnionSDK\Enums\ApiTokenTypeEnum;
 use TenantCloud\TransUnionSDK\Tokens\Token;
 
 /**
@@ -9,7 +10,7 @@ use TenantCloud\TransUnionSDK\Tokens\Token;
  */
 interface TokenResolver
 {
-	public function resolve(string $clientId, string $apiKey): Token;
+	public function resolve(string $clientId, string $apiKey, ApiTokenTypeEnum $prefix = null): Token;
 
-	public function invalidate(string $clientId): void;
+	public function invalidate(string $clientId, ApiTokenTypeEnum $prefix = null): void;
 }

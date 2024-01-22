@@ -52,7 +52,8 @@ final class TransUnionClientImpl implements TransUnionClient
 	public function __construct(
 		string $baseUrl,
 		string $clientId,
-		string $apiKey,
+		string $primaryApiKey,
+		string $secondaryApiKey,
 		callable $tokenResolver,
 		private readonly QueueConnectionFactory $queueConnectionFactory,
 		private readonly Dispatcher $busDispatcher,
@@ -63,7 +64,7 @@ final class TransUnionClientImpl implements TransUnionClient
 	) {
 		$this->httpClient = new Client([
 			'base_uri'                      => $baseUrl,
-			'handler'                       => $this->buildHandlerStack($clientId, $apiKey, $tokenResolver, $logger),
+			'handler'                       => $this->buildHandlerStack($clientId, $primaryApiKey, $secondaryApiKey, $tokenResolver, $logger),
 			RequestOptions::CONNECT_TIMEOUT => $timeout,
 			RequestOptions::TIMEOUT         => $timeout,
 		]);
@@ -111,7 +112,8 @@ final class TransUnionClientImpl implements TransUnionClient
 
 	private function buildHandlerStack(
 		string $clientId,
-		string $apiKey,
+		string $primaryApiKey,
+		string $secondaryApiKey,
 		callable $tokenResolver,
 		?LoggerInterface $logger
 	): HandlerStack {
@@ -130,7 +132,7 @@ final class TransUnionClientImpl implements TransUnionClient
 			]),
 			new HeaderObfuscator(['Authorization']),
 		]));
-		$stack->unshift(AuthenticationMiddleware::create($tokenResolver($this), $clientId, $apiKey));
+		$stack->unshift(AuthenticationMiddleware::create($tokenResolver($this), $clientId, $primaryApiKey, $secondaryApiKey));
 		$stack->unshift(AuthenticationMiddleware::retry());
 
 		if ($logger) {

@@ -10,7 +10,6 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Arr;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
-use TenantCloud\TransUnionSDK\Enums\ApiTokenTypeEnum;
 use TenantCloud\TransUnionSDK\Tokens\TokenResolver\TokenResolver;
 use Tests\TenantCloud\TransUnionSDK\Client\AuthenticationMiddlewareTest;
 use Throwable;
@@ -71,8 +70,8 @@ final class AuthenticationMiddleware
 			return ($this->handler)($request, $options);
 		}
 
-		$authToken = $this->tokenResolver->resolve($this->clientId, $this->primaryApiKey, ApiTokenTypeEnum::PRIMARY);
-		$mfaAuthToken = $this->tokenResolver->resolve($this->clientId, $this->secondaryApiKey, ApiTokenTypeEnum::MFA);
+		$authToken = $this->tokenResolver->resolve($this->clientId, $this->primaryApiKey);
+		$mfaAuthToken = $this->tokenResolver->resolve($this->clientId, $this->secondaryApiKey);
 
 		return ($this->handler)(
 			$request
@@ -92,8 +91,8 @@ final class AuthenticationMiddleware
 							$exception->getResponse()->getStatusCode() === Response::HTTP_UNAUTHORIZED
 						) {
 							// Invalidate current tokens
-							$this->tokenResolver->invalidate($this->clientId, ApiTokenTypeEnum::PRIMARY);
-							$this->tokenResolver->invalidate($this->clientId, ApiTokenTypeEnum::MFA);
+							$this->tokenResolver->invalidate($this->clientId, $this->primaryApiKey);
+							$this->tokenResolver->invalidate($this->clientId, $this->secondaryApiKey);
 						}
 
 						throw $exception;

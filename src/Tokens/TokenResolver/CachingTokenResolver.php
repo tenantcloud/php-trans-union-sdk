@@ -2,10 +2,8 @@
 
 namespace TenantCloud\TransUnionSDK\Tokens\TokenResolver;
 
-use TenantCloud\TransUnionSDK\Enums\ApiTokenTypeEnum;
 use TenantCloud\TransUnionSDK\Tokens\Cache\TokenCache;
 use TenantCloud\TransUnionSDK\Tokens\Token;
-use Webmozart\Assert\Assert;
 
 class CachingTokenResolver implements TokenResolver
 {
@@ -14,9 +12,9 @@ class CachingTokenResolver implements TokenResolver
 		private readonly TokenCache $cache
 	) {}
 
-	public function resolve(string $clientId, string $apiKey, ApiTokenTypeEnum $prefix = null): Token
+	public function resolve(string $clientId, string $apiKey): Token
 	{
-		$key = $this->makeKeyForCache($clientId, $prefix);
+		$key = $this->makeKeyForCache($clientId, $apiKey);
 
 		$token = $this->cache->get($key);
 
@@ -24,24 +22,22 @@ class CachingTokenResolver implements TokenResolver
 			return $token;
 		}
 
-		$token = $this->delegate->resolve($clientId, $apiKey, $prefix);
+		$token = $this->delegate->resolve($clientId, $apiKey);
 
 		$this->cache->set($key, $token);
 
 		return $token;
 	}
 
-	public function invalidate(string $clientId, ApiTokenTypeEnum $prefix = null): void
+	public function invalidate(string $clientId, string $apiKey): void
 	{
-		$key = $this->makeKeyForCache($clientId, $prefix);
+		$key = $this->makeKeyForCache($clientId, $apiKey);
 
 		$this->cache->unset($key);
 	}
 
-	private function makeKeyForCache(string $clientId, ApiTokenTypeEnum $prefix = null): string
+	private function makeKeyForCache(string $clientId, string $apiKey): string
 	{
-		Assert::notNull($prefix, 'Prefix cannot be null when using cache.');
-
-		return $prefix->name . ':' . $clientId;
+		return $clientId . ':' . hash('sha256', $apiKey);
 	}
 }

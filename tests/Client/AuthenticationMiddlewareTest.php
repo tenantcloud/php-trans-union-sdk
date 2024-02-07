@@ -13,7 +13,6 @@ use Psr\Http\Client\RequestExceptionInterface;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use TenantCloud\TransUnionSDK\Client\AuthenticationMiddleware;
-use TenantCloud\TransUnionSDK\Enums\ApiTokenTypeEnum;
 use TenantCloud\TransUnionSDK\Tokens\Token;
 use TenantCloud\TransUnionSDK\Tokens\TokenResolver\TokenResolver;
 use Tests\TenantCloud\TransUnionSDK\TestCase;
@@ -48,16 +47,16 @@ class AuthenticationMiddlewareTest extends TestCase
 		$tokenResolver = Mockery::mock(TokenResolver::class);
 
 		$tokenResolver->expects()
-			->resolve('client', 'primary_key', ApiTokenTypeEnum::PRIMARY)
+			->resolve('client', 'primary_key')
 			->andReturn(new Token('client', 'auth_token', now()->addMinutes(5)));
 		$tokenResolver->expects()
-			->invalidate('client', ApiTokenTypeEnum::PRIMARY);
+			->invalidate('client', 'primary_key');
 
 		$tokenResolver->expects()
-			->resolve('client', 'secondary_key', ApiTokenTypeEnum::MFA)
+			->resolve('client', 'secondary_key')
 			->andReturn(new Token('client', 'mfa_auth_token', now()->addMinutes(5)));
 		$tokenResolver->expects()
-			->invalidate('client', ApiTokenTypeEnum::MFA);
+			->invalidate('client', 'secondary_key');
 
 		$this
 			->newClientWithMiddleware([
@@ -79,11 +78,11 @@ class AuthenticationMiddlewareTest extends TestCase
 
 		$tokenResolver = Mockery::mock(TokenResolver::class);
 		$tokenResolver->expects()
-			->resolve('client', 'primary_key', ApiTokenTypeEnum::PRIMARY)
+			->resolve('client', 'primary_key')
 			->andReturn(new Token('client', 'auth_token', now()->addMinutes(5)));
 
 		$tokenResolver->expects()
-			->resolve('client', 'secondary_key', ApiTokenTypeEnum::MFA)
+			->resolve('client', 'secondary_key')
 			->andReturn(new Token('client', 'mfa_auth_token', now()->addMinutes(5)));
 
 		$this
@@ -99,16 +98,16 @@ class AuthenticationMiddlewareTest extends TestCase
 	{
 		$tokenResolver = Mockery::mock(TokenResolver::class);
 		$tokenResolver->expects()
-			->resolve('client', 'primary_key', ApiTokenTypeEnum::PRIMARY)
+			->resolve('client', 'primary_key')
 			->andReturn(new Token('client', 'auth_token', now()->addMinutes(5)));
 		$tokenResolver->expects()
-			->invalidate('client', ApiTokenTypeEnum::PRIMARY);
+			->invalidate('client', 'primary_key');
 
 		$tokenResolver->expects()
-			->resolve('client', 'secondary_key', ApiTokenTypeEnum::MFA)
+			->resolve('client', 'secondary_key')
 			->andReturn(new Token('client', 'mfa_auth_token', now()->addMinutes(5)));
 		$tokenResolver->expects()
-			->invalidate('client', ApiTokenTypeEnum::MFA);
+			->invalidate('client', 'secondary_key');
 
 		$this
 			->newClientWithMiddleware([
@@ -117,11 +116,11 @@ class AuthenticationMiddlewareTest extends TestCase
 					$this->assertSame('mfa_auth_token', $request->getHeaderLine('MFAAuthorized'));
 
 					$tokenResolver->expects()
-						->resolve('client', 'primary_key', ApiTokenTypeEnum::PRIMARY)
+						->resolve('client', 'primary_key')
 						->andReturn(new Token('client', 'auth_token_2', now()->addMinutes(5)));
 
 					$tokenResolver->expects()
-						->resolve('client', 'secondary_key', ApiTokenTypeEnum::MFA)
+						->resolve('client', 'secondary_key')
 						->andReturn(new Token('client', 'mfa_auth_token_2', now()->addMinutes(5)));
 
 					return RequestException::create($request, new Response(IlluminateResponse::HTTP_UNAUTHORIZED));

@@ -54,9 +54,14 @@ class CachingTokenResolverTest extends TestCase
 		$cache = new InMemoryTokenCache();
 		$resolver = new CachingTokenResolver(Mockery::mock(TokenResolver::class), $cache);
 
-		$cache->set('cached_client_id', $expectedToken = new Token('cached_client_id', 's', now()->addMinute()));
+		$apiKey = 's';
 
-		$token = $resolver->resolve('cached_client_id', 's');
+		$cache->set(
+			sprintf('cached_client_id:%s', hash('sha256', $apiKey)),
+			$expectedToken = new Token('cached_client_id', 's', now()->addMinute())
+		);
+
+		$token = $resolver->resolve('cached_client_id', $apiKey);
 
 		$this->assertNotNull($token);
 		$this->assertSame($expectedToken, $token);

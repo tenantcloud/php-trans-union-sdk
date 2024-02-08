@@ -11,5 +11,5 @@ interface TokenResolver
 {
 	public function resolve(string $clientId, string $apiKey): Token;
 
-	public function invalidate(string $clientId): void;
+	public function invalidate(string $clientId, string $apiKey): void;
 }

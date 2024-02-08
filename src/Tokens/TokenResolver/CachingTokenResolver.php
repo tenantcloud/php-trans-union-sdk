@@ -14,7 +14,9 @@ class CachingTokenResolver implements TokenResolver
 
 	public function resolve(string $clientId, string $apiKey): Token
 	{
-		$token = $this->cache->get($clientId);
+		$key = $this->makeKeyForCache($clientId, $apiKey);
+
+		$token = $this->cache->get($key);
 
 		if ($token && !$token->hasExpired()) {
 			return $token;
@@ -22,13 +24,20 @@ class CachingTokenResolver implements TokenResolver
 
 		$token = $this->delegate->resolve($clientId, $apiKey);
 
-		$this->cache->set($clientId, $token);
+		$this->cache->set($key, $token);
 
 		return $token;
 	}
 
-	public function invalidate(string $clientId): void
+	public function invalidate(string $clientId, string $apiKey): void
 	{
-		$this->cache->unset($clientId);
+		$key = $this->makeKeyForCache($clientId, $apiKey);
+
+		$this->cache->unset($key);
+	}
+
+	private function makeKeyForCache(string $clientId, string $apiKey): string
+	{
+		return $clientId . ':' . hash('sha256', $apiKey);
 	}
 }

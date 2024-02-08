@@ -19,7 +19,7 @@ class ApiTokenResolver implements TokenResolver
 			->create($clientId, $apiKey);
 	}
 
-	public function invalidate(string $clientId): void
+	public function invalidate(string $clientId, string $apiKey): void
 	{
 	}
 }

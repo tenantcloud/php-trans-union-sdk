@@ -28,11 +28,12 @@ class AuthenticationMiddlewareTest extends TestCase
 			->newClientWithMiddleware([
 				function (RequestInterface $request) {
 					$this->assertFalse($request->hasHeader('Authorization'));
+					$this->assertFalse($request->hasHeader('MFAAuthorized'));
 
 					return new Response();
 				},
 			], function (HandlerStack $stack) {
-				$stack->unshift(AuthenticationMiddleware::create(Mockery::mock(TokenResolver::class), '', ''));
+				$stack->unshift(AuthenticationMiddleware::create(Mockery::mock(TokenResolver::class), '', '', ''));
 			})
 			->get('', [
 				'without_authentication' => true,
@@ -44,21 +45,29 @@ class AuthenticationMiddlewareTest extends TestCase
 		$this->expectException(RequestException::class);
 
 		$tokenResolver = Mockery::mock(TokenResolver::class);
+
 		$tokenResolver->expects()
-			->resolve('client', 'key')
-			->andReturn(new Token('client', 'token', now()->addMinutes(5)));
+			->resolve('client', 'primary_key')
+			->andReturn(new Token('client', 'auth_token', now()->addMinutes(5)));
 		$tokenResolver->expects()
-			->invalidate('client');
+			->invalidate('client', 'primary_key');
+
+		$tokenResolver->expects()
+			->resolve('client', 'secondary_key')
+			->andReturn(new Token('client', 'mfa_auth_token', now()->addMinutes(5)));
+		$tokenResolver->expects()
+			->invalidate('client', 'secondary_key');
 
 		$this
 			->newClientWithMiddleware([
 				function (RequestInterface $request) {
-					$this->assertSame('token', $request->getHeaderLine('Authorization'));
+					$this->assertSame('auth_token', $request->getHeaderLine('Authorization'));
+					$this->assertSame('mfa_auth_token', $request->getHeaderLine('MFAAuthorized'));
 
 					return RequestException::create($request, new Response(IlluminateResponse::HTTP_UNAUTHORIZED));
 				},
 			], function (HandlerStack $stack) use ($tokenResolver) {
-				$stack->unshift(AuthenticationMiddleware::create($tokenResolver, 'client', 'key'));
+				$stack->unshift(AuthenticationMiddleware::create($tokenResolver, 'client', 'primary_key', 'secondary_key'));
 			})
 			->get('');
 	}
@@ -69,14 +78,18 @@ class AuthenticationMiddlewareTest extends TestCase
 
 		$tokenResolver = Mockery::mock(TokenResolver::class);
 		$tokenResolver->expects()
-			->resolve('client', 'key')
-			->andReturn(new Token('client', 'token', now()->addMinutes(5)));
+			->resolve('client', 'primary_key')
+			->andReturn(new Token('client', 'auth_token', now()->addMinutes(5)));
+
+		$tokenResolver->expects()
+			->resolve('client', 'secondary_key')
+			->andReturn(new Token('client', 'mfa_auth_token', now()->addMinutes(5)));
 
 		$this
 			->newClientWithMiddleware([
 				fn (RequestInterface $request) => RequestException::create($request, new Response(IlluminateResponse::HTTP_BAD_REQUEST)),
 			], function (HandlerStack $stack) use ($tokenResolver) {
-				$stack->unshift(AuthenticationMiddleware::create($tokenResolver, 'client', 'key'));
+				$stack->unshift(AuthenticationMiddleware::create($tokenResolver, 'client', 'primary_key', 'secondary_key'));
 			})
 			->get('');
 	}
@@ -85,29 +98,41 @@ class AuthenticationMiddlewareTest extends TestCase
 	{
 		$tokenResolver = Mockery::mock(TokenResolver::class);
 		$tokenResolver->expects()
-			->resolve('client', 'key')
-			->andReturn(new Token('client', 'token1', now()->addMinutes(5)));
+			->resolve('client', 'primary_key')
+			->andReturn(new Token('client', 'auth_token', now()->addMinutes(5)));
 		$tokenResolver->expects()
-			->invalidate('client');
+			->invalidate('client', 'primary_key');
+
+		$tokenResolver->expects()
+			->resolve('client', 'secondary_key')
+			->andReturn(new Token('client', 'mfa_auth_token', now()->addMinutes(5)));
+		$tokenResolver->expects()
+			->invalidate('client', 'secondary_key');
 
 		$this
 			->newClientWithMiddleware([
 				function (RequestInterface $request) use ($tokenResolver) {
-					$this->assertSame('token1', $request->getHeaderLine('Authorization'));
+					$this->assertSame('auth_token', $request->getHeaderLine('Authorization'));
+					$this->assertSame('mfa_auth_token', $request->getHeaderLine('MFAAuthorized'));
 
 					$tokenResolver->expects()
-						->resolve('client', 'key')
-						->andReturn(new Token('client', 'token2', now()->addMinutes(5)));
+						->resolve('client', 'primary_key')
+						->andReturn(new Token('client', 'auth_token_2', now()->addMinutes(5)));
+
+					$tokenResolver->expects()
+						->resolve('client', 'secondary_key')
+						->andReturn(new Token('client', 'mfa_auth_token_2', now()->addMinutes(5)));
 
 					return RequestException::create($request, new Response(IlluminateResponse::HTTP_UNAUTHORIZED));
 				},
 				function (RequestInterface $request) {
-					$this->assertSame('token2', $request->getHeaderLine('Authorization'));
+					$this->assertSame('auth_token_2', $request->getHeaderLine('Authorization'));
+					$this->assertSame('mfa_auth_token_2', $request->getHeaderLine('MFAAuthorized'));
 
 					return new Response();
 				},
 			], function (HandlerStack $stack) use ($tokenResolver) {
-				$stack->unshift(AuthenticationMiddleware::create($tokenResolver, 'client', 'key'));
+				$stack->unshift(AuthenticationMiddleware::create($tokenResolver, 'client', 'primary_key', 'secondary_key'));
 				$stack->unshift(AuthenticationMiddleware::retry());
 			})
 			->get('');

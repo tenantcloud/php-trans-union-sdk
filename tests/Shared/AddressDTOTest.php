@@ -22,6 +22,9 @@ class AddressDTOTest extends TestCase
 		self::assertSame('202 55', $address->getAddressLine2());
 		self::assertSame('Milton', $address->getLocality());
 		self::assertSame('WV', $address->getRegion());
+
+		$address->setAddressLine1('1018 1\2 Church St');
+		self::assertSame('1018 1 2 Church St', $address->getAddressLine1());
 	}
 
 	public function testTransliteratesAddressLinesCityAndState(): void

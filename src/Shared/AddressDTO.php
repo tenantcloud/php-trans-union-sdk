@@ -73,7 +73,7 @@ final class AddressDTO extends CamelDataTransferObject
 
 	private function prepareLine(string $line): string
 	{
-		return str_replace(['-', '/'], ' ', $line);
+		return str_replace(['-', '/', '\\'], ' ', $line);
 	}
 
 	/**

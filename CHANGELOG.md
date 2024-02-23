@@ -1,3 +1,10 @@
+## [3.7.3](https://github.com/tenantcloud/php-trans-union-sdk/compare/v3.7.2...v3.7.3) (2024-02-23)
+
+
+### Bug Fixes
+
+* Replace backward slashes for Address DTO ([#24](https://github.com/tenantcloud/php-trans-union-sdk/issues/24)) ([45158f7](https://github.com/tenantcloud/php-trans-union-sdk/commit/45158f7303c053d68a4a810f4a8becba93a83297))
+
 ## [3.7.2](https://github.com/tenantcloud/php-trans-union-sdk/compare/v3.7.1...v3.7.2) (2024-02-08)
 
 

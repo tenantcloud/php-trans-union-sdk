@@ -1,56 +1,56 @@
 {
-    "name": "tenantcloud/trans-union-sdk",
-    "description": "Full blown PHP SDK for TransUnion (ShareAble/SmartMove)",
-    "minimum-stability": "stable",
-    "license": "MIT",
-    "require": {
-        "php": ">=8.1",
-        "ext-json": "*",
-        "ext-intl": "*",
-        "illuminate/support": "^9.0|^10.0",
-        "tenantcloud/data-transfer-objects": "^1.0",
-        "tenantcloud/php-standard": "^2.0",
-        "guzzlehttp/guzzle": "^7.4",
-        "tenantcloud/guzzle-helper": "^1.1"
-    },
-    "require-dev": {
-        "orchestra/testbench": "^7.0|^8.5",
-        "pestphp/pest": "^1.0|^2.8",
-        "php-cs-fixer/shim": "~3.19.2",
-        "tenantcloud/php-cs-fixer-rule-sets": "~3.0.0",
-        "phpstan/phpstan": "~1.10.21",
-        "phpstan/phpstan-phpunit": "^1.3",
-        "phpstan/phpstan-webmozart-assert": "^1.2",
-        "phpstan/phpstan-mockery": "^1.1"
-    },
-    "autoload": {
-        "psr-4": {
-            "TenantCloud\\TransUnionSDK\\": "src/"
-        }
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "Tests\\TenantCloud\\TransUnionSDK\\": "tests/",
-            "Dev\\TenantCloud\\TransUnionSDK\\": "cli/"
-        }
-    },
-    "scripts": {
-        "testbench": "vendor/bin/testbench",
-        "test": "vendor/bin/pest",
-        "coverage": "XDEBUG_MODE=coverage vendor/bin/pest --coverage-html coverage",
-        "cs-fix": "vendor/bin/php-cs-fixer fix -v --show-progress=dots",
-        "phpstan": "vendor/bin/phpstan analyse --memory-limit=2G"
-    },
-    "extra": {
-        "laravel": {
-            "providers": [
-                "TenantCloud\\TransUnionSDK\\TransUnionSDKServiceProvider"
-            ]
-        }
-    },
-    "config": {
-        "allow-plugins": {
-            "pestphp/pest-plugin": true
-        }
-    }
+	"name": "tenantcloud/trans-union-sdk",
+	"description": "Full blown PHP SDK for TransUnion (ShareAble/SmartMove)",
+	"minimum-stability": "stable",
+	"license": "MIT",
+	"require": {
+		"php": ">=8.2",
+		"ext-json": "*",
+		"ext-intl": "*",
+		"illuminate/support": "^9.0|^10.0",
+		"tenantcloud/data-transfer-objects": "^1.0",
+		"tenantcloud/php-standard": "^2.0",
+		"guzzlehttp/guzzle": "^7.4",
+		"tenantcloud/guzzle-helper": "^1.1"
+	},
+	"require-dev": {
+		"orchestra/testbench": "^7.0|^8.5",
+		"pestphp/pest": "^2.8",
+		"php-cs-fixer/shim": "~3.19.2",
+		"tenantcloud/php-cs-fixer-rule-sets": "~3.0.0",
+		"phpstan/phpstan": "~1.10.21",
+		"phpstan/phpstan-phpunit": "^1.3",
+		"phpstan/phpstan-webmozart-assert": "^1.2",
+		"phpstan/phpstan-mockery": "^1.1"
+	},
+	"autoload": {
+		"psr-4": {
+			"TenantCloud\\TransUnionSDK\\": "src/"
+		}
+	},
+	"autoload-dev": {
+		"psr-4": {
+			"Tests\\TenantCloud\\TransUnionSDK\\": "tests/",
+			"Dev\\TenantCloud\\TransUnionSDK\\": "cli/"
+		}
+	},
+	"scripts": {
+		"testbench": "vendor/bin/testbench",
+		"test": "vendor/bin/pest",
+		"coverage": "XDEBUG_MODE=coverage vendor/bin/pest --coverage-html coverage",
+		"cs-fix": "vendor/bin/php-cs-fixer fix -v --show-progress=dots",
+		"phpstan": "vendor/bin/phpstan analyse --memory-limit=2G"
+	},
+	"extra": {
+		"laravel": {
+			"providers": [
+				"TenantCloud\\TransUnionSDK\\TransUnionSDKServiceProvider"
+			]
+		}
+	},
+	"config": {
+		"allow-plugins": {
+			"pestphp/pest-plugin": true
+		}
+	}
 }

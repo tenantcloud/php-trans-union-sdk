@@ -1,3 +1,10 @@
+# [3.8.0](https://github.com/tenantcloud/php-trans-union-sdk/compare/v3.7.3...v3.8.0) (2024-04-25)
+
+
+### Features
+
+* Template sync ([#26](https://github.com/tenantcloud/php-trans-union-sdk/issues/26)) ([46b1eed](https://github.com/tenantcloud/php-trans-union-sdk/commit/46b1eedb8723f41fa970bc302228ff94b1b7a24d)), closes [#25](https://github.com/tenantcloud/php-trans-union-sdk/issues/25)
+
 ## [3.7.3](https://github.com/tenantcloud/php-trans-union-sdk/compare/v3.7.2...v3.7.3) (2024-02-23)
 
 

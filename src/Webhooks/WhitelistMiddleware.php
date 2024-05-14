@@ -16,7 +16,7 @@ use Tests\TenantCloud\TransUnionSDK\Webhooks\WhitelistMiddlewareTest;
 final class WhitelistMiddleware
 {
 	/**
-	 * @param array<string> $ips
+	 * @param list<string> $ips
 	 */
 	public function __construct(
 		private readonly array $ips,

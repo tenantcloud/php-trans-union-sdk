@@ -5,6 +5,7 @@ namespace Tests\TenantCloud\TransUnionSDK\Reports;
 use Illuminate\Routing\Route;
 use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Event;
+use PHPUnit\Framework\Attributes\DataProvider;
 use TenantCloud\TransUnionSDK\Reports\ReportDeliveryStatus;
 use TenantCloud\TransUnionSDK\Reports\ReportDeliveryStatusChangedEvent;
 use TenantCloud\TransUnionSDK\Reports\ReportStatusController;
@@ -35,9 +36,7 @@ class ReportStatusWebhookTest extends TestCase
 		$this->assertContains(WhitelistMiddleware::class, $this->router->gatherRouteMiddleware($this->route));
 	}
 
-	/**
-	 * @dataProvider emitsAnEventProvider
-	 */
+	#[DataProvider('emitsAnEventProvider')]
 	public function testEmitsAnEvent(ReportDeliveryStatus $status): void
 	{
 		$this->withoutMiddleware();
@@ -58,7 +57,7 @@ class ReportStatusWebhookTest extends TestCase
 	}
 
 	/**
-	 * @return array<array{ReportDeliveryStatus}>
+	 * @return list<array{ReportDeliveryStatus}>
 	 */
 	public static function emitsAnEventProvider(): iterable
 	{

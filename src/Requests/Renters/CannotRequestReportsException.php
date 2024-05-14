@@ -7,6 +7,4 @@ use Exception;
 /**
  * Thrown when you try to request reports for an already "requested" or canceled request.
  */
-final class CannotRequestReportsException extends Exception
-{
-}
+final class CannotRequestReportsException extends Exception {}

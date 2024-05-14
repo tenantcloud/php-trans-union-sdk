@@ -7,6 +7,4 @@ use Exception;
 /**
  * Thrown when trying to access a report that isn't ready yet.
  */
-final class ReportNotReadyException extends Exception
-{
-}
+final class ReportNotReadyException extends Exception {}

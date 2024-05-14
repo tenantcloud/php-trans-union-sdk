@@ -70,7 +70,7 @@ final class FakeRequestRentersApi implements RequestRentersApi
 	/**
 	 * Get request renter ids by given person.
 	 *
-	 * @return int[]
+	 * @return list<int>
 	 */
 	public function byRenter(int $id): array
 	{

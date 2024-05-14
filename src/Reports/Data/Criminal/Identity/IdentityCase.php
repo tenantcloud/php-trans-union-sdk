@@ -12,7 +12,7 @@ final class IdentityCase implements ArraySerializable
 	use MagicArraySerializable;
 
 	/**
-	 * @param Offense[] $offenses
+	 * @param list<Offense> $offenses
 	 */
 	public function __construct(
 		public readonly ?string $caseNumber,

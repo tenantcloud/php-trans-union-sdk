@@ -10,7 +10,7 @@ use TenantCloud\TransUnionSDK\Tokens\Token;
 final class CombinedTokenCache implements TokenCache
 {
 	/**
-	 * @param TokenCache[] $caches
+	 * @param list<TokenCache> $caches
 	 */
 	public function __construct(private readonly array $caches) {}
 

@@ -8,7 +8,7 @@ namespace TenantCloud\TransUnionSDK\Exams;
 final class ExamRequest
 {
 	/**
-	 * @param ExamRequestQuestion[] $questions
+	 * @param list<ExamRequestQuestion> $questions
 	 */
 	public function __construct(
 		private readonly int $id,
@@ -21,7 +21,7 @@ final class ExamRequest
 	}
 
 	/**
-	 * @return ExamRequestQuestion[]
+	 * @return list<ExamRequestQuestion>
 	 */
 	public function questions(): array
 	{

@@ -19,7 +19,7 @@ final class Credit implements ArraySerializable
 	use MagicArraySerializable;
 
 	/**
-	 * @param Applicant[] $applicants
+	 * @param list<Applicant> $applicants
 	 */
 	public function __construct(
 		public readonly ?array $applicants,

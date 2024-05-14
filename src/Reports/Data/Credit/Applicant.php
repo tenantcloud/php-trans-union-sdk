@@ -24,15 +24,15 @@ final class Applicant implements ArraySerializable
 	use MagicArraySerializable;
 
 	/**
-	 * @param Address[]           $addresses
-	 * @param Aka[]               $akas
-	 * @param Collection[]|null   $collections
-	 * @param Employment[]        $employments
-	 * @param FraudIndicator[]    $fraudIndicators
-	 * @param Inquire[]|null      $inquirySubscriber
-	 * @param string[]            $phones
-	 * @param PublicRecord[]|null $publicRecords
-	 * @param Tradeline[]|null    $tradelines
+	 * @param list<Address>           $addresses
+	 * @param list<Aka>               $akas
+	 * @param list<Collection>|null   $collections
+	 * @param list<Employment>        $employments
+	 * @param list<FraudIndicator>    $fraudIndicators
+	 * @param list<Inquire>|null      $inquirySubscriber
+	 * @param list<string>            $phones
+	 * @param list<PublicRecord>|null $publicRecords
+	 * @param list<Tradeline>|null    $tradelines
 	 */
 	public function __construct(
 		public readonly ?array $addresses,

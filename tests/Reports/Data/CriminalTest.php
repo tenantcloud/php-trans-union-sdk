@@ -3,6 +3,7 @@
 namespace Tests\TenantCloud\TransUnionSDK\Reports\Data;
 
 use Generator;
+use PHPUnit\Framework\Attributes\DataProvider;
 use Symfony\Component\Finder\Finder;
 use TenantCloud\TransUnionSDK\Reports\Data\Criminal;
 use Tests\TenantCloud\TransUnionSDK\TestCase;
@@ -12,9 +13,7 @@ use Tests\TenantCloud\TransUnionSDK\TestCase;
  */
 class CriminalTest extends TestCase
 {
-	/**
-	 * @dataProvider deserializesAndSerializesBackFromFileProvider
-	 */
+	#[DataProvider('deserializesAndSerializesBackFromFileProvider')]
 	public function testDeserializesAndSerializesBackFromFile(string $jsonPath): void
 	{
 		$this->markTestSkipped('Only ran manually.');

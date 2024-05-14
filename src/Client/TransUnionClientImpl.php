@@ -59,7 +59,7 @@ final class TransUnionClientImpl implements TransUnionClient
 		private readonly Dispatcher $busDispatcher,
 		private readonly bool $imitateEvents = false,
 		private readonly bool $testMode = false,
-		LoggerInterface $logger = null,
+		?LoggerInterface $logger = null,
 		int $timeout = 30,
 	) {
 		$this->httpClient = new Client([

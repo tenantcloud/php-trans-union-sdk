@@ -19,8 +19,8 @@ final class Criminal implements ArraySerializable
 	use MagicArraySerializable;
 
 	/**
-	 * @param Disclaimer[] $disclaimers
-	 * @param Identity[]   $identities
+	 * @param list<Disclaimer> $disclaimers
+	 * @param list<Identity>   $identities
 	 */
 	public function __construct(
 		public readonly ?Carbon $createdOn,

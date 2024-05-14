@@ -6,6 +6,7 @@ use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Utils;
 use LogicException;
 use Mockery;
+use PHPUnit\Framework\Attributes\DataProvider;
 use Psr\Http\Message\ResponseInterface;
 use TenantCloud\TransUnionSDK\Exams\ExamAnswerDTO;
 use TenantCloud\TransUnionSDK\Exams\ExamsApiImpl;
@@ -30,10 +31,9 @@ class ExamsApiImplTest extends TestCase
 	}
 
 	/**
-	 * @dataProvider requestThrowsManualVerificationRequiredExceptionWhenResponseIsProvider
-	 *
-	 * @param array<ResponseInterface> $arrayResponse
+	 * @param list<ResponseInterface> $arrayResponse
 	 */
+	#[DataProvider('requestThrowsManualVerificationRequiredExceptionWhenResponseIsProvider')]
 	public function testRequestThrowsManualVerificationRequiredExceptionWhenResponseIs(array $arrayResponse): void
 	{
 		$this->expectException(ManualVerificationRequiredException::class);
@@ -57,11 +57,11 @@ class ExamsApiImplTest extends TestCase
 	}
 
 	/**
-	 * @return array<array{array<string, mixed>}>
+	 * @return list<array{array<string, mixed>}>
 	 */
 	public static function requestThrowsManualVerificationRequiredExceptionWhenResponseIsProvider(): iterable
 	{
-		return [
+		yield from [
 			[[
 				'result'                  => 'SomethingElse',
 				'authenticationQuestions' => [],
@@ -88,10 +88,9 @@ class ExamsApiImplTest extends TestCase
 	}
 
 	/**
-	 * @dataProvider submitAnswersReplacesAnswersWithAllIncorrectIfAnyAnswerIsNoneOfTheAboveInTestModeProvider
-	 *
-	 * @param ExamAnswerDTO[] $answers
+	 * @param list<ExamAnswerDTO> $answers
 	 */
+	#[DataProvider('submitAnswersReplacesAnswersWithAllIncorrectIfAnyAnswerIsNoneOfTheAboveInTestModeProvider')]
 	public function testSubmitAnswersReplacesAnswersWithAllIncorrectIfAnyAnswerIsNoneOfTheAboveInTestMode(bool $expectedIncorrect, array $answers): void
 	{
 		$response = Mockery::mock(ResponseInterface::class);
@@ -128,13 +127,13 @@ class ExamsApiImplTest extends TestCase
 	}
 
 	/**
-	 * @return array<array{bool, array<ExamAnswerDTO>}>
+	 * @return list<array{bool, list<ExamAnswerDTO>}>
 	 */
 	public static function submitAnswersReplacesAnswersWithAllIncorrectIfAnyAnswerIsNoneOfTheAboveInTestModeProvider(): iterable
 	{
 		$answersFactory = new TestModeVerificationAnswersFactory();
 
-		return [
+		yield from [
 			[false, $answersFactory->correct()],
 			[true, $answersFactory->incorrect()],
 			[true, [
@@ -174,10 +173,9 @@ class ExamsApiImplTest extends TestCase
 	}
 
 	/**
-	 * @dataProvider submitAnswersDoesNotReplaceAnswersWithAllIncorrectIfAnyAnswerIsNoneOfTheAboveInNonTestModeProvider
-	 *
-	 * @param ExamAnswerDTO[] $answers
+	 * @param list<ExamAnswerDTO> $answers
 	 */
+	#[DataProvider('submitAnswersDoesNotReplaceAnswersWithAllIncorrectIfAnyAnswerIsNoneOfTheAboveInNonTestModeProvider')]
 	public function testSubmitAnswersDoesNotReplaceAnswersWithAllIncorrectIfAnyAnswerIsNoneOfTheAboveInNonTestMode(array $answers): void
 	{
 		$response = Mockery::mock(ResponseInterface::class);
@@ -205,13 +203,13 @@ class ExamsApiImplTest extends TestCase
 	}
 
 	/**
-	 * @return array<array{array<ExamAnswerDTO>}>
+	 * @return list<array{list<ExamAnswerDTO>}>
 	 */
 	public static function submitAnswersDoesNotReplaceAnswersWithAllIncorrectIfAnyAnswerIsNoneOfTheAboveInNonTestModeProvider(): iterable
 	{
 		$answersFactory = new TestModeVerificationAnswersFactory();
 
-		return [
+		yield from [
 			[$answersFactory->correct()],
 			[$answersFactory->incorrect()],
 			[[

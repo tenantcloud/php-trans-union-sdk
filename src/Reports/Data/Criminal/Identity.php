@@ -17,9 +17,9 @@ final class Identity implements ArraySerializable
 	use MagicArraySerializable;
 
 	/**
-	 * @param Alias[]    $aliases
-	 * @param IdNumber[] $idNumbers
-	 * @param Offense[]  $offenses
+	 * @param list<Alias>    $aliases
+	 * @param list<IdNumber> $idNumbers
+	 * @param list<Offense>  $offenses
 	 */
 	public function __construct(
 		public readonly ?string $address1,

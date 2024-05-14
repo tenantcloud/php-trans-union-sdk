@@ -13,7 +13,7 @@ final class Record implements ArraySerializable
 	use MagicArraySerializable;
 
 	/**
-	 * @param Event[] $events
+	 * @param list<Event> $events
 	 */
 	public function __construct(
 		public readonly ?string $actionType,

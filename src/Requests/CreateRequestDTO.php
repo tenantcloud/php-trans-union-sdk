@@ -6,16 +6,16 @@ use TenantCloud\DataTransferObjects\CamelDataTransferObject;
 use TenantCloud\TransUnionSDK\Requests\Renters\CreateRequestRenterDTO;
 
 /**
- * @method self                     setLandlordId(int $id)
- * @method int                      getLandlordId()
- * @method bool                     hasLandlordId()
- * @method self                     setPropertyId(int $id)
- * @method int                      getPropertyId()
- * @method bool                     hasPropertyId()
- * @method self                     setInitialBundleId(int $id)
- * @method int                      getInitialBundleId()
- * @method bool                     hasInitialBundleId()
- * @method CreateRequestRenterDTO[] getScreeningRequestRenters()
+ * @method self                         setLandlordId(int $id)
+ * @method int                          getLandlordId()
+ * @method bool                         hasLandlordId()
+ * @method self                         setPropertyId(int $id)
+ * @method int                          getPropertyId()
+ * @method bool                         hasPropertyId()
+ * @method self                         setInitialBundleId(int $id)
+ * @method int                          getInitialBundleId()
+ * @method bool                         hasInitialBundleId()
+ * @method list<CreateRequestRenterDTO> getScreeningRequestRenters()
  */
 final class CreateRequestDTO extends CamelDataTransferObject
 {
@@ -32,7 +32,7 @@ final class CreateRequestDTO extends CamelDataTransferObject
 	}
 
 	/**
-	 * @param array<CreateRequestRenterDTO|array<string, mixed>> $renters
+	 * @param list<CreateRequestRenterDTO|array<string, mixed>> $renters
 	 */
 	public function setScreeningRequestRenters(array $renters): self
 	{

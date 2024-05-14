@@ -7,6 +7,4 @@ use Exception;
 /**
  * Thrown when request is not cancelable yet/anymore.
  */
-final class CannotCancelRequestException extends Exception
-{
-}
+final class CannotCancelRequestException extends Exception {}

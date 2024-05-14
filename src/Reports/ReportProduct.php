@@ -15,7 +15,7 @@ enum ReportProduct: string
 	case INCOME_INSIGHTS = 'IncomeInsights';
 
 	/**
-	 * @return ReportFormat[]
+	 * @return list<ReportFormat>
 	 */
 	public function supportedFormats(): array
 	{

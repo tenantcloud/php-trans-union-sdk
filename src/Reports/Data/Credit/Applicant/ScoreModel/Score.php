@@ -12,7 +12,7 @@ final class Score implements ArraySerializable
 	use MagicArraySerializable;
 
 	/**
-	 * @param ScoreFactor[] $factors
+	 * @param list<ScoreFactor> $factors
 	 */
 	public function __construct(
 		public readonly ?bool $derogatoryAlert,

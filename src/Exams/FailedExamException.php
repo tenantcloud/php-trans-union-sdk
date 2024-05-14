@@ -7,6 +7,4 @@ use RuntimeException;
 /**
  * Thrown when exam is failed.
  */
-final class FailedExamException extends RuntimeException
-{
-}
+final class FailedExamException extends RuntimeException {}

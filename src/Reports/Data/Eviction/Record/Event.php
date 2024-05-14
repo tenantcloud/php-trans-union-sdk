@@ -14,7 +14,7 @@ final class Event implements ArraySerializable
 	use MagicArraySerializable;
 
 	/**
-	 * @param Party[] $parties
+	 * @param list<Party> $parties
 	 */
 	public function __construct(
 		public readonly ?string $actionType,

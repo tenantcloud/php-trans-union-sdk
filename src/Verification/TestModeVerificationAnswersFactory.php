@@ -12,7 +12,7 @@ final class TestModeVerificationAnswersFactory
 	/**
 	 * 100% correct answers.
 	 *
-	 * @return array<ExamAnswerDTO>
+	 * @return list<ExamAnswerDTO>
 	 */
 	public function correct(): array
 	{
@@ -32,7 +32,7 @@ final class TestModeVerificationAnswersFactory
 	/**
 	 * 100% incorrect answers.
 	 *
-	 * @return array<ExamAnswerDTO>
+	 * @return list<ExamAnswerDTO>
 	 */
 	public function incorrect(): array
 	{
@@ -52,7 +52,7 @@ final class TestModeVerificationAnswersFactory
 	/**
 	 * Answers to imitate "too many attempts" exception in test mode.
 	 *
-	 * @return array<ExamAnswerDTO>
+	 * @return list<ExamAnswerDTO>
 	 */
 	public function tooManyAttempts(): array
 	{

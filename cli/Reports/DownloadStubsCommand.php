@@ -25,7 +25,7 @@ class DownloadStubsCommand extends Command
 	}
 
 	/**
-	 * @return Generator<array{array<ReportProduct>, PersonDTO, string}|array{array<ReportProduct>, PersonDTO}>
+	 * @return Generator<array{list<ReportProduct>, PersonDTO, string}|array{list<ReportProduct>, PersonDTO}>
 	 */
 	private function people(): Generator
 	{

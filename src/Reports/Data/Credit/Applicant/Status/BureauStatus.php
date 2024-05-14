@@ -12,7 +12,7 @@ final class BureauStatus implements ArraySerializable
 	use MagicArraySerializable;
 
 	/**
-	 * @param array<BureauCodeData|null>|null $code
+	 * @param list<BureauCodeData|null>|null $code
 	 */
 	public function __construct(
 		public readonly ?array $code

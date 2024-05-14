@@ -18,8 +18,8 @@ final class Eviction implements ArraySerializable
 	use MagicArraySerializable;
 
 	/**
-	 * @param mixed[]  $disclaimers
-	 * @param Record[] $records
+	 * @param list<mixed>  $disclaimers
+	 * @param list<Record> $records
 	 */
 	public function __construct(
 		public readonly ?Carbon $createdOn,

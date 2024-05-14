@@ -15,7 +15,7 @@ interface ReportsApi
 	/**
 	 * Get types of reports that are available (for generation) for given request renter ID, taking into account bundle ID.
 	 *
-	 * @return ReportProduct[]
+	 * @return list<ReportProduct>
 	 */
 	public function availableTypes(int $requestRenterId): array;
 

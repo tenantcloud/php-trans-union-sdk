@@ -44,7 +44,7 @@ class ReportStubDownloader
 	) {}
 
 	/**
-	 * @param iterable<array{array<ReportProduct>, PersonDTO, string}|array{array<ReportProduct>, PersonDTO}> $people
+	 * @param iterable<array{list<ReportProduct>, PersonDTO, string}|array{list<ReportProduct>, PersonDTO}> $people
 	 *
 	 * @return Generator<int, array{PersonDTO, ReportProduct}>
 	 */

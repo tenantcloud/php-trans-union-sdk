@@ -13,7 +13,7 @@ final class Tradeline implements ArraySerializable
 	use MagicArraySerializable;
 
 	/**
-	 * @param PaymentPatternItem[]|null $paymentPattern
+	 * @param list<PaymentPatternItem>|null $paymentPattern
 	 */
 	public function __construct(
 		public readonly ?string $accountDesignator,
